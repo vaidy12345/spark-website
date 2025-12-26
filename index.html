@@ -7,6 +7,7 @@
     <meta name="description" content="Turn your teaching content into a complete course automatically. No editing, no manual notes, no quiz creation.">
     <script src="js/layout.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0,0" rel="stylesheet" />
     <style>
         body { font-family: 'Inter', sans-serif; }
         /* Custom utility for the prompt overlay */
@@ -16,6 +17,35 @@
         }
         .group:hover .ai-prompt-overlay {
             opacity: 1;
+        }
+        /* Scroll reveal for pipeline steps */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.6s cubic-bezier(0.22, 0.61, 0.36, 1), transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+        .reveal-left {
+            transform: translate(-60px, 40px);
+        }
+        .reveal-right {
+            transform: translate(60px, 40px);
+        }
+        .reveal-visible {
+            opacity: 1;
+            transform: translate(0, 0);
+        }
+        /* Circular progress ring for pipeline steps */
+        .pipeline-progress-ring circle {
+            transition: stroke-dashoffset 0.3s ease-out;
+        }
+        .pipeline-progress-wrapper {
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity 0.25s ease-out, transform 0.25s ease-out;
+        }
+        .pipeline-progress-wrapper-visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
@@ -59,17 +89,16 @@
     <!-- Pipeline: What it really takes to make a course -->
     <section class="py-24 bg-slate-50 border-y border-slate-100">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-slate-900 mb-4">How to turn a video into a monetized course</h2>
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">Why making a course is hard <br/> (And how Spark makes it easy)</h2>
                 <p class="text-lg text-slate-600">
-                    Here’s the grind you’d normally have to run. <br/>
-                    And how Spark takes each piece off your plate.
+                    Here’s the grind you’d normally have to run...
                 </p>
             </div>
 
             <div class="relative">
                 <!-- Manual vs Spark summary bubble -->
-                <div class="max-w-3xl mx-auto mb-14">
+                <div class="max-w-3xl mx-auto mb-8">
                     <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 flex flex-col sm:flex-row gap-6 items-start sm:items-stretch justify-between">
                         <div class="flex-1 bg-slate-50 border border-slate-200 rounded-xl p-4">
                             <p class="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-2">If you do it manually</p>
@@ -90,6 +119,49 @@
                     </div>
                 </div>
 
+                <!-- Pipeline overall progress (mobile-first, sticky while scrolling steps) -->
+                <div id="pipeline-progress-wrapper" class="pipeline-progress-wrapper sticky top-24 z-10 flex items-center justify-center mb-10 lg:mb-14">
+                    <div class="inline-flex items-center gap-3 text-sm text-slate-600 bg-white/95 border border-slate-200 shadow-sm rounded-full px-3 py-2">
+                        <div class="relative w-10 h-10">
+                            <svg
+                                class="pipeline-progress-ring w-10 h-10"
+                                viewBox="0 0 36 36"
+                                aria-hidden="true">
+                                <circle
+                                    cx="18"
+                                    cy="18"
+                                    r="16"
+                                    fill="none"
+                                    stroke="#e5e7eb"
+                                    stroke-width="3" />
+                                <circle
+                                    id="pipeline-progress-ring-fill"
+                                    cx="18"
+                                    cy="18"
+                                    r="16"
+                                    fill="none"
+                                    stroke="#22c55e"
+                                    stroke-width="3"
+                                    stroke-linecap="round"
+                                    stroke-dasharray="100"
+                                    stroke-dashoffset="100"
+                                    transform="rotate(-90 18 18)" />
+                            </svg>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <span id="pipeline-progress-step-count" class="text-[10px] font-semibold text-slate-700">0</span>
+                            </div>
+                        </div>
+                        <div class="text-left">
+                            <p id="pipeline-progress-label" class="text-xs font-medium uppercase tracking-widest text-slate-500">
+                                Step 0 of 10
+                            </p>
+                            <p class="text-xs text-slate-500">
+                                Watch Spark quietly replace the grind.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Steps container (keeps timeline line below the summary bubble) -->
                 <div class="relative mt-6">
                     <!-- Vertical line (desktop) -->
@@ -97,11 +169,18 @@
 
                     <div class="space-y-16">
                     <!-- Step 1 -->
-                    <div class="relative flex lg:items-center reveal">
+                    <div class="relative flex lg:items-center reveal reveal-left" data-step-id="step-1">
                         <div class="hidden lg:block w-5 h-5 rounded-full border-4 border-white bg-brand-500 shadow absolute left-1/2 -ml-2.5"></div>
                         <div class="lg:w-1/2 lg:pr-16">
-                            <p class="text-xs font-semibold uppercase tracking-widest text-brand-600 mb-2">Step 1 · Capture</p>
-                            <h3 class="text-xl font-bold text-slate-900 mb-2">Teach once</h3>
+                            <p class="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-brand-600 mb-2">
+                                <span>Step 1 · Capture</span>
+                            </p>
+                            <h3 class="flex items-center gap-2 text-xl font-bold text-slate-900 mb-2">
+                                <span class="material-symbols-rounded text-[22px] text-slate-900 leading-none">
+                                    smart_display
+                                </span>
+                                <span>Teach once</span>
+                            </h3>
                             <p class="text-slate-600 mb-3">
                                 You run a live class or record a session. One honest teaching moment becomes the raw input.
                             </p>
@@ -114,11 +193,18 @@
                     </div>
 
                     <!-- Step 2 -->
-                    <div class="relative flex lg:items-center reveal">
+                    <div class="relative flex lg:items-center reveal reveal-right" data-step-id="step-2">
                         <div class="hidden lg:block w-5 h-5 rounded-full border-4 border-white bg-brand-500 shadow absolute left-1/2 -ml-2.5"></div>
                         <div class="lg:w-1/2 lg:ml-auto lg:pl-16">
-                            <p class="text-xs font-semibold uppercase tracking-widest text-brand-600 mb-2">Step 2 · Transcribe</p>
-                            <h3 class="text-xl font-bold text-slate-900 mb-2">Transcribe & clean</h3>
+                            <p class="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-brand-600 mb-2">
+                                <span>Step 2 · Transcribe</span>
+                            </p>
+                            <h3 class="flex items-center gap-2 text-xl font-bold text-slate-900 mb-2">
+                                <span class="material-symbols-rounded text-[22px] text-slate-900 leading-none">
+                                    subtitles
+                                </span>
+                                <span>Transcribe & clean</span>
+                            </h3>
                             <p class="text-slate-600 mb-3">
                                 Turn messy audio into a precise, time-coded transcript that every other step depends on.
                             </p>
@@ -135,11 +221,18 @@
                     </div>
 
                     <!-- Step 3 -->
-                    <div class="relative flex lg:items-center reveal">
+                    <div class="relative flex lg:items-center reveal reveal-left" data-step-id="step-3">
                         <div class="hidden lg:block w-5 h-5 rounded-full border-4 border-white bg-brand-500 shadow absolute left-1/2 -ml-2.5"></div>
                         <div class="lg:w-1/2 lg:pr-16">
-                            <p class="text-xs font-semibold uppercase tracking-widest text-brand-600 mb-2">Step 3 · Structure</p>
-                            <h3 class="text-xl font-bold text-slate-900 mb-2">Find chapters & modules</h3>
+                            <p class="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-brand-600 mb-2">
+                                <span>Step 3 · Structure</span>
+                            </p>
+                            <h3 class="flex items-center gap-2 text-xl font-bold text-slate-900 mb-2">
+                                <span class="material-symbols-rounded text-[22px] text-slate-900 leading-none">
+                                    account_tree
+                                </span>
+                                <span>Find chapters & modules</span>
+                            </h3>
                             <p class="text-slate-600 mb-3">
                                 Identify topics, split clumped explanations, and decide where one idea ends and the next begins.
                             </p>
@@ -156,11 +249,18 @@
                     </div>
 
                     <!-- Step 4 -->
-                    <div class="relative flex lg:items-center reveal">
+                    <div class="relative flex lg:items-center reveal reveal-right" data-step-id="step-4">
                         <div class="hidden lg:block w-5 h-5 rounded-full border-4 border-white bg-brand-500 shadow absolute left-1/2 -ml-2.5"></div>
                         <div class="lg:w-1/2 lg:ml-auto lg:pl-16">
-                            <p class="text-xs font-semibold uppercase tracking-widest text-brand-600 mb-2">Step 4 · Polish</p>
-                            <h3 class="text-xl font-bold text-slate-900 mb-2">Edit the video</h3>
+                            <p class="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-brand-600 mb-2">
+                                <span>Step 4 · Polish</span>
+                            </p>
+                            <h3 class="flex items-center gap-2 text-xl font-bold text-slate-900 mb-2">
+                                <span class="material-symbols-rounded text-[22px] text-slate-900 leading-none">
+                                    auto_fix_high
+                                </span>
+                                <span>Edit the video</span>
+                            </h3>
                             <p class="text-slate-600 mb-3">
                                 Trim dead air, remove false starts, and export clean clips for every chapter.
                             </p>
@@ -176,11 +276,18 @@
                     </div>
 
                     <!-- Step 5 -->
-                    <div class="relative flex lg:items-center reveal">
+                    <div class="relative flex lg:items-center reveal reveal-left" data-step-id="step-5">
                         <div class="hidden lg:block w-5 h-5 rounded-full border-4 border-white bg-brand-500 shadow absolute left-1/2 -ml-2.5"></div>
                         <div class="lg:w-1/2 lg:pr-16">
-                            <p class="text-xs font-semibold uppercase tracking-widest text-brand-600 mb-2">Step 5 · Notes</p>
-                            <h3 class="text-xl font-bold text-slate-900 mb-2">Write study notes</h3>
+                            <p class="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-brand-600 mb-2">
+                                <span>Step 5 · Notes</span>
+                            </p>
+                            <h3 class="flex items-center gap-2 text-xl font-bold text-slate-900 mb-2">
+                                <span class="material-symbols-rounded text-[22px] text-slate-900 leading-none">
+                                    note_alt
+                                </span>
+                                <span>Write study notes</span>
+                            </h3>
                             <p class="text-slate-600 mb-3">
                                 Turn spoken explanations into clear, structured notes for every chapter and example.
                             </p>
@@ -197,11 +304,18 @@
                     </div>
 
                     <!-- Step 6 -->
-                    <div class="relative flex lg:items-center reveal">
+                    <div class="relative flex lg:items-center reveal reveal-right" data-step-id="step-6">
                         <div class="hidden lg:block w-5 h-5 rounded-full border-4 border-white bg-brand-500 shadow absolute left-1/2 -ml-2.5"></div>
                         <div class="lg:w-1/2 lg:ml-auto lg:pl-16">
-                            <p class="text-xs font-semibold uppercase tracking-widest text-brand-600 mb-2">Step 6 · Visuals</p>
-                            <h3 class="text-xl font-bold text-slate-900 mb-2">Extract slides & key frames</h3>
+                            <p class="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-brand-600 mb-2">
+                                <span>Step 6 · Visuals</span>
+                            </p>
+                            <h3 class="flex items-center gap-2 text-xl font-bold text-slate-900 mb-2">
+                                <span class="material-symbols-rounded text-[22px] text-slate-900 leading-none">
+                                    slideshow
+                                </span>
+                                <span>Extract slides & key frames</span>
+                            </h3>
                             <p class="text-slate-600 mb-3">
                                 Scrub through the entire video to capture clean slides, boards, and diagrams—with no duplicates.
                             </p>
@@ -218,11 +332,18 @@
                     </div>
 
                     <!-- Step 7 -->
-                    <div class="relative flex lg:items-center reveal">
+                    <div class="relative flex lg:items-center reveal reveal-left" data-step-id="step-7">
                         <div class="hidden lg:block w-5 h-5 rounded-full border-4 border-white bg-brand-500 shadow absolute left-1/2 -ml-2.5"></div>
                         <div class="lg:w-1/2 lg:pr-16">
-                            <p class="text-xs font-semibold uppercase tracking-widest text-brand-600 mb-2">Step 7 · Assessment</p>
-                            <h3 class="text-xl font-bold text-slate-900 mb-2">Design good questions</h3>
+                            <p class="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-brand-600 mb-2">
+                                <span>Step 7 · Assessment</span>
+                            </p>
+                            <h3 class="flex items-center gap-2 text-xl font-bold text-slate-900 mb-2">
+                                <span class="material-symbols-rounded text-[22px] text-slate-900 leading-none">
+                                    quiz
+                                </span>
+                                <span>Design good questions</span>
+                            </h3>
                             <p class="text-slate-600 mb-3">
                                 Write chapter-level quizzes, correct answers, and explanations that genuinely check understanding.
                             </p>
@@ -239,11 +360,18 @@
                     </div>
 
                     <!-- Step 8 -->
-                    <div class="relative flex lg:items-center reveal">
+                    <div class="relative flex lg:items-center reveal reveal-right" data-step-id="step-8">
                         <div class="hidden lg:block w-5 h-5 rounded-full border-4 border-white bg-brand-500 shadow absolute left-1/2 -ml-2.5"></div>
                         <div class="lg:w-1/2 lg:ml-auto lg:pl-16">
-                            <p class="text-xs font-semibold uppercase tracking-widest text-brand-600 mb-2">Step 8 · Experience</p>
-                            <h3 class="text-xl font-bold text-slate-900 mb-2">Wire the course together</h3>
+                            <p class="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-brand-600 mb-2">
+                                <span>Step 8 · Experience</span>
+                            </p>
+                            <h3 class="flex items-center gap-2 text-xl font-bold text-slate-900 mb-2">
+                                <span class="material-symbols-rounded text-[22px] text-slate-900 leading-none">
+                                    hub
+                                </span>
+                                <span>Wire the course together</span>
+                            </h3>
                             <p class="text-slate-600 mb-3">
                                 Connect videos, notes, slides, quizzes, and the AI tutor into one seamless student experience.
                             </p>
@@ -260,11 +388,18 @@
                     </div>
 
                     <!-- Step 9 -->
-                    <div class="relative flex lg:items-center reveal">
+                    <div class="relative flex lg:items-center reveal reveal-left" data-step-id="step-9">
                         <div class="hidden lg:block w-5 h-5 rounded-full border-4 border-white bg-brand-500 shadow absolute left-1/2 -ml-2.5"></div>
                         <div class="lg:w-1/2 lg:pr-16">
-                            <p class="text-xs font-semibold uppercase tracking-widest text-brand-600 mb-2">Step 9 · Payments</p>
-                            <h3 class="text-xl font-bold text-slate-900 mb-2">Set up how you get paid</h3>
+                            <p class="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-brand-600 mb-2">
+                                <span>Step 9 · Payments</span>
+                            </p>
+                            <h3 class="flex items-center gap-2 text-xl font-bold text-slate-900 mb-2">
+                                <span class="material-symbols-rounded text-[22px] text-slate-900 leading-none">
+                                    payments
+                                </span>
+                                <span>Set up how you get paid</span>
+                            </h3>
                             <p class="text-slate-600 mb-3">
                                 Configure pricing, subscriptions, and student logins so the right people can access the right course.
                             </p>
@@ -281,11 +416,18 @@
                     </div>
 
                     <!-- Step 10 -->
-                    <div class="relative flex lg:items-center reveal">
+                    <div class="relative flex lg:items-center reveal reveal-right" data-step-id="step-10">
                         <div class="hidden lg:block w-5 h-5 rounded-full border-4 border-white bg-brand-500 shadow absolute left-1/2 -ml-2.5"></div>
                         <div class="lg:w-1/2 lg:ml-auto lg:pl-16">
-                            <p class="text-xs font-semibold uppercase tracking-widest text-brand-600 mb-2">Step 10 · Maintain</p>
-                            <h3 class="text-xl font-bold text-slate-900 mb-2">Host and keep it running</h3>
+                            <p class="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-brand-600 mb-2">
+                                <span>Step 10 · Maintain</span>
+                            </p>
+                            <h3 class="flex items-center gap-2 text-xl font-bold text-slate-900 mb-2">
+                                <span class="material-symbols-rounded text-[22px] text-slate-900 leading-none">
+                                    autorenew
+                                </span>
+                                <span>Host and keep it running</span>
+                            </h3>
                             <p class="text-slate-600 mb-3">
                                 Keep the course hosted, update content across cohorts, and make sure everything works as your class evolves.
                             </p>
@@ -310,7 +452,7 @@
     <section class="py-24 bg-slate-50 border-t border-slate-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="max-w-3xl mx-auto text-center mb-12">
-                <h2 class="text-3xl font-bold text-slate-900 mb-4">What students actually see</h2>
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">What your students see</h2>
                 <p class="text-lg text-slate-600 mb-6">
                     A modern 3-pane player with video, notes, quizzes, and an AI tutor - all grounded in your content and shipped automatically from your recordings.
                 </p>

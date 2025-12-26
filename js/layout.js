@@ -173,11 +173,123 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
         const btn = document.getElementById('mobile-menu-btn');
         const menu = document.getElementById('mobile-menu');
-        if(btn && menu) {
+        if (btn && menu) {
             btn.addEventListener('click', () => {
                 menu.classList.toggle('hidden');
             });
         }
+
+        // Scroll reveal for pipeline steps + progress ring
+        const revealEls = document.querySelectorAll('.reveal');
+        console.log('[spark-marketing] reveal elements count:', revealEls.length);
+
+        const progressCircle = document.getElementById('pipeline-progress-ring-fill');
+        const progressStepCount = document.getElementById('pipeline-progress-step-count');
+        const progressLabel = document.getElementById('pipeline-progress-label');
+        const totalSteps = 10;
+        let currentStep = 0;
+
+        function updatePipelineProgress(step) {
+            if (!progressCircle || !progressStepCount || !progressLabel) {
+                return;
+            }
+
+            const clampedStep = Math.min(Math.max(step, 0), totalSteps);
+            const percent = totalSteps === 0 ? 0 : (clampedStep / totalSteps) * 100;
+            const dashOffset = 100 - percent;
+
+            progressCircle.style.strokeDashoffset = `${dashOffset}`;
+            progressStepCount.textContent = String(clampedStep);
+            progressLabel.textContent = `Step ${clampedStep} of ${totalSteps}`;
+
+            console.log('[spark-marketing] progress update', {
+                requestedStep: step,
+                clampedStep,
+                percent,
+                dashOffset
+            });
+        }
+
+        if ('IntersectionObserver' in window && revealEls.length > 0) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const stepId = entry.target.getAttribute('data-step-id') || '';
+                    console.log('[spark-marketing] reveal entry', {
+                        stepId,
+                        isIntersecting: entry.isIntersecting,
+                        intersectionRatio: entry.intersectionRatio
+                    });
+
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('reveal-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                // Trigger reveal when the step intersects the middle band of the viewport
+                root: null,
+                rootMargin: '-35% 0px -35% 0px',
+                threshold: 0.0
+            });
+
+            revealEls.forEach((el, index) => {
+                if (!el.getAttribute('data-step-id')) {
+                    el.setAttribute('data-step-id', `step-${index + 1}`);
+                }
+                observer.observe(el);
+            });
+        }
+
+        // Visibility observer for sticky progress wrapper
+        const progressWrapper = document.getElementById('pipeline-progress-wrapper');
+        if ('IntersectionObserver' in window && progressWrapper && revealEls.length > 0) {
+            const visibleSteps = new Set();
+
+            const visibilityObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const stepId = entry.target.getAttribute('data-step-id') || '';
+                    if (!stepId) return;
+
+                    const stepNumber = stepId.startsWith('step-') ? parseInt(stepId.replace('step-', ''), 10) : NaN;
+                    if (Number.isNaN(stepNumber)) return;
+
+                    if (entry.isIntersecting) {
+                        visibleSteps.add(stepNumber);
+                    } else {
+                        visibleSteps.delete(stepNumber);
+                    }
+                });
+
+                const hasVisibleSteps = visibleSteps.size > 0;
+                progressWrapper.classList.toggle('pipeline-progress-wrapper-visible', hasVisibleSteps);
+
+                let nextStep = 0;
+                if (visibleSteps.size > 0) {
+                    nextStep = Math.max(...visibleSteps);
+                }
+
+                if (nextStep !== currentStep) {
+                    currentStep = nextStep;
+                    updatePipelineProgress(currentStep);
+                }
+
+                console.log('[spark-marketing] progress wrapper visibility', {
+                    visibleSteps: Array.from(visibleSteps).sort((a, b) => a - b),
+                    hasVisibleSteps,
+                    currentStep
+                });
+            }, {
+                // Use a centered band so steps only count when they overlap the middle of the viewport
+                root: null,
+                rootMargin: '-35% 0px -35% 0px',
+                threshold: 0.0
+            });
+
+            revealEls.forEach(el => visibilityObserver.observe(el));
+        }
+
+        // Initialize progress ring once on load (in case some steps are above the fold)
+        updatePipelineProgress(0);
     }, 100);
 });
 
