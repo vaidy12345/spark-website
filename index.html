@@ -46,8 +46,11 @@
 
                 <!-- Right: Hero Visual (What Spark Is) -->
                 <div class="lg:col-span-2">
-                    <!-- Hero Image -->
-                    <img src="images/hero.jpg" alt="Spark - From video to full course in three steps" class="w-full h-auto block">
+                    <!-- Hero Image (responsive: mobile vs desktop/tablet) -->
+                    <picture>
+                        <source srcset="images/hero-mobile.jpg" media="(max-width: 767px)">
+                        <img src="images/hero.jpg" alt="Spark - From video to full course in three steps" class="w-full h-auto block">
+                    </picture>
                 </div>
             </div>
         </div>
