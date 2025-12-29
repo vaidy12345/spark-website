@@ -34,25 +34,70 @@ function loadTailwind() {
     document.head.appendChild(script);
 }
 
+// Base path helper so the same code works locally and on GitHub Pages without env switches
+function getBasePath() {
+    const path = window.location.pathname || '/';
+    const segments = path.split('/').filter(Boolean);
+
+    // Root path (e.g., "/")
+    if (segments.length === 0) {
+        return '';
+    }
+
+    const first = segments[0];
+
+    // When serving "marketing" as the root locally:
+    // - "/product/..."           → first === "product"      → no base prefix
+    // - "/about.html" etc        → first endsWith ".html"   → no base prefix
+    if (first === 'product' || first.endsWith('.html')) {
+        return '';
+    }
+
+    // On GitHub Pages for a project site, the first segment is the repo name
+    // e.g., "/spark-website/..." → base "/spark-website"
+    return `/${first}`;
+}
+
+const BASE_PATH = getBasePath();
+console.log('[spark-marketing] resolved BASE_PATH', {
+    pathname: window.location.pathname,
+    basePath: BASE_PATH
+});
+
 // Navigation Links
 const navLinks = [
-    { name: 'Home', href: '/' },
-    { name: 'Product', href: '/product/' },
-    { name: 'For Teachers', href: '/for-teachers.html' },
-    { name: 'Pricing', href: '/pricing.html' },
-    { name: 'About', href: '/about.html' },
+    {
+        name: 'Home',
+        href: BASE_PATH ? `${BASE_PATH}/` : '/'
+    },
+    {
+        name: 'Product',
+        href: `${BASE_PATH}/product/`
+    },
+    {
+        name: 'For Teachers',
+        href: `${BASE_PATH}/for-teachers.html`
+    },
+    {
+        name: 'Pricing',
+        href: `${BASE_PATH}/pricing.html`
+    },
+    {
+        name: 'About',
+        href: `${BASE_PATH}/about.html`
+    },
 ];
 
 // Product sub-pages for dropdown navigation
 const productSubpages = [
-    { name: 'Overview', href: '/product/' },
-    { name: 'Origin story', href: '/product/origin.html' },
-    { name: 'Features', href: '/product/features.html' },
-    { name: 'Monetization', href: '/product/monetization.html' },
-    { name: 'Reporting', href: '/product/reporting.html' },
-    { name: 'Hallucinations & safety', href: '/product/hallucinations.html' },
-    { name: 'Content ownership', href: '/product/content-ownership.html' },
-    { name: 'FAQ', href: '/product/faq.html' },
+    { name: 'Overview', href: `${BASE_PATH}/product/` },
+    { name: 'Origin story', href: `${BASE_PATH}/product/origin.html` },
+    { name: 'Features', href: `${BASE_PATH}/product/features.html` },
+    { name: 'Monetization', href: `${BASE_PATH}/product/monetization.html` },
+    { name: 'Reporting', href: `${BASE_PATH}/product/reporting.html` },
+    { name: 'Hallucinations & safety', href: `${BASE_PATH}/product/hallucinations.html` },
+    { name: 'Content ownership', href: `${BASE_PATH}/product/content-ownership.html` },
+    { name: 'FAQ', href: `${BASE_PATH}/product/faq.html` },
 ];
 
 // Header Component
@@ -98,7 +143,7 @@ function createHeader() {
             <div class="flex justify-between items-center h-16">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
-                    <a href="index.html" class="flex items-center gap-2">
+                    <a href="${BASE_PATH || ''}/index.html" class="flex items-center gap-2">
                         <!-- Placeholder Logo Icon -->
                         <div class="w-8 h-8 bg-brand-600 rounded-lg flex items-center justify-center text-white font-bold text-lg">S</div>
                         <span class="font-bold text-xl tracking-tight text-slate-900">Spark</span>
@@ -112,7 +157,7 @@ function createHeader() {
 
                 <!-- CTA -->
                 <div class="flex items-center space-x-4">
-                    <a href="index.html#waitlist" class="hidden md:inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-all">
+                    <a href="${BASE_PATH || ''}/index.html#waitlist" class="hidden md:inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-all">
                         Join Waitlist
                     </a>
                     <!-- Mobile menu button placeholder (simple implementation) -->
@@ -142,7 +187,7 @@ function createHeader() {
                     }
                     return `<a href="${link.href}" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-brand-600 hover:bg-slate-50">${link.name}</a>`;
                 }).join('')}
-                 <a href="/#waitlist" class="block w-full text-center px-4 py-2 mt-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-brand-600 hover:bg-brand-700">
+                 <a href="${BASE_PATH ? `${BASE_PATH}/#waitlist` : '/#waitlist'}" class="block w-full text-center px-4 py-2 mt-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-brand-600 hover:bg-brand-700">
                     Join Waitlist
                 </a>
             </div>
@@ -161,7 +206,7 @@ function createFooter() {
         <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
                 <div class="col-span-2 md:col-span-1">
-                    <a href="/" class="flex items-center gap-2 mb-4">
+                    <a href="${BASE_PATH ? `${BASE_PATH}/` : '/'}" class="flex items-center gap-2 mb-4">
                         <div class="w-6 h-6 bg-slate-900 rounded-md flex items-center justify-center text-white font-bold text-xs">S</div>
                         <span class="font-bold text-lg text-slate-900">Spark</span>
                     </a>
