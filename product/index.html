@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spark Product – From Recording to Revenue</title>
-    <meta name="description" content="See how Spark turns your recordings into structured courses, quizzes, and tutors—and gives you the rails to earn from all your work.">
+    <meta name="description" content="See how Spark turns your recordings into structured courses, quizzes, and tutors—and gives you the infrastructure to earn from all your work.">
     <script src="../js/layout.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0,0" rel="stylesheet" />
@@ -12,133 +12,269 @@
 <body class="bg-white text-slate-900 antialiased pt-16">
 
     <main class="pt-20 pb-24">
-        <section class="bg-white">
-            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="mb-10">
-                    <p class="text-xs font-semibold tracking-[0.18em] uppercase text-brand-600 mb-3">Product overview</p>
-                    <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4">
-                        One system that turns every serious recording into a course your students actually use.
-                    </h1>
-                    <p class="text-lg text-slate-600 max-w-2xl">
-                        Spark takes over the production grind: it listens to what you’ve already taught, breaks it into a course, adds notes, quizzes and a tutor, and then gives you the rails to host and monetize everything from one place.
-                    </p>
-                </div>
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Hero Section -->
+            <section class="mb-16">
+                <p class="text-sm font-semibold tracking-[0.18em] uppercase text-brand-600 mb-3">Product overview</p>
+                <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-6 leading-tight">
+                    Spark turns serious recordings into courses students actually use.
+                </h1>
+                <p class="text-lg text-slate-600 max-w-2xl leading-relaxed">
+                    Spark listens to the teaching you already do and quietly handles the grind: chapters, notes, quizzes, and a grounded tutor. You stay in control of what ships to students.
+                </p>
+            </section>
 
-                <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-6">
-                    <a href="origin.html" class="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:border-brand-200 hover:shadow-md transition-all">
-                        <h2 class="text-sm font-semibold text-slate-900 mb-1 flex items-center gap-1.5">
-                            <span class="material-symbols-rounded text-[18px] text-brand-600">auto_stories</span>
-                            Origin story
-                        </h2>
-                        <p class="text-sm text-slate-600">
-                            The journey from struggling founders and wellness studios to a battle-tested learning engine for academic content.
+            <!-- 3-Column Group Navigator -->
+            <section class="grid gap-6 sm:grid-cols-3 mb-20">
+                <a href="#understand" class="group p-6 rounded-2xl border border-slate-200 bg-white shadow-sm hover:border-brand-200 hover:shadow-md transition-all">
+                    <h2 class="text-base font-bold text-slate-900 mb-2 flex items-center gap-2">
+                        <span class="material-symbols-rounded text-brand-600">auto_stories</span>
+                        Understand the product
+                    </h2>
+                    <p class="text-sm text-slate-600 mb-4">See how Spark works end-to-end — from one live class or recording to a structured course.</p>
+                    <div class="flex flex-wrap gap-2 text-sm font-medium text-brand-600">
+                        <span>Story</span>
+                        <span class="text-slate-300">•</span>
+                        <span>Features</span>
+                        <span class="text-slate-300">•</span>
+                        <span>Micro-learning</span>
+                    </div>
+                </a>
+
+                <a href="#business" class="group p-6 rounded-2xl border border-slate-200 bg-white shadow-sm hover:border-brand-200 hover:shadow-md transition-all">
+                    <h2 class="text-base font-bold text-slate-900 mb-2 flex items-center gap-2">
+                        <span class="material-symbols-rounded text-brand-600">payments</span>
+                        Make it a business
+                    </h2>
+                    <p class="text-sm text-slate-600 mb-4">Turn that course into something students pay for, and see what's actually working.</p>
+                    <div class="flex flex-wrap gap-2 text-sm font-medium text-brand-600">
+                        <span>Monetization</span>
+                        <span class="text-slate-300">•</span>
+                        <span>Reporting</span>
+                    </div>
+                </a>
+
+                <a href="#safety" class="group p-6 rounded-2xl border border-slate-200 bg-white shadow-sm hover:border-brand-200 hover:shadow-md transition-all">
+                    <h2 class="text-base font-bold text-slate-900 mb-2 flex items-center gap-2">
+                        <span class="material-symbols-rounded text-brand-600">verified_user</span>
+                        Safety and ownership
+                    </h2>
+                    <p class="text-sm text-slate-600 mb-4">Keep the AI on a short leash and your content firmly in your hands.</p>
+                    <div class="flex flex-wrap gap-2 text-sm font-medium text-brand-600">
+                        <span>Accuracy</span>
+                        <span class="text-slate-300">•</span>
+                        <span>Ownership</span>
+                        <span class="text-slate-300">•</span>
+                        <span>FAQ</span>
+                    </div>
+                </a>
+            </section>
+
+            <!-- Section 1: Understand the product -->
+            <section id="understand" class="mb-24 scroll-mt-24">
+                <div class="grid lg:grid-cols-2 gap-12 items-start">
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-900 mb-4">Understand the product</h2>
+                        <p class="text-base text-slate-600 mb-6 leading-relaxed">
+                            Spark starts from the teaching you already do — on Zoom, YouTube, or your LMS — and turns it into something students can actually move through: chapters, notes, quizzes, and a tutor that stays inside your content. Modern learners are juggling short attention spans, multi-tasking, and content overload, so Spark structures everything as short, focused micro-learning units instead of overwhelming 90-minute walls of video.
                         </p>
-                    </a>
-
-                    <a href="features.html" class="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:border-brand-200 hover:shadow-md transition-all">
-                        <h2 class="text-sm font-semibold text-slate-900 mb-1 flex items-center gap-1.5">
-                            <span class="material-symbols-rounded text-[18px] text-brand-600">hub</span>
-                            Features
-                        </h2>
-                        <p class="text-sm text-slate-600">
-                            From messy long videos to chapters, notes, quizzes, and a per-course AI tutor—without you writing a single script.
-                        </p>
-                    </a>
-
-                    <a href="monetization.html" class="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:border-brand-200 hover:shadow-md transition-all">
-                        <h2 class="text-sm font-semibold text-slate-900 mb-1 flex items-center gap-1.5">
-                            <span class="material-symbols-rounded text-[18px] text-brand-600">payments</span>
-                            Monetization
-                        </h2>
-                        <p class="text-sm text-slate-600">
-                            Turn courses, live classes, and recordings into predictable subscription revenue without duct-taping tools together.
-                        </p>
-                    </a>
-
-                    <a href="reporting.html" class="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:border-brand-200 hover:shadow-md transition-all">
-                        <h2 class="text-sm font-semibold text-slate-900 mb-1 flex items-center gap-1.5">
-                            <span class="material-symbols-rounded text-[18px] text-brand-600">monitoring</span>
-                            Reporting
-                        </h2>
-                        <p class="text-sm text-slate-600">
-                            See in real time who’s actually learning, which questions are tripping students up, and where to focus your next class.
-                        </p>
-                    </a>
-
-                    <a href="hallucinations.html" class="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:border-brand-200 hover:shadow-md transition-all">
-                        <h2 class="text-sm font-semibold text-slate-900 mb-1 flex items-center gap-1.5">
-                            <span class="material-symbols-rounded text-[18px] text-brand-600">verified_user</span>
-                            Hallucinations &amp; safety
-                        </h2>
-                        <p class="text-sm text-slate-600">
-                            How Spark keeps the AI on a short leash so it reflects what you actually taught, instead of free-styling.
-                        </p>
-                    </a>
-
-                    <a href="content-ownership.html" class="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:border-brand-200 hover:shadow-md transition-all">
-                        <h2 class="text-sm font-semibold text-slate-900 mb-1 flex items-center gap-1.5">
-                            <span class="material-symbols-rounded text-[18px] text-brand-600">lock</span>
-                            Content ownership
-                        </h2>
-                        <p class="text-sm text-slate-600">
-                            A simple, explicit stance: you own your recordings and everything derived from them. Full stop.
-                        </p>
-                    </a>
-
-                    <a href="faq.html" class="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:border-brand-200 hover:shadow-md transition-all">
-                        <h2 class="text-sm font-semibold text-slate-900 mb-1 flex items-center gap-1.5">
-                            <span class="material-symbols-rounded text-[18px] text-brand-600">help</span>
-                            FAQ
-                        </h2>
-                        <p class="text-sm text-slate-600">
-                            Infrastructure, safety, migration, and everything else an early adopter will want to grill us on.
-                        </p>
-                    </a>
-                </div>
-
-                <section class="mt-12 border-t border-slate-100 pt-10">
-                    <div class="grid gap-10 lg:grid-cols-2 lg:items-start">
-                        <div>
-                            <h2 class="text-xl font-semibold text-slate-900 mb-3">
-                                From “raw lecture” to “course with rails” in a few clicks
-                            </h2>
-                            <p class="text-sm text-slate-600 mb-3">
-                                Spark is opinionated about what a serious learning experience should look like. It doesn’t just clip your video and walk away—it builds a full stack around it: chapters and micro-sections, study notes that respect your voice, chapter-level quizzes, and a per-course AI tutor that answers questions only from what you’ve actually covered.
-                            </p>
-                            <p class="text-sm text-slate-600 mb-3">
-                                Under the hood there are many moving pieces, but the outer experience for you is deliberately simple: upload or connect your recordings, choose where you want Spark to focus, and then review what it produced before you invite students in.
-                            </p>
-                            <p class="text-sm text-slate-600">
-                                On the student side, everything shows up in one modern interface: a three-pane player with video, notes, quizzes, and a tutor that sits next to your content instead of replacing it.
-                            </p>
+                        
+                        <!-- Metric Bubble -->
+                        <div class="bg-brand-50 border border-brand-100 rounded-2xl p-6 mb-8">
+                            <ul class="space-y-4">
+                                <li class="flex items-start gap-3">
+                                    <span class="material-symbols-rounded text-brand-600 mt-0.5">check_circle</span>
+                                    <p class="text-base font-medium text-slate-900">
+                                        Already running on <span class="text-brand-700">1,000+ videos and 2,000+ hours</span> of real teaching.
+                                    </p>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="material-symbols-rounded text-brand-600 mt-0.5">check_circle</span>
+                                    <p class="text-base font-medium text-slate-900">
+                                        Battle-tested with <span class="text-brand-700">100+ students</span> in high-stakes math and science prep — and works just as well for adult learners.
+                                    </p>
+                                </li>
+                            </ul>
                         </div>
 
-                        <div class="space-y-4">
-                            <div
-                                class="border-2 border-dashed border-slate-300 rounded-2xl p-4 bg-slate-50"
-                                title="Screenshot prompt: Show the Spark student player in a clean browser window. Left: video player with a paused academic lecture (whiteboard or digital blackboard visible). Right side split vertically: top shows structured study notes with headings, bullet points, and a small 'Verified' badge; bottom shows a compact chat window labeled 'Ask the Tutor' with a short student question and a grounded answer referencing a specific chapter. Include subtle chapter list navigation above or below the video. Overall aesthetic: calm, academic, high-contrast but not flashy.">
-                                <p class="text-xs font-semibold text-slate-700 mb-1">[Screenshot placeholder]</p>
-                                <p class="text-xs text-slate-500">
-                                    Hover for a detailed prompt for the main “student experience” screenshot.
-                                </p>
-                            </div>
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-start gap-3 text-slate-600">
+                                <span class="w-1.5 h-1.5 rounded-full bg-brand-500 mt-2.5 shrink-0"></span>
+                                <span class="text-base">Takes in long recordings and finds natural breakpoints for chapters and micro-sections.</span>
+                            </li>
+                            <li class="flex items-start gap-3 text-slate-600">
+                                <span class="w-1.5 h-1.5 rounded-full bg-brand-500 mt-2.5 shrink-0"></span>
+                                <span class="text-base">Generates structured study notes in your voice instead of a generic summary.</span>
+                            </li>
+                            <li class="flex items-start gap-3 text-slate-600">
+                                <span class="w-1.5 h-1.5 rounded-full bg-brand-500 mt-2.5 shrink-0"></span>
+                                <span class="text-base">Builds chapter-level quizzes and a per-course tutor from the same source material.</span>
+                            </li>
+                            <li class="flex items-start gap-3 text-slate-600">
+                                <span class="w-1.5 h-1.5 rounded-full bg-brand-500 mt-2.5 shrink-0"></span>
+                                <span class="text-base">Reshapes long lectures into short, focused micro-learning units so learners can make progress in 5–10 minute bursts.</span>
+                            </li>
+                        </ul>
 
-                            <div
-                                class="border-2 border-dashed border-emerald-300 rounded-2xl p-4 bg-emerald-50/60"
-                                title="Infographic prompt: A left-to-right flow diagram titled 'From recording to course your students use'. Step 1: 'Upload or connect recordings' with an icon of a video file. Step 2: 'Spark structures your content' with small icons for chapters, notes, quizzes, tutor. Step 3: 'You review and adjust' with a teacher avatar and a simple checklist. Step 4: 'Students learn and you get paid' with icons for graph/analytics and a simple credit-card badge. Use a calm color palette matching Spark brand indigo + emerald; avoid dense text; keep each step to 3–5 words.">
-                                <p class="text-xs font-semibold text-emerald-800 mb-1">[Infographic placeholder]</p>
-                                <p class="text-xs text-emerald-700">
-                                    Hover for a detailed designer/AI prompt for a “high-level product flow” infographic.
-                                </p>
-                            </div>
+                        <div class="flex flex-wrap gap-6 text-sm font-semibold">
+                            <a href="origin.html" class="text-brand-600 hover:text-brand-700 flex items-center gap-1.5">
+                                Dig into our origin story
+                                <span class="material-symbols-rounded text-[18px]">arrow_forward</span>
+                            </a>
+                            <a href="features.html" class="text-brand-600 hover:text-brand-700 flex items-center gap-1.5">
+                                See the full pipeline
+                                <span class="material-symbols-rounded text-[18px]">arrow_forward</span>
+                            </a>
+                            <a href="micro-learning.html" class="text-brand-600 hover:text-brand-700 flex items-center gap-1.5">
+                                Why micro-learning matters
+                                <span class="material-symbols-rounded text-[18px]">arrow_forward</span>
+                            </a>
                         </div>
                     </div>
-                </section>
-            </div>
-        </section>
+
+                    <div 
+                        class="border-2 border-dashed border-slate-300 rounded-3xl p-8 bg-slate-50 flex flex-col items-center justify-center text-center aspect-[4/3]"
+                        title="Diagram prompt (4:3 landscape card): A clean, easily scannable feature map titled 'What Spark builds from your recordings'. Use a central 'Spark' node connected to 6 labeled feature blocks: 'Course structure', 'Study notes', 'Quizzes', 'Course tutor', 'Knowledge-base search', and 'Assignments (upcoming)'. Each block has a short 2–3 word label only, no dense text. Style and typography should match the Spark marketing site: Inter font, soft white background, subtle slate/indigo/emerald accents, rounded-rectangle cards, flat and minimal UI with plenty of breathing room.">
+                        <span class="material-symbols-rounded text-slate-400 text-5xl mb-4">schema</span>
+                        <p class="text-base font-bold text-slate-700 mb-2">[Diagram: From Recording to Course]</p>
+                        <p class="text-sm text-slate-500 max-w-xs">Hover for a detailed prompt for this pipeline visualization.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 2: Make it a business -->
+            <section id="business" class="mb-24 scroll-mt-24">
+                <div class="grid lg:grid-cols-2 gap-12 items-start">
+                    <div class="lg:order-2">
+                        <h2 class="text-2xl font-bold text-slate-900 mb-4">Make it a business</h2>
+                        <p class="text-base text-slate-600 mb-6 leading-relaxed">
+                            Spark gives you the infrastructure you're missing around your content — pricing, access, and reporting — so you can move from "helpful videos" to a real course business without juggling five tools.
+                        </p>
+                        
+                        <!-- Metric Bubble -->
+                        <div class="bg-emerald-50 border border-emerald-100 rounded-2xl p-6 mb-8">
+                            <ul class="space-y-4">
+                                <li class="flex items-start gap-3">
+                                    <span class="material-symbols-rounded text-emerald-600 mt-0.5">payments</span>
+                                    <p class="text-base font-medium text-slate-900">
+                                        The team behind Spark also runs <span class="text-emerald-700 font-bold text-base">PracticeNow</span>, which processes <span class="text-emerald-700">$1M+ in payments every year</span> for online teachers.
+                                    </p>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="material-symbols-rounded text-emerald-600 mt-0.5">monitoring</span>
+                                    <p class="text-base font-medium text-slate-900">
+                                        Teachers went from 1-2 exams a month to <span class="text-emerald-700 font-bold text-base">3-4 focused tests a week</span>, with automated quiz creation cutting prep time by ~95%.
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-start gap-3 text-slate-600">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-2.5 shrink-0"></span>
+                                <span class="text-base">Offer one-time courses, cohorts, or subscriptions from the same core content.</span>
+                            </li>
+                            <li class="flex items-start gap-3 text-slate-600">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-2.5 shrink-0"></span>
+                                <span class="text-base">Handle student signups, logins, and access rules from a single place.</span>
+                            </li>
+                            <li class="flex items-start gap-3 text-slate-600">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-2.5 shrink-0"></span>
+                                <span class="text-base">Use quiz and question-level data to see which topics students rewatch or get stuck on.</span>
+                            </li>
+                        </ul>
+
+                        <div class="flex flex-wrap gap-6 text-sm font-semibold">
+                            <a href="monetization.html" class="text-emerald-700 hover:text-emerald-800 flex items-center gap-1.5">
+                                Explore monetization
+                                <span class="material-symbols-rounded text-[18px]">arrow_forward</span>
+                            </a>
+                            <a href="reporting.html" class="text-emerald-700 hover:text-emerald-800 flex items-center gap-1.5">
+                                See reporting details
+                                <span class="material-symbols-rounded text-[18px]">arrow_forward</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div 
+                        class="lg:order-1 border-2 border-dashed border-emerald-200 rounded-3xl p-8 bg-emerald-50/50 flex flex-col items-center justify-center text-center aspect-[4/3]"
+                        title="Infographic prompt (4:3 landscape): A simple, high-level dashboard for creators with three main tiles: 'Revenue & enrollments', 'Active students', and 'Quiz performance over time'. Each tile is a clean card with a small label, a single key number, and a tiny sparkline or bar trend — no crowded tables or tiny text. Match the Spark marketing aesthetic: Inter font, soft white and emerald-tinted background, subtle slate borders, rounded cards, flat and minimal UI that works for both school content and adult creator courses.">
+                        <span class="material-symbols-rounded text-emerald-400 text-5xl mb-4">dashboard</span>
+                        <p class="text-base font-bold text-emerald-800 mb-2">[Dashboard: Business & Reporting]</p>
+                        <p class="text-sm text-emerald-700 max-w-xs">Hover for a detailed prompt for the business reporting visual.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Safety and ownership -->
+            <section id="safety" class="mb-24 scroll-mt-24">
+                <div class="grid lg:grid-cols-2 gap-12 items-start">
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-900 mb-4">Safety and ownership</h2>
+                        <p class="text-base text-slate-600 mb-6 leading-relaxed">
+                            Spark is opinionated about what the AI is allowed to say. It stays grounded in your content, and your recordings — and everything derived from them — stay yours.
+                        </p>
+                        
+                        <!-- Metric Bubble -->
+                        <div class="bg-indigo-50 border border-indigo-100 rounded-2xl p-6 mb-8">
+                            <ul class="space-y-4">
+                                <li class="flex items-start gap-3">
+                                    <span class="material-symbols-rounded text-indigo-600 mt-0.5">verified</span>
+                                    <p class="text-base font-medium text-slate-900">
+                                        Running on real group classes since <span class="text-indigo-700">June 2025</span>, powering daily live sessions taught over Zoom.
+                                    </p>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="material-symbols-rounded text-indigo-600 mt-0.5">security</span>
+                                    <p class="text-base font-medium text-slate-900">
+                                        Built by the same team that has safely handled <span class="text-indigo-700 font-bold text-base">years of payments and student data</span> on PracticeNow.
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-start gap-3 text-slate-600">
+                                <span class="w-1.5 h-1.5 rounded-full bg-indigo-500 mt-2.5 shrink-0"></span>
+                                <span class="text-base">The tutor answers from your lectures and notes — not from the open web.</span>
+                            </li>
+                            <li class="flex items-start gap-3 text-slate-600">
+                                <span class="w-1.5 h-1.5 rounded-full bg-indigo-500 mt-2.5 shrink-0"></span>
+                                <span class="text-base">When the answer isn't in the course, Spark would rather <span class="font-bold">block the answer than guess</span>.</span>
+                            </li>
+                            <li class="flex items-start gap-3 text-slate-600">
+                                <span class="w-1.5 h-1.5 rounded-full bg-indigo-500 mt-2.5 shrink-0"></span>
+                                <span class="text-base">We don't train models on your videos; they are only used to ground answers.</span>
+                            </li>
+                        </ul>
+
+                        <div class="flex flex-wrap gap-6 text-sm font-semibold">
+                            <a href="hallucinations.html" class="text-indigo-700 hover:text-indigo-800 flex items-center gap-1.5">
+                                Accuracy & hallucinations
+                                <span class="material-symbols-rounded text-[18px]">arrow_forward</span>
+                            </a>
+                            <a href="content-ownership.html" class="text-indigo-700 hover:text-indigo-800 flex items-center gap-1.5">
+                                Ownership policy
+                                <span class="material-symbols-rounded text-[18px]">arrow_forward</span>
+                            </a>
+                            <a href="faq.html" class="text-indigo-700 hover:text-indigo-800 flex items-center gap-1.5">
+                                Infrastructure FAQ
+                                <span class="material-symbols-rounded text-[18px]">arrow_forward</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div 
+                        class="border-2 border-dashed border-indigo-200 rounded-3xl p-8 bg-indigo-50/50 flex flex-col items-center justify-center text-center aspect-[4/3]"
+                        title="Diagram prompt (4:3 landscape): In the center, an 'AI Tutor' bubble surrounded by a clear boundary labeled 'Your course data only'. Inside the boundary: simple icons for videos, notes, and quizzes. Outside: a faded 'Internet' cloud with a subtle blocked symbol or shield. Overall style should match the rest of the Spark marketing site: Inter font, soft white and indigo-tinted background, rounded shapes, calm and trustworthy aesthetic with no harsh reds or warning signs.">
+                        <span class="material-symbols-rounded text-indigo-400 text-5xl mb-4">gpp_good</span>
+                        <p class="text-base font-bold text-indigo-800 mb-2">[Diagram: Guardrails & Trust]</p>
+                        <p class="text-sm text-indigo-700 max-w-xs">Hover for a detailed prompt for the guardrails visualization.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
     </main>
 
 </body>
 </html>
-
-

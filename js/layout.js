@@ -207,13 +207,13 @@ function createFooter() {
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
                 <div class="col-span-2 md:col-span-1">
                     <a href="${BASE_PATH ? `${BASE_PATH}/` : '/'}" class="flex items-center gap-2 mb-4">
-                        <div class="w-6 h-6 bg-slate-900 rounded-md flex items-center justify-center text-white font-bold text-xs">S</div>
+                        <div class="w-6 h-6 bg-slate-900 rounded-md flex items-center justify-center text-white font-bold text-sm">S</div>
                         <span class="font-bold text-lg text-slate-900">Spark</span>
                     </a>
                     <p class="text-sm text-slate-500 mb-4">
                         From video to a course — without the grind.
                     </p>
-                    <div class="text-xs text-slate-400">
+                    <div class="text-sm text-slate-400">
                         Built by a team obsessed with long-term learning, retention, and high-trust relationships with teachers.
                     </div>
                 </div>
