@@ -1,38 +1,11 @@
 /**
  * Shared layout and configuration for Spark Marketing Site
- * Handles Tailwind config and Header/Footer injection
+ * Handles Header/Footer injection and marketing-only behaviors.
+ *
+ * NOTE: Tailwind is now compiled into a static CSS file for the marketing
+ * pages (see marketing/css/tailwind.css) instead of being injected at
+ * runtime via the CDN script. This avoids a flash of unstyled content.
  */
-
-// Tailwind Configuration
-const tailwindConfig = {
-    theme: {
-        extend: {
-            colors: {
-                brand: {
-                    50: '#eef2ff',
-                    100: '#e0e7ff',
-                    500: '#6366f1', // Indigo-500
-                    600: '#4f46e5', // Indigo-600 (Primary)
-                    700: '#4338ca', // Indigo-700
-                    900: '#312e81', // Indigo-900
-                }
-            },
-            fontFamily: {
-                sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
-            }
-        }
-    }
-};
-
-// Inject Tailwind script and config
-function loadTailwind() {
-    const script = document.createElement('script');
-    script.src = "https://cdn.tailwindcss.com";
-    script.onload = () => {
-        tailwind.config = tailwindConfig;
-    };
-    document.head.appendChild(script);
-}
 
 // Base path helper so the same code works locally and on GitHub Pages without env switches
 function getBasePath() {
@@ -255,13 +228,21 @@ function createFooter() {
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
-    loadTailwind();
+    console.log('[spark-marketing] DOMContentLoaded - init layout', {
+        timeMs: Math.round(performance.now()),
+        hasTailwindStylesheet: !!document.querySelector('link[href*="marketing/css/tailwind.css"],link[href*=\"/marketing/css/tailwind.css\"]'),
+        bodyClasses: document.body.className
+    });
     
     // Insert Header
     document.body.insertBefore(createHeader(), document.body.firstChild);
     
     // Insert Footer
     document.body.appendChild(createFooter());
+
+    console.log('[spark-marketing] header/footer injected', {
+        timeMs: Math.round(performance.now())
+    });
 
     // Mobile Menu Toggle Logic
     // Using a tiny timeout to ensure DOM is ready after insertion
@@ -385,6 +366,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Initialize progress ring once on load (in case some steps are above the fold)
         updatePipelineProgress(0);
+
+        // Remove initial preload-hidden class so the page becomes visible
+        // only after layout JS has finished basic setup.
+        if (document.body.classList.contains('preload-hidden')) {
+            document.body.classList.remove('preload-hidden');
+            console.log('[spark-marketing] removed preload-hidden from body', {
+                timeMs: Math.round(performance.now()),
+                bodyClasses: document.body.className
+            });
+        }
     }, 100);
 });
 
