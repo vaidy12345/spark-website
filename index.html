@@ -26,10 +26,18 @@
             transition: opacity 0.6s cubic-bezier(0.22, 0.61, 0.36, 1), transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
         }
         .reveal-left {
-            transform: translate(-60px, 40px);
+            transform: translate(-20px, 40px);
         }
         .reveal-right {
-            transform: translate(60px, 40px);
+            transform: translate(20px, 40px);
+        }
+        @media (min-width: 1024px) {
+            .reveal-left {
+                transform: translate(-60px, 40px);
+            }
+            .reveal-right {
+                transform: translate(60px, 40px);
+            }
         }
         .reveal-visible {
             opacity: 1;
@@ -88,7 +96,7 @@
     </section>
 
     <!-- Pipeline: What it really takes to make a course -->
-    <section class="py-24 bg-slate-50 border-y border-slate-100">
+    <section class="py-24 bg-slate-50 border-y border-slate-100 overflow-x-hidden">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-10">
                 <h2 class="text-3xl font-bold text-slate-900 mb-4">Why making a course is hard <br/> (And how Spark makes it easy)</h2>
