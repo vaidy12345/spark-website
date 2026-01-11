@@ -80,6 +80,7 @@
     width: 100%;
     max-width: 56rem; /* matches max-w-4xl */
     max-height: calc(100vh - 32px);
+    height: calc(100vh - 32px);
     background: #fff;
     border: 1px solid #e2e8f0; /* slate-200 */
     border-radius: 16px; /* rounded-2xl */
@@ -123,11 +124,15 @@
   .carousel-fs-body {
     padding: 12px;
     background: #f8fafc; /* slate-50 */
+    flex: 1;
+    min-height: 0;
   }
 
   .carousel-fs-frame {
     width: 100%;
-    height: min(78vh, 820px);
+    height: 100%;
+    flex: 1;
+    min-height: 0;
     background: #fff;
     border-radius: 12px;
     border: 1px solid #e2e8f0; /* slate-200 */
@@ -138,6 +143,11 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
+  }
+
+  .carousel-fs-caption {
+    max-height: 30vh;
+    overflow: auto;
   }
 }
 

@@ -65,6 +65,17 @@ function initCarousel(carouselRoot) {
       activeIndex,
       reason
     });
+
+    // Allow external UI (e.g., fullscreen captions) to react to slide changes.
+    try {
+      carouselRoot.dispatchEvent(
+        new CustomEvent('carousel:change', {
+          detail: { carouselId, activeIndex, reason }
+        })
+      );
+    } catch (e) {
+      // Ignore if CustomEvent isn't supported (very old browsers).
+    }
   }
 
   function scrollToIndex(index, reason, behavior = 'smooth') {
@@ -231,14 +242,14 @@ function initCarousel(carouselRoot) {
       const fsCarousel = document.createElement('div');
       fsCarousel.setAttribute('data-carousel', '');
       fsCarousel.setAttribute('data-carousel-in-fullscreen', '');
-      fsCarousel.className = 'relative';
+      fsCarousel.className = 'relative flex flex-col gap-3 h-full';
 
       const fsTrack = document.createElement('div');
       fsTrack.setAttribute('data-carousel-track', '');
       fsTrack.className = 'overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar carousel-fs-frame';
 
       const fsRow = document.createElement('div');
-      fsRow.className = 'flex gap-3';
+      fsRow.className = 'flex gap-3 h-full items-stretch';
 
       const sourceFigures = slides.map((s) => {
         const img = s.querySelector('img');
@@ -253,10 +264,10 @@ function initCarousel(carouselRoot) {
       sourceFigures.forEach((item) => {
         const fig = document.createElement('figure');
         fig.setAttribute('data-carousel-slide', '');
-        fig.className = 'min-w-full snap-center carousel-snap-stop';
+        fig.className = 'min-w-full snap-center carousel-snap-stop h-full';
 
         const wrap = document.createElement('div');
-        wrap.className = 'bg-white rounded-xl border border-slate-200 overflow-hidden';
+        wrap.className = 'bg-white rounded-xl border border-slate-200 overflow-hidden h-full';
 
         const imgEl = document.createElement('img');
         imgEl.src = item.src;
@@ -265,12 +276,7 @@ function initCarousel(carouselRoot) {
 
         wrap.appendChild(imgEl);
 
-        const capEl = document.createElement('figcaption');
-        capEl.className = 'p-4 bg-slate-50 border-t border-slate-200';
-        capEl.innerHTML = item.captionHtml;
-
         fig.appendChild(wrap);
-        fig.appendChild(capEl);
         fsRow.appendChild(fig);
       });
 
@@ -279,7 +285,7 @@ function initCarousel(carouselRoot) {
 
       const fsDots = document.createElement('div');
       fsDots.setAttribute('data-carousel-dots', '');
-      fsDots.className = 'mt-3 flex items-center justify-center gap-2';
+      fsDots.className = 'flex items-center justify-center gap-2';
 
       for (let i = 0; i < slides.length; i += 1) {
         const dot = document.createElement('button');
@@ -290,8 +296,39 @@ function initCarousel(carouselRoot) {
         fsDots.appendChild(dot);
       }
 
+      const fsCaption = document.createElement('div');
+      fsCaption.className =
+        'carousel-fs-caption bg-slate-50 border border-slate-200 rounded-xl p-4 text-sm text-slate-700';
+      fsCaption.setAttribute('data-carousel-caption', '');
+
+      fsCarousel.appendChild(fsCaption);
+
+      const fsNav = document.createElement('div');
+      fsNav.className = 'flex items-center justify-center gap-3';
+
+      const fsPrev = document.createElement('button');
+      fsPrev.type = 'button';
+      fsPrev.setAttribute('data-carousel-prev', '');
+      fsPrev.setAttribute('aria-label', 'Previous slide');
+      fsPrev.className =
+        'inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/70 backdrop-blur-sm border border-slate-200 text-slate-700 shadow-sm hover:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2';
+      fsPrev.innerHTML = '<span class="material-symbols-rounded text-[18px] leading-none">chevron_left</span>';
+
+      const fsNext = document.createElement('button');
+      fsNext.type = 'button';
+      fsNext.setAttribute('data-carousel-next', '');
+      fsNext.setAttribute('aria-label', 'Next slide');
+      fsNext.className =
+        'inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/70 backdrop-blur-sm border border-slate-200 text-slate-700 shadow-sm hover:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2';
+      fsNext.innerHTML = '<span class="material-symbols-rounded text-[18px] leading-none">chevron_right</span>';
+
+      fsNav.appendChild(fsPrev);
+      fsNav.appendChild(fsDots);
+      fsNav.appendChild(fsNext);
+
+      fsCarousel.appendChild(fsNav);
+
       body.appendChild(fsCarousel);
-      body.appendChild(fsDots);
 
       dialog.appendChild(header);
       dialog.appendChild(body);
@@ -321,6 +358,12 @@ function initCarousel(carouselRoot) {
       function openAt(index) {
         if (!inited) {
           initCarousel(fsCarousel);
+          // Keep caption in sync with slide changes.
+          fsCarousel.addEventListener('carousel:change', (evt) => {
+            const nextIdx = evt?.detail?.activeIndex;
+            const safeIdx = typeof nextIdx === 'number' ? nextIdx : 0;
+            fsCaption.innerHTML = sourceFigures[safeIdx]?.captionHtml || '';
+          });
           inited = true;
         }
         overlay.hidden = false;
@@ -328,6 +371,9 @@ function initCarousel(carouselRoot) {
 
         console.log('[spark-marketing][carousel] fullscreen opened', { carouselId, index });
         fsCarousel._carouselApi?.scrollToIndex(index, 'open', 'auto');
+
+        // Ensure caption is set immediately (even before observers fire).
+        fsCaption.innerHTML = sourceFigures[index]?.captionHtml || '';
       }
 
       return { openAt };
