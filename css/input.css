@@ -58,6 +58,11 @@
     }
   }
 
+  /* Product section titles: icon should align to the first line (not vertically center across wrapped lines). */
+  .product-section__intro h2 > span.inline-flex.items-start.gap-2 > .material-symbols-rounded {
+    margin-top: calc(var(--spacing) * 1); /* matches mt-0.5 */
+  }
+
   /* Fullscreen carousel viewer (used by marketing carousels). */
   .carousel-fs-overlay[hidden] {
     display: none;
