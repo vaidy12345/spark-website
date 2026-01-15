@@ -88,6 +88,10 @@ const navLinks = [
         name: 'About',
         href: `${BASE_PATH}/about.html`
     },
+    {
+        name: 'Blog',
+        href: `${BASE_PATH}/blog.html`
+    },
 ];
 
 // Product sub-pages for dropdown navigation
@@ -241,6 +245,7 @@ function createFooter() {
                     <ul class="space-y-3">
                         <li><a href="about.html" class="text-sm text-slate-500 hover:text-brand-600">About / Philosophy</a></li>
                         <li><a href="for-teachers.html" class="text-sm text-slate-500 hover:text-brand-600">For Teachers</a></li>
+                        <li><a href="blog.html" class="text-sm text-slate-500 hover:text-brand-600">Blog</a></li>
                     </ul>
                 </div>
 

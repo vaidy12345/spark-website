@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Spark</title>
+    <meta name="description" content="Latest insights, updates, and stories from Spark">
+    <link rel="stylesheet" href="css/tailwind.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0,0" rel="stylesheet" />
+    <script src="js/layout.js"></script>
+    <script src="js/blog.js"></script>
+    <style>
+        /* Blog post content styling */
+        .blog-post-content {
+            line-height: 1.75;
+        }
+        .blog-post-content p {
+            margin-bottom: 1.25em;
+        }
+        .blog-post-content h1 {
+            font-size: 2em;
+            font-weight: 800;
+            margin-top: 1.5em;
+            margin-bottom: 0.75em;
+            color: #0f172a;
+            line-height: 1.2;
+        }
+        .blog-post-content h2 {
+            font-size: 1.5em;
+            font-weight: 700;
+            margin-top: 1.5em;
+            margin-bottom: 0.75em;
+            color: #0f172a;
+        }
+        .blog-post-content h3 {
+            font-size: 1.25em;
+            font-weight: 600;
+            margin-top: 1.25em;
+            margin-bottom: 0.5em;
+            color: #1e293b;
+        }
+        .blog-post-content h4 {
+            font-size: 1.125em;
+            font-weight: 600;
+            margin-top: 1em;
+            margin-bottom: 0.5em;
+            color: #334155;
+        }
+        .blog-post-content h5,
+        .blog-post-content h6 {
+            font-size: 1em;
+            font-weight: 600;
+            margin-top: 0.75em;
+            margin-bottom: 0.5em;
+            color: #475569;
+        }
+        .blog-post-content ul,
+        .blog-post-content ol {
+            margin-bottom: 1.25em;
+            padding-left: 1.5em;
+        }
+        .blog-post-content li {
+            margin-bottom: 0.5em;
+        }
+        .blog-post-content a {
+            color: #4f46e5;
+            text-decoration: underline;
+        }
+        .blog-post-content a:hover {
+            color: #4338ca;
+        }
+        .blog-post-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+            margin: 1.5em 0;
+        }
+        .blog-post-content blockquote {
+            border-left: 4px solid #e2e8f0;
+            padding-left: 1em;
+            margin: 1.5em 0;
+            font-style: italic;
+            color: #64748b;
+        }
+        .blog-post-content code {
+            background-color: #f1f5f9;
+            padding: 0.125em 0.375em;
+            border-radius: 0.25rem;
+            font-size: 0.875em;
+            font-family: 'Courier New', monospace;
+        }
+        .blog-post-content pre {
+            background-color: #f8fafc;
+            padding: 1em;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            margin: 1.5em 0;
+        }
+        .blog-post-content pre code {
+            background-color: transparent;
+            padding: 0;
+        }
+    </style>
+</head>
+<body class="preload-hidden bg-white text-slate-900 antialiased pt-16">
+
+    <section class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h1 class="text-4xl font-extrabold text-slate-900 mb-6">The Spark Dispatch</h1>
+                <p class="text-xl text-slate-600">
+                    Updates, insights, and stories about Spark and the world of online teaching.
+                </p>
+            </div>
+
+            <!-- Loading State -->
+            <div id="blog-loading" class="text-center py-12">
+                <div class="inline-block animate-pulse text-slate-400">Loading posts...</div>
+            </div>
+
+            <!-- Error State -->
+            <div id="blog-error" class="hidden text-center py-12">
+                <p class="text-slate-600 mb-4">Unable to load blog posts at this time.</p>
+                <a href="http://sparktutor.beehiiv.com" target="_blank" rel="noopener noreferrer" class="text-brand-600 hover:text-brand-700 font-medium">
+                    Visit our blog directly →
+                </a>
+            </div>
+
+            <!-- Blog Layout: Main Content + Sidebar -->
+            <div id="blog-content" class="hidden">
+                <!-- Mobile: Recent Posts Section (shown only on mobile/tablet) -->
+                <div class="lg:hidden mb-12">
+                    <h2 class="text-xl font-bold text-slate-900 mb-6">Recent Posts</h2>
+                    <div id="blog-mobile-posts" class="space-y-4">
+                        <!-- Mobile posts will be inserted here by blog.js -->
+                    </div>
+                </div>
+                
+                <!-- Mobile: Selected Post (shown when a post is clicked) -->
+                <div class="lg:hidden" id="blog-mobile-selected-post">
+                    <!-- Selected post will be inserted here by blog.js -->
+                </div>
+
+                <!-- Desktop/Tablet Layout: Grid -->
+                <div class="grid lg:grid-cols-3 gap-12">
+                    <!-- Main Content: Selected Post -->
+                    <div class="lg:col-span-2">
+                        <article id="blog-latest-post">
+                            <!-- Selected post will be inserted here by blog.js -->
+                        </article>
+                    </div>
+
+                    <!-- Sidebar: Other Posts (Desktop/Tablet) -->
+                    <aside class="hidden lg:block lg:col-span-1">
+                        <div class="sticky top-24">
+                            <h2 class="text-lg font-bold text-slate-900 mb-6">Recent Posts</h2>
+                            <div id="blog-sidebar-posts" class="space-y-6">
+                                <!-- Other posts will be inserted here by blog.js -->
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
+
