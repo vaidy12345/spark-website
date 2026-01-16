@@ -9,87 +9,298 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0,0" rel="stylesheet" />
     <script src="../js/layout.js"></script>
+    <script src="../js/components/carousel.js" defer></script>
 </head>
 <body class="preload-hidden bg-white text-slate-900 antialiased pt-16">
 
 <main class="pt-20 pb-24">
-    <section>
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div id="top" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Hero -->
+        <section class="mb-16">
             <p class="text-sm font-semibold tracking-[0.18em] uppercase text-brand-600 mb-3">Reporting</p>
-            <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4">
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-6 leading-tight">
                 Less guessing, more watching your students learn in real time.
             </h1>
-            <p class="text-lg text-slate-600 mb-10">
-                Spark’s reporting is built to answer one question: “What should I do with my next hour of teaching time?” It shows you which students and which concepts need attention, instead of just showing you vanity graphs.
+            <p class="text-lg text-slate-600 leading-relaxed">
+                Spark's reporting is built to answer one question: "What should I do with my next hour of teaching time?" It shows you which students and which concepts need attention, instead of just showing you vanity graphs.
             </p>
+        </section>
 
-            <!-- Live quiz reporting -->
-            <section class="mb-12">
-                <h2 class="text-xl font-semibold text-slate-900 mb-3">1. Live quiz reports: see the class thinking, not just the final score</h2>
-                <p class="text-sm text-slate-600 mb-4">
-                    When you run a quiz in class, Spark shows you a live report as answers come in:
-                </p>
-                <ul class="list-disc pl-5 text-sm text-slate-600 space-y-1 mb-4">
-                    <li>A per‑student view: correct, wrong, skipped, total questions, and time taken.</li>
-                    <li>A per‑question view: how many got it right, how many struggled, and which questions are slowing everyone down.</li>
-                    <li>A question‑by‑question breakdown you can use immediately to decide what to revisit before moving on.</li>
-                </ul>
-                <p class="text-sm text-slate-600">
-                    The goal is not to rank your students, but to give you a clear picture of where the group is stuck while there’s still time to fix it.
-                </p>
+        <!-- Table of contents -->
+        <section class="mb-20">
+            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 sm:p-6">
+                <p class="text-center text-sm font-semibold uppercase tracking-widest text-slate-500 mb-6">Jump to a section</p>
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    <a href="#reporting-live-quiz" class="flex items-start gap-3 p-3 rounded-xl hover:bg-white hover:shadow-sm transition">
+                        <span class="material-symbols-rounded text-brand-600 mt-0.5">insights</span>
+                        <span class="text-sm font-semibold text-slate-900">Live quiz reports</span>
+                    </a>
+                    <a href="#reporting-student-progress" class="flex items-start gap-3 p-3 rounded-xl hover:bg-white hover:shadow-sm transition">
+                        <span class="material-symbols-rounded text-brand-600 mt-0.5">trending_up</span>
+                        <span class="text-sm font-semibold text-slate-900">Student progress</span>
+                    </a>
+                    <a href="#reporting-teaching-decisions" class="flex items-start gap-3 p-3 rounded-xl hover:bg-white hover:shadow-sm transition">
+                        <span class="material-symbols-rounded text-brand-600 mt-0.5">psychology</span>
+                        <span class="text-sm font-semibold text-slate-900">Teaching decisions</span>
+                    </a>
+                </div>
+            </div>
+        </section>
 
-                <div
-                    class="mt-4 border-2 border-dashed border-slate-300 rounded-2xl p-4 bg-slate-50"
-                    title="Screenshot prompt: A 'Live quiz' teacher dashboard with two tabs: 'Students' and 'Questions'. Show the Students tab active: rows of student names with small stacked bars indicating correct/wrong/skipped, a numeric score, and time taken. At the top, show a small banner like '12 students / 10 questions · Idle for 00:23'. Include a subtle hint of a chart or icon the teacher can click to switch to the Questions tab.">
-                    <p class="text-sm font-semibold text-slate-700 mb-1">[Screenshot placeholder]</p>
-                    <p class="text-sm text-slate-500">
-                        Hover for a detailed prompt for the “live quiz report” screenshot.
+        <!-- 1) Live quiz reports -->
+        <section id="reporting-live-quiz" class="mb-24 scroll-mt-24">
+            <div class="grid md:grid-cols-2 gap-4 md:gap-12 items-start product-section product-section--image-right">
+                <div class="product-section__intro">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-4">
+                        <span class="inline-flex items-start gap-2">
+                            <span class="material-symbols-rounded text-slate-900">insights</span>
+                            <span>Live quiz reports</span>
+                        </span>
+                    </h2>
+                    <p class="text-base text-slate-600 leading-relaxed">
+                        When you run a quiz in class, Spark shows you a live report as answers come in—per-student progress and per-question breakdowns you can use immediately to decide what to revisit.
                     </p>
                 </div>
-            </section>
 
-            <!-- Upcoming detailed student reports -->
-            <section class="mb-12">
-                <h2 class="text-xl font-semibold text-slate-900 mb-3">2. Per‑student progress over time (upcoming)</h2>
-                <p class="text-sm text-slate-600 mb-4">
-                    Today, Spark already captures rich quiz data: which student chose which option, how long each question took, and which chapters each question belongs to. The next step is to give you a simple, longitudinal view per student:
-                </p>
-                <ul class="list-disc pl-5 text-sm text-slate-600 space-y-1 mb-4">
-                    <li>A timeline of quizzes taken, with scores and completion times.</li>
-                    <li>A topic‑level view of strengths and weak spots across your subjects.</li>
-                    <li>Plain‑language suggestions like “Spend more time on waves” or “Redo the optics quiz from last week”.</li>
-                </ul>
-                <p class="text-sm text-slate-600">
-                    This isn’t about generating more charts—it’s about giving you and the student a shared, simple picture of how things are changing.
-                </p>
+                <div class="product-section__image">
+                    <div id="reporting-live-quiz-carousel" data-carousel data-carousel-fullscreen class="relative">
+                        <div
+                            data-carousel-track
+                            class="border-2 border-dashed border-slate-300 rounded-3xl p-3 bg-slate-50 overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar">
+                            <div class="flex gap-3">
+                                <figure data-carousel-slide class="min-w-full snap-center carousel-snap-stop">
+                                    <div
+                                        class="rounded-2xl bg-white border border-slate-200 overflow-hidden"
+                                        title="AI screenshot prompt: Context: Spark is a platform for YouTube educational creators that transforms existing YouTube recordings into structured paid courses with quizzes and reporting. Create a clean teacher dashboard screenshot titled 'Live Quiz Report'. Show two tabs at the top: 'Students' (active, indigo background) and 'Questions' (inactive, gray). In the active Students tab, display a table with columns: Student Name, Score (as a percentage), Progress (stacked bar showing correct in green, wrong in red, skipped in gray), Time Taken. Show 4-5 example rows with realistic names like 'Sarah Chen', 'Michael Rodriguez', 'Emma Thompson', 'David Kim'. Each row should show a score percentage (e.g., 85%, 72%, 90%), a horizontal stacked bar, and time (e.g., '4:32', '6:15'). At the top, show a small status banner: '12 students / 10 questions · Active for 2:45'. Include subtle icons: a small chart icon next to the Questions tab, a refresh icon, and a share icon. Visual style: Stripe-inspired minimalism - white background (#ffffff), slate-900 text (#0f172a), subtle indigo accent (#6366f1) for active states, very light gray borders (#e2e8f0), rounded corners (8px), minimal shadows (0 1px 3px rgba(0,0,0,0.1)), generous whitespace, Inter font family, professional and trustworthy aesthetic. Avoid: decorative elements, gradients, cartoonish icons, loud colors, busy layouts, wellness/yoga-specific imagery, connecting lines between boxes.">
+                                        <div class="aspect-[16/9] bg-white">
+                                            <img
+                                                src="../images/product/reporting/live-quiz-report.jpg"
+                                                alt="Live quiz report dashboard showing per-student progress and per-question breakdown"
+                                                class="w-full h-full object-cover sm:object-center cursor-zoom-in">
+                                        </div>
+                                        <figcaption class="p-4 bg-slate-50 border-t border-slate-200">
+                                            <p class="text-sm font-semibold text-slate-800 mb-1">Live quiz dashboard</p>
+                                            <p class="text-sm text-slate-600">Real-time view of student progress and question-level insights as answers come in.</p>
+                                        </figcaption>
+                                    </div>
+                                </figure>
 
-                <div
-                    class="mt-4 border-2 border-dashed border-emerald-300 rounded-2xl p-4 bg-emerald-50/60"
-                    title="Infographic prompt: A single student's journey view. At the top, a simple line chart labeled 'Quiz scores over time'. Below, a bar chart or radar-style graphic with 3–5 topics ('Algebra', 'Optics', 'Mechanics', etc.) showing relative strength. At the bottom, a text box titled 'Suggested next steps' with 2–3 bullet points in plain language. Style: approachable, not technical.">
-                    <p class="text-sm font-semibold text-emerald-800 mb-1">[Infographic placeholder]</p>
-                    <p class="text-sm text-emerald-700">
-                        Hover for a detailed prompt for the “per‑student progress” infographic.
+                                <figure data-carousel-slide class="min-w-full snap-center carousel-snap-stop">
+                                    <div
+                                        class="rounded-2xl bg-white border border-slate-200 overflow-hidden"
+                                        title="AI diagram prompt: Context: Spark is a platform for YouTube educational creators that transforms existing YouTube recordings into structured paid courses with quizzes and reporting. Create a clean diagram titled 'Live Report Views' showing two connected views: (1) Left side: 'Students View' card showing a small table icon and text 'Per-student: correct, wrong, skipped, time taken' with a small checkmark icon, (2) Right side: 'Questions View' card showing a small chart icon and text 'Per-question: how many got it right, which questions are slowing everyone down' with a small analytics icon. Between them, show a subtle bidirectional arrow indicating teachers can switch between views. Below, add a small note: 'Updates in real time as students answer'. Visual style: Stripe-inspired minimalism - white background (#ffffff), slate-900 text (#0f172a), subtle indigo accent (#6366f1) for icons and active states, slate-100 (#f1f5f9) for card backgrounds, very light gray borders (#e2e8f0), rounded corners (8px), minimal shadows (0 1px 3px rgba(0,0,0,0.1)), generous whitespace, Inter font family, professional and trustworthy aesthetic. Use finance domain examples if needed (e.g., 'Investment Fundamentals Quiz'). Avoid: decorative elements, gradients, cartoonish icons, loud colors, busy layouts, wellness/yoga-specific imagery, complex connecting lines.">
+                                        <div class="aspect-[16/9] bg-white">
+                                            <img
+                                                src="../images/product/reporting/live-report-views.jpg"
+                                                alt="Diagram showing Students and Questions views in live quiz reports"
+                                                class="w-full h-full object-cover sm:object-center cursor-zoom-in">
+                                        </div>
+                                        <figcaption class="p-4 bg-slate-50 border-t border-slate-200">
+                                            <p class="text-sm font-semibold text-slate-800 mb-1">Dual view system</p>
+                                            <p class="text-sm text-slate-600">Switch between per-student and per-question views to see where the class is stuck.</p>
+                                        </figcaption>
+                                    </div>
+                                </figure>
+                            </div>
+                        </div>
+
+                        <div class="mt-3 flex items-center justify-center gap-3">
+                            <button
+                                type="button"
+                                data-carousel-prev
+                                aria-label="Previous image"
+                                class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/70 backdrop-blur-sm border border-slate-200 text-slate-700 shadow-sm hover:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2">
+                                <span class="material-symbols-rounded text-[18px] leading-none">chevron_left</span>
+                            </button>
+                            <div data-carousel-dots class="flex items-center justify-center gap-2">
+                                <button type="button" data-carousel-dot="0" aria-label="Go to image 1" class="w-2.5 h-2.5 rounded-full bg-brand-600"></button>
+                                <button type="button" data-carousel-dot="1" aria-label="Go to image 2" class="w-2.5 h-2.5 rounded-full bg-slate-300"></button>
+                            </div>
+                            <button
+                                type="button"
+                                data-carousel-next
+                                aria-label="Next image"
+                                class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/70 backdrop-blur-sm border border-slate-200 text-slate-700 shadow-sm hover:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2">
+                                <span class="material-symbols-rounded text-[18px] leading-none">chevron_right</span>
+                            </button>
+                        </div>
+                        <p class="mt-2 text-xs text-slate-500 text-center">Tap an image to view it full screen.</p>
+                    </div>
+                </div>
+
+                <div class="product-section__metrics bg-brand-50 border border-brand-100 rounded-2xl p-6">
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-rounded text-brand-600 mt-0.5">check_circle</span>
+                            <p class="text-base font-medium text-slate-900">
+                                Per-student view: correct, wrong, skipped, total questions, and time taken.
+                            </p>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-rounded text-brand-600 mt-0.5">check_circle</span>
+                            <p class="text-base font-medium text-slate-900">
+                                Per-question view: how many got it right, which questions are slowing everyone down.
+                            </p>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-rounded text-brand-600 mt-0.5">check_circle</span>
+                            <p class="text-base font-medium text-slate-900">
+                                Updates in real time—see where the group is stuck while there's still time to fix it.
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="product-section__links">
+                    <a href="#top" class="text-sm font-semibold text-brand-600 hover:text-brand-700">Back to top ↑</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2) Per-student progress -->
+        <section id="reporting-student-progress" class="mb-24 scroll-mt-24">
+            <div class="grid md:grid-cols-2 gap-4 md:gap-12 items-start product-section product-section--image-left">
+                <div class="product-section__intro">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-4">
+                        <span class="inline-flex items-start gap-2">
+                            <span class="material-symbols-rounded text-slate-900">trending_up</span>
+                            <span>Per-student progress over time</span>
+                        </span>
+                    </h2>
+                    <p class="text-base text-slate-600 leading-relaxed">
+                        Spark captures rich quiz data and gives you a simple, longitudinal view per student: timeline of quizzes, topic-level strengths and weak spots, and plain-language suggestions for what to focus on next.
                     </p>
                 </div>
-            </section>
 
-            <!-- How this connects with teaching decisions -->
-            <section>
-                <h2 class="text-xl font-semibold text-slate-900 mb-3">3. Turning data into concrete teaching decisions</h2>
-                <p class="text-sm text-slate-600 mb-4">
-                    All of Spark’s reporting is built to feed back into how you run your next class:
-                </p>
-                <ul class="list-disc pl-5 text-sm text-slate-600 space-y-1 mb-4">
-                    <li>Start each session with a short quiz, then use the live report to decide whether to revise or move on.</li>
-                    <li>Spot questions nearly everyone got wrong and re‑teach those ideas with new examples.</li>
-                    <li>Encourage students to review their attempts and then ask the course tutor about questions they missed.</li>
-                </ul>
-                <p class="text-sm text-slate-600">
-                    Over time, this creates a gentle loop: quiz → see where the class really is → adjust → quiz again. Students feel seen, and you waste less time guessing.
-                </p>
-            </section>
-        </div>
-    </section>
+                <div class="product-section__image">
+                    <div id="reporting-student-progress-carousel" data-carousel data-carousel-fullscreen class="relative">
+                        <div
+                            data-carousel-track
+                            class="border-2 border-dashed border-slate-300 rounded-3xl p-3 bg-slate-50 overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar">
+                            <div class="flex gap-3">
+                                <figure data-carousel-slide class="min-w-full snap-center carousel-snap-stop">
+                                    <div
+                                        class="rounded-2xl bg-white border border-slate-200 overflow-hidden"
+                                        title="AI infographic prompt: Context: Spark is a platform for YouTube educational creators that transforms existing YouTube recordings into structured paid courses with quizzes and reporting. Create a clean, approachable student progress infographic for a single student named 'Sarah Chen'. At the top, show a simple line chart titled 'Quiz Scores Over Time' with a subtle upward trend line (scores improving from 65% to 85% over 6 data points), minimal grid lines, and clean axis labels. Below the chart, show a horizontal bar chart or radar-style graphic titled 'Topic Strengths' with 4-5 topics relevant to finance education: 'Investment Basics' (strong, 90%), 'Portfolio Management' (moderate, 75%), 'Risk Analysis' (weak, 60%), 'Market Trends' (strong, 88%). Use subtle color coding: green for strong, amber for moderate, red for weak. At the bottom, add a text box titled 'Suggested Next Steps' with 2-3 bullet points in plain language: 'Focus on Risk Analysis concepts', 'Review Portfolio Management fundamentals', 'Continue practicing Market Trends'. Visual style: Stripe-inspired minimalism - white background (#ffffff), slate-900 text (#0f172a), subtle indigo accent (#6366f1) for primary elements, very light gray borders (#e2e8f0), rounded corners (8px), minimal shadows (0 1px 3px rgba(0,0,0,0.1)), generous whitespace, Inter font family, professional and trustworthy aesthetic. Use finance domain examples. Avoid: decorative elements, gradients, cartoonish icons, loud colors, busy layouts, wellness/yoga-specific imagery, technical jargon.">
+                                        <div class="aspect-[16/9] bg-white">
+                                            <img
+                                                src="../images/product/reporting/student-progress.jpg"
+                                                alt="Student progress infographic showing quiz scores over time and topic strengths"
+                                                class="w-full h-full object-cover sm:object-center cursor-zoom-in">
+                                        </div>
+                                        <figcaption class="p-4 bg-slate-50 border-t border-slate-200">
+                                            <p class="text-sm font-semibold text-slate-800 mb-1">Student progress view</p>
+                                            <p class="text-sm text-slate-600">Timeline of quizzes, topic-level insights, and plain-language suggestions for what to focus on next.</p>
+                                        </figcaption>
+                                    </div>
+                                </figure>
+                            </div>
+                        </div>
+                        <p class="mt-2 text-xs text-slate-500 text-center">Tap the image to view it full screen.</p>
+                    </div>
+                </div>
+
+                <div class="product-section__metrics bg-brand-50 border border-brand-100 rounded-2xl p-6">
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-rounded text-brand-600 mt-0.5">check_circle</span>
+                            <p class="text-base font-medium text-slate-900">
+                                Timeline of quizzes taken, with scores and completion times.
+                            </p>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-rounded text-brand-600 mt-0.5">check_circle</span>
+                            <p class="text-base font-medium text-slate-900">
+                                Topic-level view of strengths and weak spots across your subjects.
+                            </p>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-rounded text-brand-600 mt-0.5">check_circle</span>
+                            <p class="text-base font-medium text-slate-900">
+                                Plain-language suggestions like "Focus on Risk Analysis" or "Review Portfolio Management fundamentals".
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="product-section__links">
+                    <a href="#top" class="text-sm font-semibold text-brand-600 hover:text-brand-700">Back to top ↑</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3) Teaching decisions -->
+        <section id="reporting-teaching-decisions" class="mb-4 scroll-mt-24">
+            <div class="grid md:grid-cols-2 gap-4 md:gap-12 items-start product-section product-section--image-right">
+                <div class="product-section__intro">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-4">
+                        <span class="inline-flex items-start gap-2">
+                            <span class="material-symbols-rounded text-slate-900">psychology</span>
+                            <span>Turning data into concrete teaching decisions</span>
+                        </span>
+                    </h2>
+                    <p class="text-base text-slate-600 leading-relaxed">
+                        All of Spark's reporting feeds back into how you run your next class. Start with a short quiz, use the live report to decide whether to revise or move on, and spot questions nearly everyone got wrong to re-teach with new examples.
+                    </p>
+                </div>
+
+                <div class="product-section__image">
+                    <div id="reporting-teaching-decisions-carousel" data-carousel data-carousel-fullscreen class="relative">
+                        <div
+                            data-carousel-track
+                            class="border-2 border-dashed border-slate-300 rounded-3xl p-3 bg-slate-50 overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar">
+                            <div class="flex gap-3">
+                                <figure data-carousel-slide class="min-w-full snap-center carousel-snap-stop">
+                                    <div
+                                        class="rounded-2xl bg-white border border-slate-200 overflow-hidden"
+                                        title="AI diagram prompt: Context: Spark is a platform for YouTube educational creators that transforms existing YouTube recordings into structured paid courses with quizzes and reporting. Create a clean circular flow diagram titled 'Teaching Feedback Loop'. Show a simple circular flow with 4 evenly spaced nodes connected by subtle clockwise arrows: (1) 'Start with quiz' node with a small quiz/checkmark icon, (2) 'See live report' node with a small chart/analytics icon, (3) 'Adjust teaching' node with a small lightbulb/strategy icon, (4) 'Quiz again' node with a small refresh/repeat icon. The loop should flow smoothly with connecting arrows. Below the diagram, add a small caption: 'Students feel seen, and you waste less time guessing'. Visual style: Stripe-inspired minimalism - white background (#ffffff), slate-900 text (#0f172a), subtle indigo accent (#6366f1) for the loop path and icons, slate-100 (#f1f5f9) for node backgrounds, very light gray connecting arrows (#e2e8f0), rounded node shapes (8px border-radius), minimal shadows (0 1px 3px rgba(0,0,0,0.1)), generous whitespace, Inter font family, professional and trustworthy aesthetic. Use finance domain examples if needed. Avoid: loud marketing vibe, emoji, neon colors, decorative elements, gradients, busy circular designs, wellness/yoga-specific imagery.">
+                                        <div class="aspect-[16/9] bg-white">
+                                            <img
+                                                src="../images/product/reporting/teaching-feedback-loop.jpg"
+                                                alt="Teaching feedback loop diagram showing quiz to insights to action cycle"
+                                                class="w-full h-full object-cover sm:object-center cursor-zoom-in">
+                                        </div>
+                                        <figcaption class="p-4 bg-slate-50 border-t border-slate-200">
+                                            <p class="text-sm font-semibold text-slate-800 mb-1">Teaching feedback loop</p>
+                                            <p class="text-sm text-slate-600">Quiz → see where the class really is → adjust → quiz again. Students feel seen, and you waste less time guessing.</p>
+                                        </figcaption>
+                                    </div>
+                                </figure>
+                            </div>
+                        </div>
+                        <p class="mt-2 text-xs text-slate-500 text-center">Tap the image to view it full screen.</p>
+                    </div>
+                </div>
+
+                <div class="product-section__metrics bg-brand-50 border border-brand-100 rounded-2xl p-6">
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-rounded text-brand-600 mt-0.5">check_circle</span>
+                            <p class="text-base font-medium text-slate-900">
+                                Start each session with a short quiz, then use the live report to decide whether to revise or move on.
+                            </p>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-rounded text-brand-600 mt-0.5">check_circle</span>
+                            <p class="text-base font-medium text-slate-900">
+                                Spot questions nearly everyone got wrong and re-teach those ideas with new examples.
+                            </p>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-rounded text-brand-600 mt-0.5">check_circle</span>
+                            <p class="text-base font-medium text-slate-900">
+                                Encourage students to review their attempts and ask the course tutor about questions they missed.
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="product-section__links">
+                    <a href="#top" class="text-sm font-semibold text-brand-600 hover:text-brand-700">Back to top ↑</a>
+                </div>
+            </div>
+        </section>
+    </div>
 </main>
 
 </body>
