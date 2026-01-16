@@ -9,101 +9,498 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0,0" rel="stylesheet" />
     <script src="../js/layout.js"></script>
+    <script src="../js/components/carousel.js" defer></script>
 </head>
 <body class="preload-hidden bg-white text-slate-900 antialiased pt-16">
 
 <main class="pt-20 pb-24">
-    <section>
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div id="top" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Hero -->
+        <section class="mb-16">
             <p class="text-sm font-semibold tracking-[0.18em] uppercase text-brand-600 mb-3">Hallucinations &amp; safety</p>
-            <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4">
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-6 leading-tight">
                 How Spark keeps the AI on a short leash.
             </h1>
-            <p class="text-lg text-slate-600 mb-10">
-                If students are going to learn from AI‑generated content, “close enough” is not good enough. Spark is built to stay grounded in your actual lectures, and to raise its hand when it’s unsure instead of bluffing.
+            <p class="text-lg text-slate-600 leading-relaxed">
+                If students are going to learn from AI‑generated content, "close enough" is not good enough. Spark stays grounded in your actual lectures and raises its hand when it's unsure instead of bluffing.
             </p>
+        </section>
 
-            <!-- Study notes maker-checker -->
-            <section class="mb-12">
-                <h2 class="text-xl font-semibold text-slate-900 mb-3">1. Study notes that are double‑checked, not free‑styled</h2>
-                <p class="text-sm text-slate-600 mb-4">
-                    For each chapter, Spark goes through a two‑step process:
-                </p>
-                <ul class="list-decimal pl-5 text-sm text-slate-600 space-y-1 mb-4">
-                    <li>First pass: draft notes based on the relevant part of your lecture.</li>
-                    <li>Second pass: a separate check that asks, “Is this scientifically correct?” and “Does this really reflect what the teacher said?”</li>
-                </ul>
-                <p class="text-sm text-slate-600 mb-4">
-                    If the second pass is not confident, Spark will try small corrections a few times. If it still can’t resolve the issue, the note is clearly marked for review instead of being quietly shipped as if it were perfect.
-                </p>
-                <p class="text-sm text-slate-600">
-                    The system is also on the lookout for broken formulas, strange characters, and other signs that something might confuse your students.
-                </p>
+        <!-- Index (tight, mobile-friendly) -->
+        <section class="mb-20">
+            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 sm:p-6">
+                <p class="text-center text-sm font-semibold uppercase tracking-widest text-slate-500 mb-6">Jump to a section</p>
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    <a href="#hallucinations-notes" class="flex items-start gap-3 p-3 rounded-xl hover:bg-white hover:shadow-sm transition">
+                        <span class="material-symbols-rounded text-brand-600 mt-0.5">note_alt</span>
+                        <span class="text-sm font-semibold text-slate-900">Study notes</span>
+                    </a>
+                    <a href="#hallucinations-quizzes" class="flex items-start gap-3 p-3 rounded-xl hover:bg-white hover:shadow-sm transition">
+                        <span class="material-symbols-rounded text-brand-600 mt-0.5">quiz</span>
+                        <span class="text-sm font-semibold text-slate-900">Quizzes</span>
+                    </a>
+                    <a href="#hallucinations-chapters" class="flex items-start gap-3 p-3 rounded-xl hover:bg-white hover:shadow-sm transition">
+                        <span class="material-symbols-rounded text-brand-600 mt-0.5">account_tree</span>
+                        <span class="text-sm font-semibold text-slate-900">Chapters &amp; slides</span>
+                    </a>
+                    <a href="#hallucinations-tutor" class="flex items-start gap-3 p-3 rounded-xl hover:bg-white hover:shadow-sm transition">
+                        <span class="material-symbols-rounded text-brand-600 mt-0.5">forum</span>
+                        <span class="text-sm font-semibold text-slate-900">Course tutor</span>
+                    </a>
+                </div>
+            </div>
+        </section>
 
-                <div
-                    class="mt-4 border-2 border-dashed border-emerald-300 rounded-2xl p-4 bg-emerald-50/60"
-                    title="Infographic prompt: A simple two-lane diagram titled 'Maker → Checker'. Top lane labeled 'Draft' with icons for a document and pen; bottom lane labeled 'Check' with icons for a magnifying glass and shield. Arrows show 'Draft notes' → 'Check against lecture' → either 'Mark Verified' with a green check or 'Flag for review' with an amber flag. Keep labels in plain language ('Draft', 'Check', 'Flag for review') with no technical terms.">
-                    <p class="text-sm font-semibold text-emerald-800 mb-1">[Infographic placeholder]</p>
-                    <p class="text-sm text-emerald-700">
-                        Hover for a detailed prompt for the “maker–checker for notes” infographic.
+        <!-- 1) Study notes maker-checker -->
+        <section id="hallucinations-notes" class="mb-24 scroll-mt-24">
+            <div class="grid md:grid-cols-2 gap-4 md:gap-12 items-start product-section product-section--image-right">
+                <div class="product-section__intro">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-4">
+                        <span class="inline-flex items-start gap-2">
+                            <span class="material-symbols-rounded text-slate-900">note_alt</span>
+                            <span>Study notes that are double‑checked, not free‑styled</span>
+                        </span>
+                    </h2>
+                    <p class="text-base text-slate-600 leading-relaxed">
+                        For each chapter, Spark goes through a two‑step process: first, draft notes based on your lecture; then, a separate check asks "Is this scientifically correct?" and "Does this really reflect what the teacher said?"
+                    </p>
+                    <p class="mt-5 text-base text-slate-600 leading-relaxed">
+                        If the second pass isn't confident, Spark tries small corrections a few times. If it still can't resolve the issue, the note is clearly marked for review instead of being quietly shipped as perfect.
                     </p>
                 </div>
-            </section>
 
-            <!-- Quizzes -->
-            <section class="mb-12">
-                <h2 class="text-xl font-semibold text-slate-900 mb-3">2. Quizzes anchored in real chapters</h2>
-                <p class="text-sm text-slate-600 mb-4">
-                    Spark’s quizzes are designed to be answerable from the material your students have actually seen:
-                </p>
-                <ul class="list-disc pl-5 text-sm text-slate-600 space-y-1 mb-4">
-                    <li>Each question is tied to one or more specific chapters, not to vague “topics in the air”.</li>
-                    <li>There are checks to make sure the correct answer matches the explanation and is actually supported by the relevant chapter.</li>
-                    <li>Questions that don’t clearly belong anywhere, or that can’t be fixed cleanly, are dropped rather than forced in.</li>
-                </ul>
-                <p class="text-sm text-slate-600">
-                    This reduces the risk of students being quizzed on material you never intended to teach—or answers that sound clever but aren’t grounded in your course.
-                </p>
-            </section>
+                <div class="product-section__image">
+                    <div id="hallucinations-notes-carousel" data-carousel data-carousel-fullscreen class="relative">
+                        <div
+                            data-carousel-track
+                            class="border-2 border-dashed border-slate-300 rounded-3xl p-3 bg-slate-50 overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar">
+                            <div class="flex gap-3">
+                                <!-- AI-generated diagram: Maker-checker process -->
+                                <figure data-carousel-slide class="min-w-full snap-center carousel-snap-stop">
+                                    <div
+                                        class="rounded-2xl bg-white border border-slate-200 overflow-hidden"
+                                        title="Maker-checker process diagram: Two-lane flow showing 'Draft' lane (document + pen icons) feeding into 'Check' lane (magnifying glass + shield icons), with decision branches leading to 'Mark Verified' (green checkmark) or 'Flag for review' (amber flag). Clean, professional diagram style suitable for educational content marketing. Use finance/productivity domain examples if needed, avoid yoga/wellness imagery.">
+                                        <!-- PROMPT: Create a professional two-lane diagram titled 'Maker → Checker'. Top lane labeled 'Draft' with icons for a document and pen; bottom lane labeled 'Check' with icons for a magnifying glass and shield. Arrows show 'Draft notes' → 'Check against lecture' → either 'Mark Verified' with a green check or 'Flag for review' with an amber flag. Keep labels in plain language ('Draft', 'Check', 'Flag for review') with no technical terms. Use a clean, modern design suitable for educational content marketing. -->
+                                        <div class="aspect-[16/9] bg-white flex items-center justify-center border-2 border-dashed border-slate-300 rounded-xl m-2">
+                                            <div class="text-center">
+                                                <span class="material-symbols-rounded text-slate-400 text-6xl mb-2">auto_awesome</span>
+                                                <p class="text-sm font-semibold text-slate-700 mb-1">Maker-checker process diagram</p>
+                                                <p class="text-xs text-slate-500">[AI-generated image placeholder]</p>
+                                            </div>
+                                        </div>
+                                        <figcaption class="p-4 bg-slate-50 border-t border-slate-200">
+                                            <p class="text-sm font-semibold text-slate-800 mb-1">Maker-checker process</p>
+                                            <p class="text-sm text-slate-600">Two-step verification: draft notes first, then a separate check for accuracy and alignment with your teaching.</p>
+                                        </figcaption>
+                                    </div>
+                                </figure>
 
-            <!-- Chapters & slides -->
-            <section class="mb-12">
-                <h2 class="text-xl font-semibold text-slate-900 mb-3">3. Chapters and slides that match what’s actually on screen</h2>
-                <p class="text-sm text-slate-600 mb-4">
-                    Spark doesn’t just trust the first guess about where chapters begin and end. It cross‑checks suggested boundaries against the real transcript, and if something looks out of order, it runs a dedicated fix‑up step instead of silently slicing the video in the wrong place.
-                </p>
-                <p class="text-sm text-slate-600 mb-4">
-                    The same spirit applies to slides and key frames: visual duplicates are detected and removed, and if Spark can’t find any usable slides for a chapter, it surfaces that as a visible issue rather than pretending everything is fine.
-                </p>
+                                <!-- Screenshot placeholder: Study notes review interface -->
+                                <figure data-carousel-slide class="min-w-full snap-center carousel-snap-stop">
+                                    <div
+                                        class="rounded-2xl bg-white border border-slate-200 overflow-hidden"
+                                        title="Study notes review interface showing a chapter with notes marked 'Verified' (green checkmark) and another marked 'Needs review' (amber warning badge), demonstrating how Spark surfaces uncertain content instead of hiding it">
+                                        <div class="aspect-[16/9] bg-white flex items-center justify-center border-2 border-dashed border-slate-300 rounded-xl m-2">
+                                            <div class="text-center">
+                                                <span class="material-symbols-rounded text-slate-400 text-6xl mb-2">screenshot</span>
+                                                <p class="text-sm font-semibold text-slate-700 mb-1">Study notes review interface</p>
+                                                <p class="text-xs text-slate-500">[Screenshot placeholder]</p>
+                                            </div>
+                                        </div>
+                                        <figcaption class="p-4 bg-slate-50 border-t border-slate-200">
+                                            <p class="text-sm font-semibold text-slate-800 mb-1">Review interface</p>
+                                            <p class="text-sm text-slate-600">Notes that need attention are clearly marked—you see issues before students do.</p>
+                                        </figcaption>
+                                    </div>
+                                </figure>
+                            </div>
+                        </div>
 
-                <div
-                    class="mt-4 border-2 border-dashed border-slate-300 rounded-2xl p-4 bg-slate-50"
-                    title="Screenshot prompt: A 'chapter editor' view showing a timeline with two chapter boundaries being adjusted, plus a panel listing chapters with start/end times. Include a small warning badge on a chapter labeled 'Boundary adjusted – please review' to illustrate that Spark calls out issues instead of hiding them.">
-                    <p class="text-sm font-semibold text-slate-700 mb-1">[Screenshot placeholder]</p>
-                    <p class="text-sm text-slate-500">
-                        Hover for a detailed prompt for the “chapter boundary review” screenshot.
+                        <div class="mt-3 flex items-center justify-center gap-3">
+                            <button
+                                type="button"
+                                data-carousel-prev
+                                aria-label="Previous image"
+                                class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/70 backdrop-blur-sm border border-slate-200 text-slate-700 shadow-sm hover:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2">
+                                <span class="material-symbols-rounded text-[18px] leading-none">chevron_left</span>
+                            </button>
+                            <div data-carousel-dots class="flex items-center justify-center gap-2">
+                                <button type="button" data-carousel-dot="0" aria-label="Go to image 1" class="w-2.5 h-2.5 rounded-full bg-brand-600"></button>
+                                <button type="button" data-carousel-dot="1" aria-label="Go to image 2" class="w-2.5 h-2.5 rounded-full bg-slate-300"></button>
+                            </div>
+                            <button
+                                type="button"
+                                data-carousel-next
+                                aria-label="Next image"
+                                class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/70 backdrop-blur-sm border border-slate-200 text-slate-700 shadow-sm hover:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2">
+                                <span class="material-symbols-rounded text-[18px] leading-none">chevron_right</span>
+                            </button>
+                        </div>
+                        <p class="mt-2 text-xs text-slate-500 text-center">Tap an image to view it full screen.</p>
+                    </div>
+                </div>
+
+                <div class="product-section__metrics bg-brand-50 border border-brand-100 rounded-2xl p-6">
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-rounded text-brand-600 mt-0.5">check_circle</span>
+                            <p class="text-base font-medium text-slate-900">Two-pass system: generation first, then verification for accuracy and alignment.</p>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-rounded text-brand-600 mt-0.5">check_circle</span>
+                            <p class="text-base font-medium text-slate-900">Automatic correction attempts before flagging—fixes what it can, surfaces what it can't.</p>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-rounded text-brand-600 mt-0.5">check_circle</span>
+                            <p class="text-base font-medium text-slate-900">Broken formulas, strange characters, and unclear content get flagged for your review.</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="product-section__links">
+                    <a href="#top" class="text-sm font-semibold text-brand-600 hover:text-brand-700">Back to top ↑</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2) Quizzes -->
+        <section id="hallucinations-quizzes" class="mb-24 scroll-mt-24">
+            <div class="grid md:grid-cols-2 gap-4 md:gap-12 items-start product-section product-section--image-left">
+                <div class="product-section__intro">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-4">
+                        <span class="inline-flex items-start gap-2">
+                            <span class="material-symbols-rounded text-slate-900">quiz</span>
+                            <span>Quizzes anchored in real chapters</span>
+                        </span>
+                    </h2>
+                    <p class="text-base text-slate-600 leading-relaxed">
+                        Spark's quizzes are designed to be answerable from the material your students have actually seen. Each question is tied to one or more specific chapters, not to vague "topics in the air."
+                    </p>
+                    <p class="mt-5 text-base text-slate-600 leading-relaxed">
+                        There are checks to make sure the correct answer matches the explanation and is actually supported by the relevant chapter. Questions that don't clearly belong anywhere, or that can't be fixed cleanly, are dropped rather than forced in.
                     </p>
                 </div>
-            </section>
 
-            <!-- Tutor grounding -->
-            <section>
-                <h2 class="text-xl font-semibold text-slate-900 mb-3">4. A tutor that knows its place</h2>
-                <p class="text-sm text-slate-600 mb-4">
-                    The course tutor is intentionally narrow‑minded: it answers from your course, not from the open internet. Every reply is based on notes and chapters that were indexed beforehand, and those same snippets are surfaced back to the student as gentle references.
-                </p>
-                <p class="text-sm text-slate-600 mb-4">
-                    If a question falls completely outside the course, the tutor is encouraged to say so and redirect the student, instead of inventing an answer just to be helpful.
-                </p>
-                <p class="text-sm text-slate-600">
-                    The end result is a tool you can trust to be an extension of your teaching style, not a separate voice with its own agenda.
-                </p>
-            </section>
-        </div>
-    </section>
+                <div class="product-section__image">
+                    <div id="hallucinations-quizzes-carousel" data-carousel data-carousel-fullscreen class="relative">
+                        <div
+                            data-carousel-track
+                            class="border-2 border-dashed border-slate-300 rounded-3xl p-3 bg-slate-50 overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar">
+                            <div class="flex gap-3">
+                                <!-- AI-generated diagram: Quiz generation and verification process -->
+                                <figure data-carousel-slide class="min-w-full snap-center carousel-snap-stop">
+                                    <div
+                                        class="rounded-2xl bg-white border border-slate-200 overflow-hidden"
+                                        title="Quiz generation and verification process diagram: Flow showing 'Generate question from chapter' → 'Verify answer supported by chapter' → 'Verify explanation matches answer' → either 'Accept question' (green checkmark) or 'Drop question' (red X). Show chapter titles and question examples in a clean, professional style suitable for educational content marketing.">
+                                        <!-- PROMPT: Create a professional flow diagram showing quiz question generation and verification. Flow: 'Generate question from chapter' (document icon) → 'Verify answer supported by chapter' (shield + checkmark) → 'Verify explanation matches answer' (magnifying glass) → decision branch to either 'Accept question' (green checkmark) or 'Drop question' (red X). Include example chapter titles and question types. Use a clean, modern design suitable for educational content marketing. Avoid technical jargon. -->
+                                        <div class="aspect-[16/9] bg-white flex items-center justify-center border-2 border-dashed border-slate-300 rounded-xl m-2">
+                                            <div class="text-center">
+                                                <span class="material-symbols-rounded text-slate-400 text-6xl mb-2">auto_awesome</span>
+                                                <p class="text-sm font-semibold text-slate-700 mb-1">Quiz verification process diagram</p>
+                                                <p class="text-xs text-slate-500">[AI-generated image placeholder]</p>
+                                            </div>
+                                        </div>
+                                        <figcaption class="p-4 bg-slate-50 border-t border-slate-200">
+                                            <p class="text-sm font-semibold text-slate-800 mb-1">Question verification</p>
+                                            <p class="text-sm text-slate-600">Every question is checked against its source chapter—answer and explanation must align with what you actually taught.</p>
+                                        </figcaption>
+                                    </div>
+                                </figure>
+
+                                <!-- Screenshot placeholder: Quiz question with chapter reference -->
+                                <figure data-carousel-slide class="min-w-full snap-center carousel-snap-stop">
+                                    <div
+                                        class="rounded-2xl bg-white border border-slate-200 overflow-hidden"
+                                        title="Quiz interface showing a question with 'Chapter: Introduction to Investment Strategies' clearly displayed, demonstrating how questions are anchored to specific content students have seen">
+                                        <div class="aspect-[16/9] bg-white flex items-center justify-center border-2 border-dashed border-slate-300 rounded-xl m-2">
+                                            <div class="text-center">
+                                                <span class="material-symbols-rounded text-slate-400 text-6xl mb-2">screenshot</span>
+                                                <p class="text-sm font-semibold text-slate-700 mb-1">Quiz question with chapter anchor</p>
+                                                <p class="text-xs text-slate-500">[Screenshot placeholder]</p>
+                                            </div>
+                                        </div>
+                                        <figcaption class="p-4 bg-slate-50 border-t border-slate-200">
+                                            <p class="text-sm font-semibold text-slate-800 mb-1">Chapter-anchored questions</p>
+                                            <p class="text-sm text-slate-600">Students see which chapter each question comes from—no guessing whether you covered this material.</p>
+                                        </figcaption>
+                                    </div>
+                                </figure>
+                            </div>
+                        </div>
+
+                        <div class="mt-3 flex items-center justify-center gap-3">
+                            <button
+                                type="button"
+                                data-carousel-prev
+                                aria-label="Previous image"
+                                class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/70 backdrop-blur-sm border border-slate-200 text-slate-700 shadow-sm hover:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2">
+                                <span class="material-symbols-rounded text-[18px] leading-none">chevron_left</span>
+                            </button>
+                            <div data-carousel-dots class="flex items-center justify-center gap-2">
+                                <button type="button" data-carousel-dot="0" aria-label="Go to image 1" class="w-2.5 h-2.5 rounded-full bg-brand-600"></button>
+                                <button type="button" data-carousel-dot="1" aria-label="Go to image 2" class="w-2.5 h-2.5 rounded-full bg-slate-300"></button>
+                            </div>
+                            <button
+                                type="button"
+                                data-carousel-next
+                                aria-label="Next image"
+                                class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/70 backdrop-blur-sm border border-slate-200 text-slate-700 shadow-sm hover:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2">
+                                <span class="material-symbols-rounded text-[18px] leading-none">chevron_right</span>
+                            </button>
+                        </div>
+                        <p class="mt-2 text-xs text-slate-500 text-center">Tap an image to view it full screen.</p>
+                    </div>
+                </div>
+
+                <div class="product-section__metrics bg-brand-50 border border-brand-100 rounded-2xl p-6">
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-rounded text-brand-600 mt-0.5">check_circle</span>
+                            <p class="text-base font-medium text-slate-900">Every question linked to specific chapters—students know what they're being tested on.</p>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-rounded text-brand-600 mt-0.5">check_circle</span>
+                            <p class="text-base font-medium text-slate-900">Answer and explanation must match and be supported by the chapter content.</p>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-rounded text-brand-600 mt-0.5">check_circle</span>
+                            <p class="text-base font-medium text-slate-900">Questions that can't be fixed are dropped—no forcing content that doesn't fit.</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="product-section__links">
+                    <a href="#top" class="text-sm font-semibold text-brand-600 hover:text-brand-700">Back to top ↑</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3) Chapters & slides -->
+        <section id="hallucinations-chapters" class="mb-24 scroll-mt-24">
+            <div class="grid md:grid-cols-2 gap-4 md:gap-12 items-start product-section product-section--image-right">
+                <div class="product-section__intro">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-4">
+                        <span class="inline-flex items-start gap-2">
+                            <span class="material-symbols-rounded text-slate-900">account_tree</span>
+                            <span>Chapters and slides that match what's actually on screen</span>
+                        </span>
+                    </h2>
+                    <p class="text-base text-slate-600 leading-relaxed">
+                        Spark doesn't just trust the first guess about where chapters begin and end. It cross‑checks suggested boundaries against the real transcript, and if something looks out of order, it runs a dedicated fix‑up step instead of silently slicing the video in the wrong place.
+                    </p>
+                    <p class="mt-5 text-base text-slate-600 leading-relaxed">
+                        The same spirit applies to slides and key frames: visual duplicates are detected and removed, and if Spark can't find any usable slides for a chapter, it surfaces that as a visible issue rather than pretending everything is fine.
+                    </p>
+                </div>
+
+                <div class="product-section__image">
+                    <div id="hallucinations-chapters-carousel" data-carousel data-carousel-fullscreen class="relative">
+                        <div
+                            data-carousel-track
+                            class="border-2 border-dashed border-slate-300 rounded-3xl p-3 bg-slate-50 overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar">
+                            <div class="flex gap-3">
+                                <!-- Screenshot placeholder: Chapter boundary editor -->
+                                <figure data-carousel-slide class="min-w-full snap-center carousel-snap-stop">
+                                    <div
+                                        class="rounded-2xl bg-white border border-slate-200 overflow-hidden"
+                                        title="Chapter editor interface showing a timeline with chapter boundaries, with one chapter marked 'Boundary adjusted – please review' (amber warning badge), demonstrating how Spark calls out issues instead of hiding them">
+                                        <!-- PROMPT: Screenshot style image of a chapter editor interface. Show a timeline with two chapter boundaries being adjusted, plus a panel listing chapters with start/end times. Include a small warning badge on a chapter labeled 'Boundary adjusted – please review' to illustrate that Spark calls out issues instead of hiding them. Clean, professional interface design suitable for educational content marketing. -->
+                                        <div class="aspect-[16/9] bg-white flex items-center justify-center border-2 border-dashed border-slate-300 rounded-xl m-2">
+                                            <div class="text-center">
+                                                <span class="material-symbols-rounded text-slate-400 text-6xl mb-2">screenshot</span>
+                                                <p class="text-sm font-semibold text-slate-700 mb-1">Chapter boundary editor</p>
+                                                <p class="text-xs text-slate-500">[Screenshot placeholder]</p>
+                                            </div>
+                                        </div>
+                                        <figcaption class="p-4 bg-slate-50 border-t border-slate-200">
+                                            <p class="text-sm font-semibold text-slate-800 mb-1">Boundary verification</p>
+                                            <p class="text-sm text-slate-600">Spark cross-checks chapter boundaries and flags adjustments for your review—no silent errors.</p>
+                                        </figcaption>
+                                    </div>
+                                </figure>
+
+                                <!-- AI-generated diagram: Visual duplicate detection -->
+                                <figure data-carousel-slide class="min-w-full snap-center carousel-snap-stop">
+                                    <div
+                                        class="rounded-2xl bg-white border border-slate-200 overflow-hidden"
+                                        title="Visual duplicate detection diagram: Side-by-side comparison of two similar slides with a 'Duplicate detected' overlay and one slide marked for removal, showing how Spark identifies and removes redundant visual content">
+                                        <!-- PROMPT: Create a professional diagram showing visual duplicate detection. Show two similar slides side-by-side with a 'Duplicate detected' overlay and a removal indicator (red X or removal arrow). Include a flow showing 'Detect duplicates' → 'Compare visual similarity' → 'Remove redundant content'. Use a clean, modern design suitable for educational content marketing. -->
+                                        <div class="aspect-[16/9] bg-white flex items-center justify-center border-2 border-dashed border-slate-300 rounded-xl m-2">
+                                            <div class="text-center">
+                                                <span class="material-symbols-rounded text-slate-400 text-6xl mb-2">auto_awesome</span>
+                                                <p class="text-sm font-semibold text-slate-700 mb-1">Visual duplicate detection diagram</p>
+                                                <p class="text-xs text-slate-500">[AI-generated image placeholder]</p>
+                                            </div>
+                                        </div>
+                                        <figcaption class="p-4 bg-slate-50 border-t border-slate-200">
+                                            <p class="text-sm font-semibold text-slate-800 mb-1">Duplicate detection</p>
+                                            <p class="text-sm text-slate-600">Visual duplicates are automatically detected and removed—students see unique, meaningful content.</p>
+                                        </figcaption>
+                                    </div>
+                                </figure>
+                            </div>
+                        </div>
+
+                        <div class="mt-3 flex items-center justify-center gap-3">
+                            <button
+                                type="button"
+                                data-carousel-prev
+                                aria-label="Previous image"
+                                class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/70 backdrop-blur-sm border border-slate-200 text-slate-700 shadow-sm hover:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2">
+                                <span class="material-symbols-rounded text-[18px] leading-none">chevron_left</span>
+                            </button>
+                            <div data-carousel-dots class="flex items-center justify-center gap-2">
+                                <button type="button" data-carousel-dot="0" aria-label="Go to image 1" class="w-2.5 h-2.5 rounded-full bg-brand-600"></button>
+                                <button type="button" data-carousel-dot="1" aria-label="Go to image 2" class="w-2.5 h-2.5 rounded-full bg-slate-300"></button>
+                            </div>
+                            <button
+                                type="button"
+                                data-carousel-next
+                                aria-label="Next image"
+                                class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/70 backdrop-blur-sm border border-slate-200 text-slate-700 shadow-sm hover:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2">
+                                <span class="material-symbols-rounded text-[18px] leading-none">chevron_right</span>
+                            </button>
+                        </div>
+                        <p class="mt-2 text-xs text-slate-500 text-center">Tap an image to view it full screen.</p>
+                    </div>
+                </div>
+
+                <div class="product-section__metrics bg-brand-50 border border-brand-100 rounded-2xl p-6">
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-rounded text-brand-600 mt-0.5">check_circle</span>
+                            <p class="text-base font-medium text-slate-900">Chapter boundaries cross-checked against transcripts—fixes applied automatically when needed.</p>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-rounded text-brand-600 mt-0.5">check_circle</span>
+                            <p class="text-base font-medium text-slate-900">Visual duplicates detected and removed—no redundant slides cluttering the course.</p>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-rounded text-brand-600 mt-0.5">check_circle</span>
+                            <p class="text-base font-medium text-slate-900">Missing slides flagged as issues—you see problems before students encounter them.</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="product-section__links">
+                    <a href="#top" class="text-sm font-semibold text-brand-600 hover:text-brand-700">Back to top ↑</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4) Tutor grounding -->
+        <section id="hallucinations-tutor" class="mb-4 scroll-mt-24">
+            <div class="grid md:grid-cols-2 gap-4 md:gap-12 items-start product-section product-section--image-left">
+                <div class="product-section__intro">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-4">
+                        <span class="inline-flex items-start gap-2">
+                            <span class="material-symbols-rounded text-slate-900">forum</span>
+                            <span>A tutor that knows its place</span>
+                        </span>
+                    </h2>
+                    <p class="text-base text-slate-600 leading-relaxed">
+                        The course tutor is intentionally narrow‑minded: it answers from your course, not from the open internet. Every reply is based on notes and chapters that were indexed beforehand, and those same snippets are surfaced back to the student as gentle references.
+                    </p>
+                    <p class="mt-5 text-base text-slate-600 leading-relaxed">
+                        If a question falls completely outside the course, the tutor is encouraged to say so and redirect the student, instead of inventing an answer just to be helpful.
+                    </p>
+                </div>
+
+                <div class="product-section__image">
+                    <div id="hallucinations-tutor-carousel" data-carousel data-carousel-fullscreen class="relative">
+                        <div
+                            data-carousel-track
+                            class="border-2 border-dashed border-slate-300 rounded-3xl p-3 bg-slate-50 overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar">
+                            <div class="flex gap-3">
+                                <!-- AI-generated diagram: Grounded tutor system -->
+                                <figure data-carousel-slide class="min-w-full snap-center carousel-snap-stop">
+                                    <div
+                                        class="rounded-2xl bg-white border border-slate-200 overflow-hidden"
+                                        title="Grounded tutor system diagram: Student question → 'Search course content only' (shield icon) → 'Surface relevant chapter/notes' (document icons) → 'Answer based on indexed content' (checkmark) OR 'Question outside course scope' → 'Redirect student' (arrow). Show the boundary between course content (in scope) and external web (out of scope) with a clear visual separation">
+                                        <!-- PROMPT: Create a professional diagram showing a grounded tutor system. Flow: Student question → 'Search course content only' (shield icon with boundary) → 'Surface relevant chapter/notes' (document stack icons) → decision: either 'Answer from course' (green checkmark with course snippets) OR 'Question outside course' → 'Redirect student' (arrow pointing away with 'Not in course' label). Show a clear visual boundary between 'Course content' (allowed) and 'Open web' (blocked/out of scope). Use a clean, modern design suitable for educational content marketing. -->
+                                        <div class="aspect-[16/9] bg-white flex items-center justify-center border-2 border-dashed border-slate-300 rounded-xl m-2">
+                                            <div class="text-center">
+                                                <span class="material-symbols-rounded text-slate-400 text-6xl mb-2">auto_awesome</span>
+                                                <p class="text-sm font-semibold text-slate-700 mb-1">Grounded tutor system diagram</p>
+                                                <p class="text-xs text-slate-500">[AI-generated image placeholder]</p>
+                                            </div>
+                                        </div>
+                                        <figcaption class="p-4 bg-slate-50 border-t border-slate-200">
+                                            <p class="text-sm font-semibold text-slate-800 mb-1">Course-only answers</p>
+                                            <p class="text-sm text-slate-600">The tutor stays within your course universe—answers are grounded in what you actually taught.</p>
+                                        </figcaption>
+                                    </div>
+                                </figure>
+
+                                <!-- Screenshot placeholder: Tutor conversation with course references -->
+                                <figure data-carousel-slide class="min-w-full snap-center carousel-snap-stop">
+                                    <div
+                                        class="rounded-2xl bg-white border border-slate-200 overflow-hidden"
+                                        title="Tutor conversation interface showing a student question, tutor response with 'Based on: Chapter 3 - Investment Strategies' reference links, and a separate response for an out-of-scope question saying 'This question is outside the course material' with a redirect suggestion">
+                                        <div class="aspect-[16/9] bg-white flex items-center justify-center border-2 border-dashed border-slate-300 rounded-xl m-2">
+                                            <div class="text-center">
+                                                <span class="material-symbols-rounded text-slate-400 text-6xl mb-2">screenshot</span>
+                                                <p class="text-sm font-semibold text-slate-700 mb-1">Tutor conversation with references</p>
+                                                <p class="text-xs text-slate-500">[Screenshot placeholder]</p>
+                                            </div>
+                                        </div>
+                                        <figcaption class="p-4 bg-slate-50 border-t border-slate-200">
+                                            <p class="text-sm font-semibold text-slate-800 mb-1">Source transparency</p>
+                                            <p class="text-sm text-slate-600">Every answer shows which chapters or notes it came from—students know where the information originated.</p>
+                                        </figcaption>
+                                    </div>
+                                </figure>
+                            </div>
+                        </div>
+
+                        <div class="mt-3 flex items-center justify-center gap-3">
+                            <button
+                                type="button"
+                                data-carousel-prev
+                                aria-label="Previous image"
+                                class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/70 backdrop-blur-sm border border-slate-200 text-slate-700 shadow-sm hover:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2">
+                                <span class="material-symbols-rounded text-[18px] leading-none">chevron_left</span>
+                            </button>
+                            <div data-carousel-dots class="flex items-center justify-center gap-2">
+                                <button type="button" data-carousel-dot="0" aria-label="Go to image 1" class="w-2.5 h-2.5 rounded-full bg-brand-600"></button>
+                                <button type="button" data-carousel-dot="1" aria-label="Go to image 2" class="w-2.5 h-2.5 rounded-full bg-slate-300"></button>
+                            </div>
+                            <button
+                                type="button"
+                                data-carousel-next
+                                aria-label="Next image"
+                                class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/70 backdrop-blur-sm border border-slate-200 text-slate-700 shadow-sm hover:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2">
+                                <span class="material-symbols-rounded text-[18px] leading-none">chevron_right</span>
+                            </button>
+                        </div>
+                        <p class="mt-2 text-xs text-slate-500 text-center">Tap an image to view it full screen.</p>
+                    </div>
+                </div>
+
+                <div class="product-section__metrics bg-indigo-50 border border-indigo-100 rounded-2xl p-6">
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-rounded text-indigo-600 mt-0.5">verified</span>
+                            <p class="text-base font-medium text-slate-900">Answers constrained to your indexed course content—no open web hallucination.</p>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-rounded text-indigo-600 mt-0.5">link</span>
+                            <p class="text-base font-medium text-slate-900">Source chapters and notes surfaced with every answer—full transparency for students.</p>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-rounded text-indigo-600 mt-0.5">block</span>
+                            <p class="text-base font-medium text-slate-900">Out-of-scope questions get honest redirects—no inventing answers to be helpful.</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="product-section__links">
+                    <a href="#top" class="text-sm font-semibold text-indigo-700 hover:text-indigo-800">Back to top ↑</a>
+                </div>
+            </div>
+        </section>
+    </div>
 </main>
 
 </body>
 </html>
-
-
