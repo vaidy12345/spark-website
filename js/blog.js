@@ -210,9 +210,22 @@ function renderPosts(posts) {
     const errorEl = document.getElementById('blog-error');
 
     // Hide error and loading states FIRST, before any other logic
+    console.log('[spark-marketing][blog][DEBUG] renderPosts called', {
+        postsCount: posts ? posts.length : 0,
+        hasContentContainer: !!contentContainer,
+        hasErrorEl: !!errorEl,
+        errorElDisplay: errorEl ? window.getComputedStyle(errorEl).display : 'N/A',
+        errorElHidden: errorEl ? errorEl.classList.contains('hidden') : 'N/A',
+        isMobile: window.innerWidth < 1024
+    });
+    
     if (errorEl) {
         errorEl.classList.add('hidden');
         errorEl.style.display = 'none';
+        console.log('[spark-marketing][blog][DEBUG] Error element hidden', {
+            display: errorEl.style.display,
+            hasHiddenClass: errorEl.classList.contains('hidden')
+        });
     }
     if (loadingEl) {
         loadingEl.classList.add('hidden');
@@ -221,6 +234,12 @@ function renderPosts(posts) {
 
     if (!contentContainer || !latestPostContainer || !sidebarContainer || !mobilePostsContainer) {
         console.error('[spark-marketing][blog] Required containers not found');
+        console.log('[spark-marketing][blog][DEBUG] Showing error - containers missing', {
+            contentContainer: !!contentContainer,
+            latestPostContainer: !!latestPostContainer,
+            sidebarContainer: !!sidebarContainer,
+            mobilePostsContainer: !!mobilePostsContainer
+        });
         if (errorEl) {
             errorEl.classList.remove('hidden');
             errorEl.style.display = 'block';
@@ -229,6 +248,10 @@ function renderPosts(posts) {
     }
 
     if (!posts || posts.length === 0) {
+        console.log('[spark-marketing][blog][DEBUG] Showing error - no posts', {
+            posts: posts,
+            postsLength: posts ? posts.length : 0
+        });
         if (errorEl) {
             errorEl.classList.remove('hidden');
             errorEl.style.display = 'block';
@@ -241,6 +264,10 @@ function renderPosts(posts) {
 
     // Show content container
     contentContainer.classList.remove('hidden');
+    console.log('[spark-marketing][blog][DEBUG] Content container shown', {
+        hasHiddenClass: contentContainer.classList.contains('hidden'),
+        display: window.getComputedStyle(contentContainer).display
+    });
 
     // Clear existing content
     latestPostContainer.innerHTML = '';
@@ -426,6 +453,10 @@ async function fetchRSSFeed() {
 
     } catch (error) {
         console.error('[spark-marketing][blog] Error fetching RSS feed:', error);
+        console.log('[spark-marketing][blog][DEBUG] Showing error - fetch failed', {
+            error: error.message,
+            isMobile: window.innerWidth < 1024
+        });
         if (loadingEl) {
             loadingEl.classList.add('hidden');
             loadingEl.style.display = 'none';
@@ -433,6 +464,11 @@ async function fetchRSSFeed() {
         if (errorEl) {
             errorEl.classList.remove('hidden');
             errorEl.style.display = 'block';
+            console.log('[spark-marketing][blog][DEBUG] Error element displayed', {
+                display: errorEl.style.display,
+                hasHiddenClass: errorEl.classList.contains('hidden'),
+                computedDisplay: window.getComputedStyle(errorEl).display
+            });
         }
     }
 }
@@ -441,11 +477,19 @@ async function fetchRSSFeed() {
 function handleHashChange() {
     if (!allPosts || allPosts.length === 0) return;
     
+    // Ensure error element is hidden when showing content
+    const errorEl = document.getElementById('blog-error');
+    if (errorEl) {
+        errorEl.classList.add('hidden');
+        errorEl.style.display = 'none';
+    }
+    
     const hash = window.location.hash;
     const postMatch = hash.match(/^#post-(\d+)$/);
     const latestPostContainer = document.getElementById('blog-latest-post');
     const mobilePostContainer = document.getElementById('blog-mobile-selected-post');
     const mobilePostsContainer = document.getElementById('blog-mobile-posts');
+    const sidebarContainer = document.getElementById('blog-sidebar-posts');
     
     if (!latestPostContainer) return;
     

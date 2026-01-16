@@ -11,6 +11,23 @@
     <script src="js/layout.js"></script>
     <script src="js/blog.js"></script>
     <style>
+        /* CSS variables for consistent colors (matching Tailwind defaults) */
+        :root {
+            --blog-slate-900: #0f172a;
+            --blog-slate-800: #1e293b;
+            --blog-slate-700: #334155;
+            --blog-slate-600: #475569;
+            --blog-slate-500: #64748b;
+            --blog-slate-100: #f1f5f9;
+            --blog-slate-50: #f8fafc;
+            --blog-slate-200: #e2e8f0;
+            --blog-indigo-600: #4f46e5;
+            --blog-indigo-700: #4338ca;
+            --blog-scrollbar-thumb: #cbd5e1;
+            --blog-scrollbar-thumb-hover: #94a3b8;
+            --blog-scrollbar-track: #f1f5f9;
+        }
+        
         /* Blog post content styling */
         .blog-post-content {
             line-height: 1.75;
@@ -23,7 +40,7 @@
             font-weight: 800;
             margin-top: 1.5em;
             margin-bottom: 0.75em;
-            color: #0f172a;
+            color: var(--blog-slate-900);
             line-height: 1.2;
         }
         .blog-post-content h2 {
@@ -31,21 +48,21 @@
             font-weight: 700;
             margin-top: 1.5em;
             margin-bottom: 0.75em;
-            color: #0f172a;
+            color: var(--blog-slate-900);
         }
         .blog-post-content h3 {
             font-size: 1.25em;
             font-weight: 600;
             margin-top: 1.25em;
             margin-bottom: 0.5em;
-            color: #1e293b;
+            color: var(--blog-slate-800);
         }
         .blog-post-content h4 {
             font-size: 1.125em;
             font-weight: 600;
             margin-top: 1em;
             margin-bottom: 0.5em;
-            color: #334155;
+            color: var(--blog-slate-700);
         }
         .blog-post-content h5,
         .blog-post-content h6 {
@@ -53,7 +70,7 @@
             font-weight: 600;
             margin-top: 0.75em;
             margin-bottom: 0.5em;
-            color: #475569;
+            color: var(--blog-slate-600);
         }
         .blog-post-content ul,
         .blog-post-content ol {
@@ -64,11 +81,11 @@
             margin-bottom: 0.5em;
         }
         .blog-post-content a {
-            color: #4f46e5;
+            color: var(--blog-indigo-600);
             text-decoration: underline;
         }
         .blog-post-content a:hover {
-            color: #4338ca;
+            color: var(--blog-indigo-700);
         }
         .blog-post-content img {
             max-width: 100%;
@@ -77,21 +94,21 @@
             margin: 1.5em 0;
         }
         .blog-post-content blockquote {
-            border-left: 4px solid #e2e8f0;
+            border-left: 4px solid var(--blog-slate-200);
             padding-left: 1em;
             margin: 1.5em 0;
             font-style: italic;
-            color: #64748b;
+            color: var(--blog-slate-500);
         }
         .blog-post-content code {
-            background-color: #f1f5f9;
+            background-color: var(--blog-slate-100);
             padding: 0.125em 0.375em;
             border-radius: 0.25rem;
             font-size: 0.875em;
             font-family: 'Courier New', monospace;
         }
         .blog-post-content pre {
-            background-color: #f8fafc;
+            background-color: var(--blog-slate-50);
             padding: 1em;
             border-radius: 0.5rem;
             overflow-x: auto;
@@ -101,13 +118,50 @@
             background-color: transparent;
             padding: 0;
         }
+        
+        /* Sidebar scrollable posts list */
+        #blog-sidebar-posts {
+            max-height: calc(100vh - 200px);
+            overflow-y: auto;
+            overflow-x: hidden;
+            scrollbar-width: thin;
+            scrollbar-color: transparent transparent;
+        }
+        #blog-sidebar-posts::-webkit-scrollbar {
+            width: 6px;
+        }
+        #blog-sidebar-posts::-webkit-scrollbar-track {
+            background: transparent;
+            border-radius: 3px;
+        }
+        #blog-sidebar-posts::-webkit-scrollbar-thumb {
+            background: transparent;
+            border-radius: 3px;
+        }
+        
+        /* Show scrollbar on hover */
+        aside:hover #blog-sidebar-posts,
+        #blog-sidebar-posts:hover {
+            scrollbar-color: var(--blog-scrollbar-thumb) var(--blog-scrollbar-track);
+        }
+        aside:hover #blog-sidebar-posts::-webkit-scrollbar-track,
+        #blog-sidebar-posts:hover::-webkit-scrollbar-track {
+            background: var(--blog-scrollbar-track);
+        }
+        aside:hover #blog-sidebar-posts::-webkit-scrollbar-thumb,
+        #blog-sidebar-posts:hover::-webkit-scrollbar-thumb {
+            background: var(--blog-scrollbar-thumb);
+        }
+        aside:hover #blog-sidebar-posts::-webkit-scrollbar-thumb:hover,
+        #blog-sidebar-posts:hover::-webkit-scrollbar-thumb:hover {
+            background: var(--blog-scrollbar-thumb-hover);
+        }
     </style>
 </head>
 <body class="preload-hidden bg-white text-slate-900 antialiased pt-16">
 
-    <section class="py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16">
+<main class="pt-20 pb-24">
+            <div class="text-center mb-16">
                 <h1 class="text-4xl font-extrabold text-slate-900 mb-6">The Spark Dispatch</h1>
                 <p class="text-xl text-slate-600">
                     Updates, insights, and stories about Spark and the world of online teaching.
@@ -162,8 +216,7 @@
                     </aside>
                 </div>
             </div>
-        </div>
-    </section>
+</main>
 
 </body>
 </html>

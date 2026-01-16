@@ -5,58 +5,503 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spark – Content Ownership</title>
     <meta name="description" content="A clear, simple stance: you own your recordings and everything Spark generates from them.">
-    <script src="../js/layout.js"></script>
+    <link rel="stylesheet" href="../css/tailwind.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0,0" rel="stylesheet" />
+    <script src="../js/layout.js"></script>
+    <script src="../js/components/carousel.js" defer></script>
 </head>
-<body class="bg-white text-slate-900 antialiased pt-16">
+<body class="preload-hidden bg-white text-slate-900 antialiased pt-16">
 
 <main class="pt-20 pb-24">
-    <section>
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div id="top" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Hero -->
+        <section class="mb-16">
             <p class="text-sm font-semibold tracking-[0.18em] uppercase text-brand-600 mb-3">Content ownership</p>
-            <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4">
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-6 leading-tight">
                 Your content stays yours. Full stop.
             </h1>
-            <p class="text-lg text-slate-600 mb-8">
-                Spark ingests your recordings and generates chapters, notes, slides, quizzes, and tutor answers from them. None of that changes the basic rule: it’s still your intellectual property.
+            <p class="text-lg text-slate-600 leading-relaxed">
+                Spark turns your recordings into chapters, notes, slides, quizzes, and a tutor. Every piece of that—original and generated—remains your intellectual property. We host it, serve it, and help you improve it. We don't sell it, share it, or use it to train models for others.
             </p>
+        </section>
 
-            <section class="mb-8">
-                <h2 class="text-xl font-semibold text-slate-900 mb-2">What you keep</h2>
-                <ul class="list-disc pl-5 text-sm text-slate-600 space-y-1">
-                    <li><span class="font-semibold text-slate-800">Your original recordings</span> – every video or audio file you upload or connect.</li>
-                    <li><span class="font-semibold text-slate-800">All derived learning material</span> – chapters, sectioned clips, study notes, slides, quizzes, and tutor responses produced from your content.</li>
-                    <li><span class="font-semibold text-slate-800">The structured “map” of your courses</span> – outlines, chapter structures, and other metadata that describe how your teaching is organized.</li>
-                </ul>
-            </section>
+        <!-- Table of contents -->
+        <section class="mb-20">
+            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 sm:p-6">
+                <p class="text-center text-sm font-semibold uppercase tracking-widest text-slate-500 mb-6">Jump to a section</p>
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    <a href="#ownership-what-you-own" class="flex items-start gap-3 p-3 rounded-xl hover:bg-white hover:shadow-sm transition">
+                        <span class="material-symbols-rounded text-brand-600 mt-0.5">folder</span>
+                        <span class="text-sm font-semibold text-slate-900">What you own</span>
+                    </a>
+                    <a href="#ownership-what-spark-generates" class="flex items-start gap-3 p-3 rounded-xl hover:bg-white hover:shadow-sm transition">
+                        <span class="material-symbols-rounded text-brand-600 mt-0.5">auto_awesome</span>
+                        <span class="text-sm font-semibold text-slate-900">What Spark generates</span>
+                    </a>
+                    <a href="#ownership-how-spark-uses" class="flex items-start gap-3 p-3 rounded-xl hover:bg-white hover:shadow-sm transition">
+                        <span class="material-symbols-rounded text-brand-600 mt-0.5">settings</span>
+                        <span class="text-sm font-semibold text-slate-900">How Spark uses it</span>
+                    </a>
+                    <a href="#ownership-privacy" class="flex items-start gap-3 p-3 rounded-xl hover:bg-white hover:shadow-sm transition">
+                        <span class="material-symbols-rounded text-brand-600 mt-0.5">lock</span>
+                        <span class="text-sm font-semibold text-slate-900">Privacy & protection</span>
+                    </a>
+                    <a href="#ownership-portability" class="flex items-start gap-3 p-3 rounded-xl hover:bg-white hover:shadow-sm transition">
+                        <span class="material-symbols-rounded text-brand-600 mt-0.5">download</span>
+                        <span class="text-sm font-semibold text-slate-900">Portability & export</span>
+                    </a>
+                </div>
+            </div>
+        </section>
 
-            <section class="mb-8">
-                <h2 class="text-xl font-semibold text-slate-900 mb-2">What Spark does with it</h2>
-                <ul class="list-disc pl-5 text-sm text-slate-600 space-y-1">
-                    <li>Hosts and serves your content to the students you authorize.</li>
-                    <li>Uses it to power features you explicitly turn on (courses, quizzes, tutor, search across your own material).</li>
-                    <li>Stores enough data to keep things running smoothly and to help you improve the learning experience over time.</li>
-                </ul>
-                <p class="text-sm text-slate-600 mt-3">
-                    Spark does <span class="font-semibold text-slate-800">not</span> repackage your content as a generic library, sell it to other teachers, or blend it into a shared pool that others can draw from.
-                </p>
-            </section>
+        <!-- 1) What you own -->
+        <section id="ownership-what-you-own" class="mb-24 scroll-mt-24">
+            <div class="grid md:grid-cols-2 gap-4 md:gap-12 items-start product-section product-section--image-right">
+                <div class="product-section__intro">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-4">
+                        <span class="inline-flex items-start gap-2">
+                            <span class="material-symbols-rounded text-slate-900">folder</span>
+                            <span>What you own</span>
+                        </span>
+                    </h2>
+                    <p class="text-base text-slate-600 leading-relaxed">
+                        Every video you upload, every recording you connect, and everything Spark generates from them—chapters, notes, slides, quizzes, tutor knowledge bases—belongs to you. Not us. Not a shared pool. You.
+                    </p>
+                </div>
 
-            <section>
-                <h2 class="text-xl font-semibold text-slate-900 mb-2">Portability and future‑proofing</h2>
-                <p class="text-sm text-slate-600 mb-3">
-                    As your needs evolve, you should be able to carry your work with you. Spark is being designed so that structured representations of your courses and assessments can be exported and reused elsewhere where appropriate.
-                </p>
-                <p class="text-sm text-slate-600">
-                    Put simply: Spark is the engine and the rails; the content and the value of that content are yours.
-                </p>
-            </section>
-        </div>
-    </section>
+                <div class="product-section__image">
+                    <div id="ownership-what-you-own-carousel" data-carousel data-carousel-fullscreen class="relative">
+                        <div
+                            data-carousel-track
+                            class="border-2 border-dashed border-slate-300 rounded-3xl p-3 bg-slate-50 overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar">
+                            <div class="flex gap-3">
+                                <figure data-carousel-slide class="min-w-full snap-center carousel-snap-stop">
+                                    <div
+                                        class="rounded-2xl bg-white border border-slate-200 overflow-hidden"
+                                        title="Content ownership diagram showing original recordings, generated chapters, study notes, slides, quizzes, and tutor knowledge bases all flowing to 'Your Intellectual Property'">
+                                        <div class="aspect-[16/9] bg-white">
+                                            <img
+                                                src="../images/product/content-ownership/what-you-own-diagram.jpg"
+                                                alt="Content ownership diagram showing original recordings and all generated content flowing to your intellectual property"
+                                                class="w-full h-full object-cover sm:object-center cursor-zoom-in">
+                                        </div>
+                                        <figcaption class="p-4 bg-slate-50 border-t border-slate-200">
+                                            <p class="text-sm font-semibold text-slate-800 mb-1">Ownership flow</p>
+                                            <p class="text-sm text-slate-600">Original recordings and all generated content—chapters, notes, slides, quizzes, tutor knowledge—remain your intellectual property.</p>
+                                        </figcaption>
+                                    </div>
+                                </figure>
+                            </div>
+                        </div>
+
+                        <div class="mt-3 flex items-center justify-center gap-3">
+                            <button
+                                type="button"
+                                data-carousel-prev
+                                aria-label="Previous image"
+                                class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/70 backdrop-blur-sm border border-slate-200 text-slate-700 shadow-sm hover:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2">
+                                <span class="material-symbols-rounded text-[18px] leading-none">chevron_left</span>
+                            </button>
+                            <div data-carousel-dots class="flex items-center justify-center gap-2">
+                                <button type="button" data-carousel-dot="0" aria-label="Go to image 1" class="w-2.5 h-2.5 rounded-full bg-brand-600"></button>
+                            </div>
+                            <button
+                                type="button"
+                                data-carousel-next
+                                aria-label="Next image"
+                                class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/70 backdrop-blur-sm border border-slate-200 text-slate-700 shadow-sm hover:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2">
+                                <span class="material-symbols-rounded text-[18px] leading-none">chevron_right</span>
+                            </button>
+                        </div>
+                        <p class="mt-2 text-xs text-slate-500 text-center">Tap an image to view it full screen.</p>
+                    </div>
+                </div>
+
+                <div class="product-section__metrics bg-brand-50 border border-brand-100 rounded-2xl p-6">
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-rounded text-brand-600 mt-0.5">check_circle</span>
+                            <p class="text-base font-medium text-slate-900">Original recordings: every video or audio file you upload or connect via Zoom, YouTube, or Google Drive.</p>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-rounded text-brand-600 mt-0.5">check_circle</span>
+                            <p class="text-base font-medium text-slate-900">Generated content: chapters, polished video clips, study notes, extracted slides, quizzes, and tutor knowledge bases.</p>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-rounded text-brand-600 mt-0.5">check_circle</span>
+                            <p class="text-base font-medium text-slate-900">Course structure: module organization, chapter metadata, outlines, and the complete "map" of how your teaching is organized.</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="product-section__links">
+                    <a href="#top" class="text-sm font-semibold text-brand-600 hover:text-brand-700">Back to top ↑</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2) What Spark generates -->
+        <section id="ownership-what-spark-generates" class="mb-24 scroll-mt-24">
+            <div class="grid md:grid-cols-2 gap-4 md:gap-12 items-start product-section product-section--image-left">
+                <div class="product-section__intro">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-4">
+                        <span class="inline-flex items-start gap-2">
+                            <span class="material-symbols-rounded text-slate-900">auto_awesome</span>
+                            <span>What Spark generates (and you own it all)</span>
+                        </span>
+                    </h2>
+                    <p class="text-base text-slate-600 leading-relaxed">
+                        Spark's pipeline turns one long recording into a structured course: chapters, notes, slides, quizzes, and a tutor. Every piece of generated content is created from your teaching—and every piece belongs to you.
+                    </p>
+                </div>
+
+                <div class="product-section__image">
+                    <div id="ownership-what-spark-generates-carousel" data-carousel data-carousel-fullscreen class="relative">
+                        <div
+                            data-carousel-track
+                            class="border-2 border-dashed border-slate-300 rounded-3xl p-3 bg-slate-50 overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar">
+                            <div class="flex gap-3">
+                                <figure data-carousel-slide class="min-w-full snap-center carousel-snap-stop">
+                                    <div
+                                        class="rounded-2xl bg-white border border-slate-200 overflow-hidden"
+                                        title="Spark generation pipeline diagram showing video input flowing through transcription, chapterization, note generation, slide extraction, quiz creation, and tutor knowledge base building">
+                                        <div class="aspect-[16/9] bg-white">
+                                            <img
+                                                src="../images/product/content-ownership/generation-pipeline-diagram.jpg"
+                                                alt="Spark generation pipeline diagram showing how recordings become structured course content"
+                                                class="w-full h-full object-cover sm:object-center cursor-zoom-in">
+                                        </div>
+                                        <figcaption class="p-4 bg-slate-50 border-t border-slate-200">
+                                            <p class="text-sm font-semibold text-slate-800 mb-1">Generation pipeline</p>
+                                            <p class="text-sm text-slate-600">From one recording to chapters, notes, slides, quizzes, and a tutor—all generated from your content, all yours to own.</p>
+                                        </figcaption>
+                                    </div>
+                                </figure>
+                            </div>
+                        </div>
+
+                        <div class="mt-3 flex items-center justify-center gap-3">
+                            <button
+                                type="button"
+                                data-carousel-prev
+                                aria-label="Previous image"
+                                class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/70 backdrop-blur-sm border border-slate-200 text-slate-700 shadow-sm hover:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2">
+                                <span class="material-symbols-rounded text-[18px] leading-none">chevron_left</span>
+                            </button>
+                            <div data-carousel-dots class="flex items-center justify-center gap-2">
+                                <button type="button" data-carousel-dot="0" aria-label="Go to image 1" class="w-2.5 h-2.5 rounded-full bg-brand-600"></button>
+                            </div>
+                            <button
+                                type="button"
+                                data-carousel-next
+                                aria-label="Next image"
+                                class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/70 backdrop-blur-sm border border-slate-200 text-slate-700 shadow-sm hover:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2">
+                                <span class="material-symbols-rounded text-[18px] leading-none">chevron_right</span>
+                            </button>
+                        </div>
+                        <p class="mt-2 text-xs text-slate-500 text-center">Tap an image to view it full screen.</p>
+                    </div>
+                </div>
+
+                <div class="product-section__metrics bg-brand-50 border border-brand-100 rounded-2xl p-6">
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-rounded text-brand-600 mt-0.5">check_circle</span>
+                            <p class="text-base font-medium text-slate-900">Chapters: AI-identified sections with polished boundaries, organized into modules.</p>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-rounded text-brand-600 mt-0.5">check_circle</span>
+                            <p class="text-base font-medium text-slate-900">Study notes: verified, chapter-level notes with formulas, examples, and key takeaways.</p>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-rounded text-brand-600 mt-0.5">check_circle</span>
+                            <p class="text-base font-medium text-slate-900">Slides: extracted presentation slides from your videos, organized by chapter.</p>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-rounded text-brand-600 mt-0.5">check_circle</span>
+                            <p class="text-base font-medium text-slate-900">Quizzes: grounded questions aligned to your teaching, with Bloom-level progression.</p>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-rounded text-brand-600 mt-0.5">check_circle</span>
+                            <p class="text-base font-medium text-slate-900">Tutor knowledge base: vector embeddings and structured content that power your course-specific tutor.</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="product-section__links">
+                    <a href="#top" class="text-sm font-semibold text-brand-600 hover:text-brand-700">Back to top ↑</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3) How Spark uses your content -->
+        <section id="ownership-how-spark-uses" class="mb-24 scroll-mt-24">
+            <div class="grid md:grid-cols-2 gap-4 md:gap-12 items-start product-section product-section--image-right">
+                <div class="product-section__intro">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-4">
+                        <span class="inline-flex items-start gap-2">
+                            <span class="material-symbols-rounded text-slate-900">settings</span>
+                            <span>How Spark uses your content</span>
+                        </span>
+                    </h2>
+                    <p class="text-base text-slate-600 leading-relaxed">
+                        Spark hosts your content, serves it to your students, and uses it to power the features you enable. We don't repackage it, sell it, or blend it into a shared pool.
+                    </p>
+                </div>
+
+                <div class="product-section__image">
+                    <div id="ownership-how-spark-uses-carousel" data-carousel data-carousel-fullscreen class="relative">
+                        <div
+                            data-carousel-track
+                            class="border-2 border-dashed border-slate-300 rounded-3xl p-3 bg-slate-50 overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar">
+                            <div class="flex gap-3">
+                                <figure data-carousel-slide class="min-w-full snap-center carousel-snap-stop">
+                                    <div
+                                        class="rounded-2xl bg-white border border-slate-200 overflow-hidden"
+                                        title="Content usage boundaries diagram showing your content used only for hosting, serving to your students, powering your features, and analytics—with clear boundaries showing no selling, sharing, or training models for others">
+                                        <div class="aspect-[16/9] bg-white">
+                                            <img
+                                                src="../images/product/content-ownership/usage-boundaries-diagram.jpg"
+                                                alt="Content usage boundaries diagram showing how Spark uses your content only for your courses"
+                                                class="w-full h-full object-cover sm:object-center cursor-zoom-in">
+                                        </div>
+                                        <figcaption class="p-4 bg-slate-50 border-t border-slate-200">
+                                            <p class="text-sm font-semibold text-slate-800 mb-1">Usage boundaries</p>
+                                            <p class="text-sm text-slate-600">Your content powers your courses, tutor, and search—and stays within your account. Clear boundaries, no exceptions.</p>
+                                        </figcaption>
+                                    </div>
+                                </figure>
+                            </div>
+                        </div>
+
+                        <div class="mt-3 flex items-center justify-center gap-3">
+                            <button
+                                type="button"
+                                data-carousel-prev
+                                aria-label="Previous image"
+                                class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/70 backdrop-blur-sm border border-slate-200 text-slate-700 shadow-sm hover:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2">
+                                <span class="material-symbols-rounded text-[18px] leading-none">chevron_left</span>
+                            </button>
+                            <div data-carousel-dots class="flex items-center justify-center gap-2">
+                                <button type="button" data-carousel-dot="0" aria-label="Go to image 1" class="w-2.5 h-2.5 rounded-full bg-brand-600"></button>
+                            </div>
+                            <button
+                                type="button"
+                                data-carousel-next
+                                aria-label="Next image"
+                                class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/70 backdrop-blur-sm border border-slate-200 text-slate-700 shadow-sm hover:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2">
+                                <span class="material-symbols-rounded text-[18px] leading-none">chevron_right</span>
+                            </button>
+                        </div>
+                        <p class="mt-2 text-xs text-slate-500 text-center">Tap an image to view it full screen.</p>
+                    </div>
+                </div>
+
+                <div class="product-section__metrics bg-brand-50 border border-brand-100 rounded-2xl p-6">
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-rounded text-brand-600 mt-0.5">check_circle</span>
+                            <p class="text-base font-medium text-slate-900">Hosting and delivery: secure video streaming, adaptive playback, and access control for your students.</p>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-rounded text-brand-600 mt-0.5">check_circle</span>
+                            <p class="text-base font-medium text-slate-900">Feature enablement: powers your courses, quizzes, tutor, and knowledge base search—only when you turn them on.</p>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-rounded text-brand-600 mt-0.5">check_circle</span>
+                            <p class="text-base font-medium text-slate-900">Analytics and improvement: usage data to help you understand what's working and refine your teaching over time.</p>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-rounded text-red-600 mt-0.5">close</span>
+                            <p class="text-base font-medium text-slate-900">We do not sell your content, repackage it for other teachers, or blend it into a shared content library.</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="product-section__links">
+                    <a href="#top" class="text-sm font-semibold text-brand-600 hover:text-brand-700">Back to top ↑</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4) Privacy & protection -->
+        <section id="ownership-privacy" class="mb-24 scroll-mt-24">
+            <div class="grid md:grid-cols-2 gap-4 md:gap-12 items-start product-section product-section--image-left">
+                <div class="product-section__intro">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-4">
+                        <span class="inline-flex items-start gap-2">
+                            <span class="material-symbols-rounded text-slate-900">lock</span>
+                            <span>Privacy & protection</span>
+                        </span>
+                    </h2>
+                    <p class="text-base text-slate-600 leading-relaxed">
+                        Your content is not used to train generic AI models. It's not shared with other teachers. It stays within your account, powering only your courses and features.
+                    </p>
+                </div>
+
+                <div class="product-section__image">
+                    <div id="ownership-privacy-carousel" data-carousel data-carousel-fullscreen class="relative">
+                        <div
+                            data-carousel-track
+                            class="border-2 border-dashed border-slate-300 rounded-3xl p-3 bg-slate-50 overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar">
+                            <div class="flex gap-3">
+                                <figure data-carousel-slide class="min-w-full snap-center carousel-snap-stop">
+                                    <div
+                                        class="rounded-2xl bg-white border border-slate-200 overflow-hidden"
+                                        title="Privacy protection diagram showing your content isolated in your account, with clear boundaries preventing model training, sharing with others, or blending into shared pools">
+                                        <div class="aspect-[16/9] bg-white">
+                                            <img
+                                                src="../images/product/content-ownership/privacy-protection-diagram.jpg"
+                                                alt="Privacy protection diagram showing content isolation and protection boundaries"
+                                                class="w-full h-full object-cover sm:object-center cursor-zoom-in">
+                                        </div>
+                                        <figcaption class="p-4 bg-slate-50 border-t border-slate-200">
+                                            <p class="text-sm font-semibold text-slate-800 mb-1">Content isolation</p>
+                                            <p class="text-sm text-slate-600">Your content stays in your account, isolated from other teachers' content and protected from model training or sharing.</p>
+                                        </figcaption>
+                                    </div>
+                                </figure>
+                            </div>
+                        </div>
+
+                        <div class="mt-3 flex items-center justify-center gap-3">
+                            <button
+                                type="button"
+                                data-carousel-prev
+                                aria-label="Previous image"
+                                class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/70 backdrop-blur-sm border border-slate-200 text-slate-700 shadow-sm hover:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2">
+                                <span class="material-symbols-rounded text-[18px] leading-none">chevron_left</span>
+                            </button>
+                            <div data-carousel-dots class="flex items-center justify-center gap-2">
+                                <button type="button" data-carousel-dot="0" aria-label="Go to image 1" class="w-2.5 h-2.5 rounded-full bg-brand-600"></button>
+                            </div>
+                            <button
+                                type="button"
+                                data-carousel-next
+                                aria-label="Next image"
+                                class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/70 backdrop-blur-sm border border-slate-200 text-slate-700 shadow-sm hover:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2">
+                                <span class="material-symbols-rounded text-[18px] leading-none">chevron_right</span>
+                            </button>
+                        </div>
+                        <p class="mt-2 text-xs text-slate-500 text-center">Tap an image to view it full screen.</p>
+                    </div>
+                </div>
+
+                <div class="product-section__metrics bg-indigo-50 border border-indigo-100 rounded-2xl p-6">
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-rounded text-indigo-600 mt-0.5">verified</span>
+                            <p class="text-base font-medium text-slate-900">No model training: your content is not used to train generic AI models that other teachers can access.</p>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-rounded text-indigo-600 mt-0.5">verified</span>
+                            <p class="text-base font-medium text-slate-900">Account isolation: your content stays within your account and is never shared with or visible to other teachers.</p>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-rounded text-indigo-600 mt-0.5">verified</span>
+                            <p class="text-base font-medium text-slate-900">Grounded AI: your tutor and search features use only your content—not a shared knowledge base or generic web answers.</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="product-section__links">
+                    <a href="#top" class="text-sm font-semibold text-indigo-700 hover:text-indigo-800">Back to top ↑</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5) Portability & export -->
+        <section id="ownership-portability" class="mb-4 scroll-mt-24">
+            <div class="grid md:grid-cols-2 gap-4 md:gap-12 items-start product-section product-section--image-right">
+                <div class="product-section__intro">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-4">
+                        <span class="inline-flex items-start gap-2">
+                            <span class="material-symbols-rounded text-slate-900">download</span>
+                            <span>Portability & future-proofing</span>
+                        </span>
+                    </h2>
+                    <p class="text-base text-slate-600 leading-relaxed">
+                        As your needs evolve, you should be able to take your work with you. Spark is designed to support exporting your course structures, content, and assessments in standard formats that work with other learning platforms.
+                    </p>
+                </div>
+
+                <div class="product-section__image">
+                    <div id="ownership-portability-carousel" data-carousel data-carousel-fullscreen class="relative">
+                        <div
+                            data-carousel-track
+                            class="border-2 border-dashed border-slate-300 rounded-3xl p-3 bg-slate-50 overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar">
+                            <div class="flex gap-3">
+                                <figure data-carousel-slide class="min-w-full snap-center carousel-snap-stop">
+                                    <div
+                                        class="rounded-2xl bg-white border border-slate-200 overflow-hidden"
+                                        title="Export and portability diagram showing course content flowing to standard formats like SCORM, Common Cartridge, Moodle, Canvas, and downloadable JSON/HTML">
+                                        <div class="aspect-[16/9] bg-white">
+                                            <img
+                                                src="../images/product/content-ownership/export-portability-diagram.jpg"
+                                                alt="Export and portability diagram showing course content exported to standard LMS formats"
+                                                class="w-full h-full object-cover sm:object-center cursor-zoom-in">
+                                        </div>
+                                        <figcaption class="p-4 bg-slate-50 border-t border-slate-200">
+                                            <p class="text-sm font-semibold text-slate-800 mb-1">Export capabilities</p>
+                                            <p class="text-sm text-slate-600">Your courses can be exported to standard formats (SCORM, Common Cartridge, Moodle, Canvas) or downloaded as structured data.</p>
+                                        </figcaption>
+                                    </div>
+                                </figure>
+                            </div>
+                        </div>
+
+                        <div class="mt-3 flex items-center justify-center gap-3">
+                            <button
+                                type="button"
+                                data-carousel-prev
+                                aria-label="Previous image"
+                                class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/70 backdrop-blur-sm border border-slate-200 text-slate-700 shadow-sm hover:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2">
+                                <span class="material-symbols-rounded text-[18px] leading-none">chevron_left</span>
+                            </button>
+                            <div data-carousel-dots class="flex items-center justify-center gap-2">
+                                <button type="button" data-carousel-dot="0" aria-label="Go to image 1" class="w-2.5 h-2.5 rounded-full bg-brand-600"></button>
+                            </div>
+                            <button
+                                type="button"
+                                data-carousel-next
+                                aria-label="Next image"
+                                class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/70 backdrop-blur-sm border border-slate-200 text-slate-700 shadow-sm hover:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2">
+                                <span class="material-symbols-rounded text-[18px] leading-none">chevron_right</span>
+                            </button>
+                        </div>
+                        <p class="mt-2 text-xs text-slate-500 text-center">Tap an image to view it full screen.</p>
+                    </div>
+                </div>
+
+                <div class="product-section__metrics bg-brand-50 border border-brand-100 rounded-2xl p-6">
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-rounded text-brand-600 mt-0.5">check_circle</span>
+                            <p class="text-base font-medium text-slate-900">Standard formats: export to SCORM, Common Cartridge, and other industry-standard course packaging formats.</p>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-rounded text-brand-600 mt-0.5">check_circle</span>
+                            <p class="text-base font-medium text-slate-900">LMS integration: direct export to Moodle, Canvas, Blackboard, and other enterprise learning management systems.</p>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-rounded text-brand-600 mt-0.5">check_circle</span>
+                            <p class="text-base font-medium text-slate-900">Structured data: download your course structure, notes, quizzes, and metadata as JSON, HTML, or other machine-readable formats.</p>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-rounded text-brand-600 mt-0.5">check_circle</span>
+                            <p class="text-base font-medium text-slate-900">Future-proof: your content structure is designed to be portable, so you're never locked into a single platform.</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="product-section__links">
+                    <a href="#top" class="text-sm font-semibold text-brand-600 hover:text-brand-700">Back to top ↑</a>
+                </div>
+            </div>
+        </section>
+    </div>
 </main>
 
 </body>
 </html>
-
-

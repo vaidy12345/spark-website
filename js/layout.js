@@ -267,6 +267,41 @@ function createFooter() {
     return footer;
 }
 
+// Wrap main content in container
+function wrapMainContent() {
+    const main = document.querySelector('main');
+    if (!main) return;
+
+    // Check if container already exists (backward compatibility)
+    const existingContainer = main.querySelector('[class*="max-w-"]');
+    if (existingContainer) {
+        console.log('[spark-marketing] container already exists, skipping wrap');
+        return;
+    }
+
+    // Get container width from data attribute, default to '5xl'
+    const containerWidth = main.getAttribute('data-container-width') || '5xl';
+    const containerId = main.hasAttribute('data-container-id') ? main.getAttribute('data-container-id') : 'top';
+
+    // Create container div
+    const container = document.createElement('div');
+    container.id = containerId;
+    container.className = `max-w-${containerWidth} mx-auto px-4 sm:px-6 lg:px-8`;
+
+    // Move all child nodes into container
+    while (main.firstChild) {
+        container.appendChild(main.firstChild);
+    }
+
+    // Append container to main
+    main.appendChild(container);
+
+    console.log('[spark-marketing] wrapped main content in container', {
+        containerWidth,
+        containerId
+    });
+}
+
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
     console.log('[spark-marketing] DOMContentLoaded - init layout', {
@@ -279,6 +314,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Insert Header
     document.body.insertBefore(createHeader(), document.body.firstChild);
+    
+    // Wrap main content in container
+    wrapMainContent();
     
     // Insert Footer
     document.body.appendChild(createFooter());
