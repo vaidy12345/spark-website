@@ -35,10 +35,6 @@
                         <span class="material-symbols-rounded text-brand-600 mt-0.5">folder</span>
                         <span class="text-sm font-semibold text-slate-900">What you own</span>
                     </a>
-                    <a href="#ownership-what-spark-generates" class="flex items-start gap-3 p-3 rounded-xl hover:bg-white hover:shadow-sm transition">
-                        <span class="material-symbols-rounded text-brand-600 mt-0.5">auto_awesome</span>
-                        <span class="text-sm font-semibold text-slate-900">What Spark generates</span>
-                    </a>
                     <a href="#ownership-how-spark-uses" class="flex items-start gap-3 p-3 rounded-xl hover:bg-white hover:shadow-sm transition">
                         <span class="material-symbols-rounded text-brand-600 mt-0.5">settings</span>
                         <span class="text-sm font-semibold text-slate-900">How Spark uses it</span>
@@ -57,7 +53,7 @@
 
         <!-- 1) What you own -->
         <section id="ownership-what-you-own" class="mb-24 scroll-mt-24">
-            <div class="grid md:grid-cols-2 gap-4 md:gap-12 items-start product-section product-section--image-right">
+            <div class="grid md:grid-cols-2 gap-4 md:gap-12 items-start product-section product-section--image-left">
                 <div class="product-section__intro">
                     <h2 class="text-2xl font-bold text-slate-900 mb-4">
                         <span class="inline-flex items-start gap-2">
@@ -141,101 +137,7 @@
             </div>
         </section>
 
-        <!-- 2) What Spark generates -->
-        <section id="ownership-what-spark-generates" class="mb-24 scroll-mt-24">
-            <div class="grid md:grid-cols-2 gap-4 md:gap-12 items-start product-section product-section--image-left">
-                <div class="product-section__intro">
-                    <h2 class="text-2xl font-bold text-slate-900 mb-4">
-                        <span class="inline-flex items-start gap-2">
-                            <span class="material-symbols-rounded text-slate-900">auto_awesome</span>
-                            <span>What Spark generates (and you own it all)</span>
-                        </span>
-                    </h2>
-                    <p class="text-base text-slate-600 leading-relaxed">
-                        Spark's pipeline turns one long recording into a structured course: chapters, notes, slides, quizzes, and a tutor. Every piece of generated content is created from your teaching—and every piece belongs to you.
-                    </p>
-                </div>
-
-                <div class="product-section__image">
-                    <div id="ownership-what-spark-generates-carousel" data-carousel data-carousel-fullscreen class="relative">
-                        <div
-                            data-carousel-track
-                            class="border-2 border-dashed border-slate-300 rounded-3xl p-3 bg-slate-50 overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar">
-                            <div class="flex gap-3">
-                                <figure data-carousel-slide class="min-w-full snap-center carousel-snap-stop">
-                                    <div
-                                        class="rounded-2xl bg-white border border-slate-200 overflow-hidden"
-                                        title="Spark generation pipeline diagram showing video input flowing through transcription, chapterization, note generation, slide extraction, quiz creation, and tutor knowledge base building">
-                                        <div class="aspect-[16/9] bg-white">
-                                            <img
-                                                src="../images/product/content-ownership/generation-pipeline-diagram.jpg"
-                                                alt="Spark generation pipeline diagram showing how recordings become structured course content"
-                                                class="w-full h-full object-cover sm:object-center cursor-zoom-in">
-                                        </div>
-                                        <figcaption class="p-4 bg-slate-50 border-t border-slate-200">
-                                            <p class="text-sm font-semibold text-slate-800 mb-1">Generation pipeline</p>
-                                            <p class="text-sm text-slate-600">From one recording to chapters, notes, slides, quizzes, and a tutor—all generated from your content, all yours to own.</p>
-                                        </figcaption>
-                                    </div>
-                                </figure>
-                            </div>
-                        </div>
-
-                        <div class="mt-3 flex items-center justify-center gap-3">
-                            <button
-                                type="button"
-                                data-carousel-prev
-                                aria-label="Previous image"
-                                class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/70 backdrop-blur-sm border border-slate-200 text-slate-700 shadow-sm hover:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2">
-                                <span class="material-symbols-rounded text-[18px] leading-none">chevron_left</span>
-                            </button>
-                            <div data-carousel-dots class="flex items-center justify-center gap-2">
-                                <button type="button" data-carousel-dot="0" aria-label="Go to image 1" class="w-2.5 h-2.5 rounded-full bg-brand-600"></button>
-                            </div>
-                            <button
-                                type="button"
-                                data-carousel-next
-                                aria-label="Next image"
-                                class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/70 backdrop-blur-sm border border-slate-200 text-slate-700 shadow-sm hover:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2">
-                                <span class="material-symbols-rounded text-[18px] leading-none">chevron_right</span>
-                            </button>
-                        </div>
-                        <p class="mt-2 text-xs text-slate-500 text-center">Tap an image to view it full screen.</p>
-                    </div>
-                </div>
-
-                <div class="product-section__metrics bg-brand-50 border border-brand-100 rounded-2xl p-6">
-                    <ul class="space-y-4">
-                        <li class="flex items-start gap-3">
-                            <span class="material-symbols-rounded text-brand-600 mt-0.5">check_circle</span>
-                            <p class="text-base font-medium text-slate-900">Chapters: AI-identified sections with polished boundaries, organized into modules.</p>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <span class="material-symbols-rounded text-brand-600 mt-0.5">check_circle</span>
-                            <p class="text-base font-medium text-slate-900">Study notes: verified, chapter-level notes with formulas, examples, and key takeaways.</p>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <span class="material-symbols-rounded text-brand-600 mt-0.5">check_circle</span>
-                            <p class="text-base font-medium text-slate-900">Slides: extracted presentation slides from your videos, organized by chapter.</p>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <span class="material-symbols-rounded text-brand-600 mt-0.5">check_circle</span>
-                            <p class="text-base font-medium text-slate-900">Quizzes: grounded questions aligned to your teaching, with Bloom-level progression.</p>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <span class="material-symbols-rounded text-brand-600 mt-0.5">check_circle</span>
-                            <p class="text-base font-medium text-slate-900">Tutor knowledge base: vector embeddings and structured content that power your course-specific tutor.</p>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="product-section__links">
-                    <a href="#top" class="text-sm font-semibold text-brand-600 hover:text-brand-700">Back to top ↑</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- 3) How Spark uses your content -->
+        <!-- 2) How Spark uses your content -->
         <section id="ownership-how-spark-uses" class="mb-24 scroll-mt-24">
             <div class="grid md:grid-cols-2 gap-4 md:gap-12 items-start product-section product-section--image-right">
                 <div class="product-section__intro">
@@ -325,7 +227,7 @@
             </div>
         </section>
 
-        <!-- 4) Privacy & protection -->
+        <!-- 3) Privacy & protection -->
         <section id="ownership-privacy" class="mb-24 scroll-mt-24">
             <div class="grid md:grid-cols-2 gap-4 md:gap-12 items-start product-section product-section--image-left">
                 <div class="product-section__intro">
@@ -411,7 +313,7 @@
             </div>
         </section>
 
-        <!-- 5) Portability & export -->
+        <!-- 4) Portability & export -->
         <section id="ownership-portability" class="mb-4 scroll-mt-24">
             <div class="grid md:grid-cols-2 gap-4 md:gap-12 items-start product-section product-section--image-right">
                 <div class="product-section__intro">
