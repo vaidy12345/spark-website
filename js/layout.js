@@ -22,8 +22,9 @@ function getBasePath() {
     // When serving "marketing" as the root locally:
     // - "/product/..."           → first === "product"      → no base prefix
     // - "/about/..."             → first === "about"        → no base prefix
+    // - "/for-teachers/..."      → first === "for-teachers" → no base prefix
     // - "/about.html" etc        → first endsWith ".html"   → no base prefix
-    if (first === 'product' || first === 'about' || first.endsWith('.html')) {
+    if (first === 'product' || first === 'about' || first === 'for-teachers' || first.endsWith('.html')) {
         return '';
     }
 
@@ -94,7 +95,8 @@ const navLinks = [
     },
     {
         name: 'For Teachers',
-        href: `${BASE_PATH}/for-teachers.html`
+        href: `${BASE_PATH}/for-teachers.html`,
+        hasDropdown: true
     },
     {
         name: 'Pricing',
@@ -125,6 +127,13 @@ const aboutSubpages = [
     { name: 'Why Spark', href: `${BASE_PATH}/about/why-spark.html` },
     { name: 'Team', href: `${BASE_PATH}/about/team.html` },
     { name: 'Story', href: `${BASE_PATH}/about/story.html` },
+];
+
+// For Teachers sub-pages for dropdown navigation
+const forTeachersSubpages = [
+    { name: 'Overview', href: `${BASE_PATH}/for-teachers.html` },
+    { name: 'Types of Teachers', href: `${BASE_PATH}/for-teachers/types-of-teachers.html` },
+    { name: 'Case Studies', href: `${BASE_PATH}/for-teachers/case-study-high-school-tutors.html` },
 ];
 
 // Header Component
@@ -164,6 +173,29 @@ function createHeader() {
 
         if (link.name === 'About') {
             const dropdownItems = aboutSubpages.map(sub => {
+                const subActive = currentPath === sub.href;
+                return `
+                    <a href="${sub.href}" class="block px-4 py-2 text-sm ${subActive ? 'text-brand-600 bg-slate-50' : 'text-slate-600 hover:text-brand-600 hover:bg-slate-50'}">
+                        ${sub.name}
+                    </a>
+                `;
+            }).join('');
+
+            return `
+                <div class="relative group">
+                    <a href="${link.href}" class="flex items-center gap-1 text-sm font-medium transition-colors ${isActive ? 'text-brand-600' : 'text-slate-600'} hover:text-brand-600">
+                        <span>${link.name}</span>
+                        <span class="material-symbols-rounded text-[16px] leading-none">expand_more</span>
+                    </a>
+                    <div class="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity duration-150 absolute left-1/2 -translate-x-1/2 top-full w-56 rounded-xl bg-white shadow-lg border border-slate-100 py-2 z-50">
+                        ${dropdownItems}
+                    </div>
+                </div>
+            `;
+        }
+
+        if (link.name === 'For Teachers') {
+            const dropdownItems = forTeachersSubpages.map(sub => {
                 const subActive = currentPath === sub.href;
                 return `
                     <a href="${sub.href}" class="block px-4 py-2 text-sm ${subActive ? 'text-brand-600 bg-slate-50' : 'text-slate-600 hover:text-brand-600 hover:bg-slate-50'}">
@@ -240,6 +272,18 @@ function createHeader() {
                     }
                     if (link.name === 'About') {
                         const mobileSubLinks = aboutSubpages.map(sub => {
+                            return `<a href="${sub.href}" class="block pl-6 pr-3 py-1.5 rounded-md text-sm font-medium text-slate-600 hover:text-brand-600 hover:bg-slate-50">– ${sub.name}</a>`;
+                        }).join('');
+
+                        return `
+                            <div class="mb-2">
+                                <a href="${link.href}" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-brand-600 hover:bg-slate-50">${link.name}</a>
+                                ${mobileSubLinks}
+                            </div>
+                        `;
+                    }
+                    if (link.name === 'For Teachers') {
+                        const mobileSubLinks = forTeachersSubpages.map(sub => {
                             return `<a href="${sub.href}" class="block pl-6 pr-3 py-1.5 rounded-md text-sm font-medium text-slate-600 hover:text-brand-600 hover:bg-slate-50">– ${sub.name}</a>`;
                         }).join('');
 
