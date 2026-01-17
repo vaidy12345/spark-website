@@ -66,6 +66,21 @@ function ensureFavicon() {
     console.log('[spark-marketing] favicon ensured (created)', { href });
 }
 
+function ensureMaterialSymbols() {
+    const existing = document.querySelector('link[href*="Material+Symbols+Rounded"]');
+    if (existing) {
+        console.log('[spark-marketing] Material Symbols font already loaded');
+        return;
+    }
+
+    const link = document.createElement('link');
+    link.setAttribute('href', 'https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0,0');
+    link.setAttribute('rel', 'stylesheet');
+    document.head.appendChild(link);
+
+    console.log('[spark-marketing] Material Symbols font ensured (created)');
+}
+
 // Navigation Links
 const navLinks = [
     {
@@ -130,7 +145,7 @@ function createHeader() {
 
             return `
                 <div class="relative group">
-                    <a href="${link.href}" class="inline-flex items-center gap-1 text-sm font-medium transition-colors ${isActive ? 'text-brand-600' : 'text-slate-600'} hover:text-brand-600">
+                    <a href="${link.href}" class="flex items-center gap-1 text-sm font-medium transition-colors ${isActive ? 'text-brand-600' : 'text-slate-600'} hover:text-brand-600">
                         <span>${link.name}</span>
                         <span class="material-symbols-rounded text-[16px] leading-none">expand_more</span>
                     </a>
@@ -160,7 +175,7 @@ function createHeader() {
                 </div>
 
                 <!-- Desktop Nav -->
-                <nav class="hidden md:flex space-x-8">
+                <nav class="hidden md:flex items-center space-x-8">
                     ${navItems}
                 </nav>
 
@@ -311,6 +326,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     ensureFavicon();
+    ensureMaterialSymbols();
     
     // Insert Header
     document.body.insertBefore(createHeader(), document.body.firstChild);
