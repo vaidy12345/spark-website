@@ -118,7 +118,6 @@ const productSubpages = [
     { name: 'Reporting', href: `${BASE_PATH}/product/reporting.html` },
     { name: 'Hallucinations & safety', href: `${BASE_PATH}/product/hallucinations.html` },
     { name: 'Content ownership', href: `${BASE_PATH}/product/content-ownership.html` },
-    { name: 'FAQ', href: `${BASE_PATH}/product/faq.html` },
 ];
 
 // Header Component
