@@ -17,12 +17,18 @@
         [data-accordion-chevron] {
             transition: transform 0.3s ease-out;
         }
+        .feature-tooltip-modal {
+            display: none;
+        }
+        .feature-tooltip-modal.active {
+            display: flex;
+        }
     </style>
 </head>
 <body class="preload-hidden bg-white text-slate-900 antialiased pt-16">
 
 <main class="pt-20 pb-24">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Pricing Section -->
         <div class="text-center mb-24">
             <h1 class="text-4xl font-extrabold text-slate-900 mb-6">Simple Pricing</h1>
@@ -30,38 +36,162 @@
                 No complex tiers. Just a simple model that grows with you.
             </p>
 
-            <div class="max-w-lg mx-auto bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
+            <div class="max-w-5xl mx-auto bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
                 <div class="p-8 bg-slate-50 border-b border-slate-100">
                     <h2 class="text-lg font-semibold text-slate-500 uppercase tracking-wide">Standard Plan</h2>
                     <div class="mt-4 flex items-baseline justify-center">
                         <span class="text-5xl font-extrabold text-slate-900">$200</span>
                         <span class="text-xl text-slate-500 ml-2">/ month</span>
                     </div>
-                    <p class="mt-4 text-sm text-slate-500">Includes up to 20 students</p>
+                    <p class="mt-4 text-sm text-slate-500">Includes up to 20 active students</p>
                 </div>
                 <div class="p-8">
-                    <ul class="space-y-4 text-left mb-8">
-                        <li class="flex items-start">
-                            <span class="flex-shrink-0 h-6 w-6 text-green-500">✓</span>
-                            <span class="ml-3 text-slate-600"><strong>Unlimited</strong> Video Uploads</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="flex-shrink-0 h-6 w-6 text-green-500">✓</span>
-                            <span class="ml-3 text-slate-600"><strong>100+ Step</strong> Automation Pipeline</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="flex-shrink-0 h-6 w-6 text-green-500">✓</span>
-                            <span class="ml-3 text-slate-600"><strong>AI Tutor</strong> for every student</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="flex-shrink-0 h-6 w-6 text-green-500">✓</span>
-                            <span class="ml-3 text-slate-600">Study Notes, Slides & Quizzes</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="flex-shrink-0 h-6 w-6 text-green-500">✓</span>
-                            <span class="ml-3 text-slate-600">Full <strong>PracticeNow</strong> Suite (Payments, Auth, Live Sessions)</span>
-                        </li>
-                    </ul>
+                    <div class="space-y-8 mb-8">
+                        <!-- Course Creation -->
+                        <div>
+                            <h3 class="flex items-center gap-2 text-base font-bold text-slate-900 mb-4">
+                                <span class="material-symbols-rounded text-brand-600 text-lg">account_tree</span>
+                                <span>Course Creation</span>
+                            </h3>
+                            <div class="pl-6 space-y-2.5">
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-rounded text-brand-600 text-base">check</span>
+                                    <span class="text-base text-slate-700">Auto-organized chapters & sections</span>
+                                    <button onclick="showFeatureTooltip('structure')" class="flex-shrink-0 text-slate-300 hover:text-slate-500 transition-colors p-0 bg-transparent border-0 cursor-pointer" aria-label="Learn more about course structure">
+                                        <span class="material-symbols-rounded text-[7px] leading-none">help</span>
+                                    </button>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-rounded text-brand-600 text-base">check</span>
+                                    <span class="text-base text-slate-700">Extracted presentation slides</span>
+                                    <button onclick="showFeatureTooltip('slides')" class="flex-shrink-0 text-slate-300 hover:text-slate-500 transition-colors cursor-pointer" aria-label="Learn more about slides">
+                                        <span class="material-symbols-rounded text-[7px] leading-none">help</span>
+                                    </button>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-rounded text-brand-600 text-base">check</span>
+                                    <span class="text-base text-slate-700">Auto-generated study notes</span>
+                                    <button onclick="showFeatureTooltip('notes')" class="flex-shrink-0 text-slate-300 hover:text-slate-500 transition-colors cursor-pointer" aria-label="Learn more about study notes">
+                                        <span class="material-symbols-rounded text-[7px] leading-none">help</span>
+                                    </button>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-rounded text-brand-600 text-base">check</span>
+                                    <span class="text-base text-slate-700">Auto-generated quizzes</span>
+                                    <button onclick="showFeatureTooltip('quizzes')" class="flex-shrink-0 text-slate-300 hover:text-slate-500 transition-colors cursor-pointer" aria-label="Learn more about quizzes">
+                                        <span class="material-symbols-rounded text-[7px] leading-none">help</span>
+                                    </button>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-rounded text-brand-600 text-base">check</span>
+                                    <span class="text-base text-slate-700">24/7 AI tutor assistant</span>
+                                    <button onclick="showFeatureTooltip('tutor')" class="flex-shrink-0 text-slate-300 hover:text-slate-500 transition-colors cursor-pointer" aria-label="Learn more about AI tutor">
+                                        <span class="material-symbols-rounded text-[7px] leading-none">help</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Student Experience -->
+                        <div>
+                            <h3 class="flex items-center gap-2 text-base font-bold text-slate-900 mb-4">
+                                <span class="material-symbols-rounded text-brand-600 text-lg">storefront</span>
+                                <span>Student Experience</span>
+                            </h3>
+                            <div class="pl-6 space-y-2.5">
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-rounded text-brand-600 text-base">check</span>
+                                    <span class="text-base text-slate-700">Unified student portal</span>
+                                    <button onclick="showFeatureTooltip('portal')" class="flex-shrink-0 text-slate-300 hover:text-slate-500 transition-colors cursor-pointer" aria-label="Learn more about student portal">
+                                        <span class="material-symbols-rounded text-[7px] leading-none">help</span>
+                                    </button>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-rounded text-brand-600 text-base">check</span>
+                                    <span class="text-base text-slate-700">Natural language search</span>
+                                    <button onclick="showFeatureTooltip('search')" class="flex-shrink-0 text-slate-300 hover:text-slate-500 transition-colors cursor-pointer" aria-label="Learn more about knowledge search">
+                                        <span class="material-symbols-rounded text-[7px] leading-none">help</span>
+                                    </button>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-rounded text-brand-600 text-base">check</span>
+                                    <span class="text-base text-slate-700">Student progress reports</span>
+                                    <button onclick="showFeatureTooltip('progress')" class="flex-shrink-0 text-slate-300 hover:text-slate-500 transition-colors cursor-pointer" aria-label="Learn more about progress tracking">
+                                        <span class="material-symbols-rounded text-[7px] leading-none">help</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Payments & Pricing -->
+                        <div>
+                            <h3 class="flex items-center gap-2 text-base font-bold text-slate-900 mb-4">
+                                <span class="material-symbols-rounded text-brand-600 text-lg">payments</span>
+                                <span>Payments & Pricing</span>
+                            </h3>
+                            <div class="pl-6 space-y-2.5">
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-rounded text-brand-600 text-base">check</span>
+                                    <span class="text-base text-slate-700">Multiple pricing models</span>
+                                    <button onclick="showFeatureTooltip('pricing')" class="flex-shrink-0 text-slate-300 hover:text-slate-500 transition-colors cursor-pointer" aria-label="Learn more about flexible pricing">
+                                        <span class="material-symbols-rounded text-[7px] leading-none">help</span>
+                                    </button>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-rounded text-brand-600 text-base">check</span>
+                                    <span class="text-base text-slate-700">Worldwide payment processing</span>
+                                    <button onclick="showFeatureTooltip('payments')" class="flex-shrink-0 text-slate-300 hover:text-slate-500 transition-colors cursor-pointer" aria-label="Learn more about global payments">
+                                        <span class="material-symbols-rounded text-[7px] leading-none">help</span>
+                                    </button>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-rounded text-brand-600 text-base">check</span>
+                                    <span class="text-base text-slate-700">Discount codes & credits</span>
+                                    <button onclick="showFeatureTooltip('discounts')" class="flex-shrink-0 text-slate-300 hover:text-slate-500 transition-colors cursor-pointer" aria-label="Learn more about discounts and credits">
+                                        <span class="material-symbols-rounded text-[7px] leading-none">help</span>
+                                    </button>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-rounded text-brand-600 text-base">check</span>
+                                    <span class="text-base text-slate-700">Automated subscription management</span>
+                                    <button onclick="showFeatureTooltip('subscriptions')" class="flex-shrink-0 text-slate-300 hover:text-slate-500 transition-colors cursor-pointer" aria-label="Learn more about automated subscriptions">
+                                        <span class="material-symbols-rounded text-[7px] leading-none">help</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Platform -->
+                        <div>
+                            <h3 class="flex items-center gap-2 text-base font-bold text-slate-900 mb-4">
+                                <span class="material-symbols-rounded text-brand-600 text-lg">cloud_upload</span>
+                                <span>Platform</span>
+                            </h3>
+                            <div class="pl-6 space-y-2.5">
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-rounded text-brand-600 text-base">check</span>
+                                    <span class="text-base text-slate-700">Cloud video hosting</span>
+                                    <button onclick="showFeatureTooltip('hosting')" class="flex-shrink-0 text-slate-300 hover:text-slate-500 transition-colors cursor-pointer" aria-label="Learn more about video hosting">
+                                        <span class="material-symbols-rounded text-[7px] leading-none">help</span>
+                                    </button>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-rounded text-brand-600 text-base">check</span>
+                                    <span class="text-base text-slate-700">Live class integration</span>
+                                    <button onclick="showFeatureTooltip('live')" class="flex-shrink-0 text-slate-300 hover:text-slate-500 transition-colors cursor-pointer" aria-label="Learn more about live classes">
+                                        <span class="material-symbols-rounded text-[7px] leading-none">help</span>
+                                    </button>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-rounded text-brand-600 text-base">check</span>
+                                    <span class="text-base text-slate-700">Export to LMS platforms</span>
+                                    <button onclick="showFeatureTooltip('export')" class="flex-shrink-0 text-slate-300 hover:text-slate-500 transition-colors cursor-pointer" aria-label="Learn more about content export">
+                                        <span class="material-symbols-rounded text-[7px] leading-none">help</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     
                     <div class="bg-brand-50 p-4 rounded-lg mb-8 text-center">
                         <p class="text-brand-800 font-medium">Have more than 20 students?</p>
@@ -1382,6 +1512,108 @@
         </section>
     </div>
 </main>
+
+<!-- Feature Tooltip Modal -->
+<div id="feature-tooltip-modal" class="feature-tooltip-modal fixed inset-0 z-[100] flex items-center justify-center p-4" onclick="closeFeatureTooltip(event)">
+    <div class="absolute inset-0 bg-slate-900/50 backdrop-blur-sm" onclick="closeFeatureTooltip(event)"></div>
+    <div class="relative bg-white rounded-2xl shadow-2xl p-6 max-w-md w-full" onclick="event.stopPropagation()">
+        <button onclick="closeFeatureTooltip(event)" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 transition-colors" aria-label="Close">
+            <span class="material-symbols-rounded">close</span>
+        </button>
+        <h3 id="tooltip-title" class="text-xl font-bold text-slate-900 mb-3 pr-8"></h3>
+        <p id="tooltip-content" class="text-base text-slate-600 leading-relaxed"></p>
+    </div>
+</div>
+
+<script>
+const featureTooltips = {
+    structure: {
+        title: 'Course structure',
+        content: 'Spark automatically breaks your long videos into chapters and 3-8 minute micro-sections. Students can jump to specific topics without scrubbing through hours of content.'
+    },
+    slides: {
+        title: 'Slides',
+        content: 'Automatically extracts key presentation slides from your videos using multi-stage computer vision. Duplicate slides are detected and removed, ensuring students see unique, meaningful content.'
+    },
+    notes: {
+        title: 'Study notes',
+        content: 'Auto-generated notes for every chapter with key ideas, examples, and formulas. Students can quickly review without rewatching entire videos.'
+    },
+    quizzes: {
+        title: 'Quizzes',
+        content: 'Automatically generated quiz questions tied to each chapter. All answers are verified against your actual teaching content before being included.'
+    },
+    tutor: {
+        title: 'AI tutor',
+        content: 'A 24/7 tutor that answers student questions using only your course content. It stays grounded in what you taught and cites specific chapters or notes.'
+    },
+    portal: {
+        title: 'Student portal',
+        content: 'A clean, professional portal where students access courses, join live sessions, and view recordings. Fully mobile-friendly and organized by their subscription access.'
+    },
+    search: {
+        title: 'Knowledge search',
+        content: 'Students can search across all your content using natural language. Find where you explained a concept even without exact keyword matches.'
+    },
+    progress: {
+        title: 'Progress tracking',
+        content: 'Students see their progress through each course. You get detailed reports showing which students struggle with which concepts - so you know where to focus.'
+    },
+    pricing: {
+        title: 'Flexible pricing',
+        content: 'Support for subscriptions, one-time payments, fixed-duration programs, bundles, and pay-what-you-want options. Price it how you want to run your business.'
+    },
+    payments: {
+        title: 'Global payments',
+        content: 'Connect Stripe (globally) or RazorPay (in India) to accept payments. Set country-wise pricing so students automatically see fair local prices at checkout.'
+    },
+    discounts: {
+        title: 'Discounts & credits',
+        content: 'Create discount codes with expiry dates and usage limits. Students can earn and redeem credits through a wallet system.'
+    },
+    subscriptions: {
+        title: 'Auto subscriptions',
+        content: 'Subscriptions automatically move through states: Upcoming → Active → Expiring → Expired. Renewal reminders and access control handled automatically.'
+    },
+    hosting: {
+        title: 'Video hosting',
+        content: 'Spark hosts your videos securely in the cloud with adaptive streaming. Up to 20 hours of video upload per month (no limit on streaming).'
+    },
+    live: {
+        title: 'Live classes',
+        content: 'Seamless integration with Zoom and Google Meet. Students join live sessions directly from the student portal, and recordings automatically flow into Spark.'
+    },
+    export: {
+        title: 'Content export',
+        content: 'Your content is yours. Export courses, notes, quizzes, and structure to standard formats like SCORM or direct integration with Moodle, Canvas, and other LMS platforms.'
+    }
+};
+
+function showFeatureTooltip(featureId) {
+    const tooltip = featureTooltips[featureId];
+    if (!tooltip) return;
+    
+    document.getElementById('tooltip-title').textContent = tooltip.title;
+    document.getElementById('tooltip-content').textContent = tooltip.content;
+    document.getElementById('feature-tooltip-modal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeFeatureTooltip(event) {
+    if (event.target === event.currentTarget || event.target.closest('button')) {
+        document.getElementById('feature-tooltip-modal').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+// Close on Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        document.getElementById('feature-tooltip-modal').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+});
+</script>
 
 </body>
 </html>
