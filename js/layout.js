@@ -127,6 +127,7 @@ const aboutSubpages = [
     { name: 'Why Spark', href: `${BASE_PATH}/about/why-spark.html` },
     { name: 'Team', href: `${BASE_PATH}/about/team.html` },
     { name: 'Our Story', href: `${BASE_PATH}/about/story.html` },
+    { name: 'Contact', href: `${BASE_PATH}/about/contact.html` },
 ];
 
 // For Teachers sub-pages for dropdown navigation
@@ -346,21 +347,41 @@ function createFooter() {
                         <li><a href="${BASE_PATH}/for-teachers/case-study-high-school-tutors.html" class="text-sm text-slate-500 hover:text-brand-600 cursor-pointer">Case Study</a></li>
                         <li><a href="${BASE_PATH}/about/story.html" class="text-sm text-slate-500 hover:text-brand-600 cursor-pointer">Our Story</a></li>
                         <li><a href="${BASE_PATH}/blog.html" class="text-sm text-slate-500 hover:text-brand-600 cursor-pointer">Blog</a></li>
+                        <li><a href="${BASE_PATH}/about/contact.html" class="text-sm text-slate-500 hover:text-brand-600 cursor-pointer">Contact</a></li>
                     </ul>
                 </div>
 
                 <div>
                     <h3 class="text-sm font-semibold text-slate-900 tracking-wider uppercase mb-4">Legal</h3>
                     <ul class="space-y-3">
-                        <li><a href="#" class="text-sm text-slate-500 hover:text-brand-600 cursor-pointer">Privacy</a></li>
-                        <li><a href="#" class="text-sm text-slate-500 hover:text-brand-600 cursor-pointer">Terms</a></li>
+                        <li><a href="${BASE_PATH}/privacy.html" class="text-sm text-slate-500 hover:text-brand-600 cursor-pointer">Privacy</a></li>
+                        <li><a href="${BASE_PATH}/terms.html" class="text-sm text-slate-500 hover:text-brand-600 cursor-pointer">Terms</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="mt-12 border-t border-slate-200 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-base text-slate-400 text-center md:text-left">
-                    &copy; ${new Date().getFullYear()} Spark. All rights reserved.
-                </p>
+            <div class="mt-12 border-t border-slate-200 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                    <div class="text-center md:text-left">
+                        <p class="text-base text-slate-400">
+                            &copy; ${new Date().getFullYear()} Spark. All rights reserved.
+                        </p>
+                    </div>
+                    <div class="text-center md:text-right">
+                        <p class="text-sm font-semibold text-slate-900 mb-2">Questions? We're here to help.</p>
+                        <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center md:justify-end">
+                            <a href="mailto:support@practicenow.us" class="inline-flex items-center gap-2 text-sm text-slate-600 hover:text-brand-600 transition-colors cursor-pointer">
+                                <span class="material-symbols-rounded text-[18px] leading-none">mail</span>
+                                <span>support@practicenow.us</span>
+                            </a>
+                            <a href="https://wa.me/917899156587" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm text-slate-600 hover:text-brand-600 transition-colors cursor-pointer whitespace-nowrap">
+                                <svg class="w-[16px] h-[16px] flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                                </svg>
+                                <span>+91 78991 56587</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     `;
@@ -402,6 +423,43 @@ function wrapMainContent() {
     });
 }
 
+// Load and inject waitlist modal
+async function loadWaitlistModal() {
+    try {
+        const snippetPath = `${BASE_PATH}/snippets/waitlist-modal.html`;
+        console.log('[spark-marketing] fetching waitlist modal from:', snippetPath);
+        
+        const response = await fetch(snippetPath);
+        if (!response.ok) {
+            throw new Error(`Failed to load waitlist modal: ${response.status}`);
+        }
+        
+        const html = await response.text();
+        document.body.insertAdjacentHTML('beforeend', html);
+        console.log('[spark-marketing] waitlist modal injected');
+        
+        // Load waitlist.js after modal is injected
+        loadWaitlistScript();
+    } catch (error) {
+        console.error('[spark-marketing] failed to load waitlist modal:', error);
+    }
+}
+
+// Dynamically load waitlist.js
+function loadWaitlistScript() {
+    const scriptPath = `${BASE_PATH}/js/waitlist.js`;
+    const script = document.createElement('script');
+    script.src = scriptPath;
+    script.onload = () => {
+        console.log('[spark-marketing] waitlist.js loaded successfully');
+    };
+    script.onerror = () => {
+        console.error('[spark-marketing] failed to load waitlist.js');
+    };
+    document.head.appendChild(script);
+    console.log('[spark-marketing] loading waitlist.js from:', scriptPath);
+}
+
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
     console.log('[spark-marketing] DOMContentLoaded - init layout', {
@@ -421,6 +479,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Insert Footer
     document.body.appendChild(createFooter());
+    
+    // Load waitlist modal
+    loadWaitlistModal();
 
     console.log('[spark-marketing] header/footer injected', {
         timeMs: Math.round(performance.now())
