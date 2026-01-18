@@ -241,9 +241,9 @@ function createHeader() {
 
                 <!-- CTA -->
                 <div class="flex items-center space-x-4">
-                    <a href="${BASE_PATH || ''}/index.html#waitlist" class="hidden md:inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-all">
+                    <button data-open-waitlist class="hidden md:inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-all cursor-pointer">
                         Join Waitlist
-                    </a>
+                    </button>
                     <!-- Mobile menu button placeholder (simple implementation) -->
                     <button id="mobile-menu-btn" class="md:hidden p-2 rounded-md text-slate-400 hover:text-slate-500 hover:bg-slate-100 focus:outline-none">
                         <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
@@ -295,9 +295,9 @@ function createHeader() {
                     }
                     return `<a href="${link.href}" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-brand-600 hover:bg-slate-50">${link.name}</a>`;
                 }).join('')}
-                 <a href="${BASE_PATH ? `${BASE_PATH}/#waitlist` : '/#waitlist'}" class="block w-full text-center px-4 py-2 mt-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-brand-600 hover:bg-brand-700">
+                 <button data-open-waitlist class="block w-full text-center px-4 py-2 mt-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-brand-600 hover:bg-brand-700 cursor-pointer">
                     Join Waitlist
-                </a>
+                </button>
             </div>
         </div>
     `;
@@ -333,26 +333,27 @@ function createFooter() {
                 <div>
                     <h3 class="text-sm font-semibold text-slate-900 tracking-wider uppercase mb-4">Product</h3>
                     <ul class="space-y-3">
-                        <li><a href="product.html" class="text-sm text-slate-500 hover:text-brand-600">How it Works</a></li>
-                        <li><a href="pricing.html" class="text-sm text-slate-500 hover:text-brand-600">Pricing</a></li>
-                        <li><a href="case-study.html" class="text-sm text-slate-500 hover:text-brand-600">Case Study</a></li>
+                        <li><a href="${BASE_PATH}/product/" class="text-sm text-slate-500 hover:text-brand-600 cursor-pointer">Overview</a></li>
+                        <li><a href="${BASE_PATH}/product/features.html" class="text-sm text-slate-500 hover:text-brand-600 cursor-pointer">Features</a></li>
+                        <li><a href="${BASE_PATH}/pricing.html" class="text-sm text-slate-500 hover:text-brand-600 cursor-pointer">Pricing</a></li>
                     </ul>
                 </div>
 
                 <div>
                     <h3 class="text-sm font-semibold text-slate-900 tracking-wider uppercase mb-4">Company</h3>
                     <ul class="space-y-3">
-                        <li><a href="about.html" class="text-sm text-slate-500 hover:text-brand-600">About / Philosophy</a></li>
-                        <li><a href="for-teachers/who-is-it-for.html" class="text-sm text-slate-500 hover:text-brand-600">For Teachers</a></li>
-                        <li><a href="blog.html" class="text-sm text-slate-500 hover:text-brand-600">Blog</a></li>
+                        <li><a href="${BASE_PATH}/for-teachers/who-is-it-for.html" class="text-sm text-slate-500 hover:text-brand-600 cursor-pointer">For Teachers</a></li>
+                        <li><a href="${BASE_PATH}/for-teachers/case-study-high-school-tutors.html" class="text-sm text-slate-500 hover:text-brand-600 cursor-pointer">Case Study</a></li>
+                        <li><a href="${BASE_PATH}/about/story.html" class="text-sm text-slate-500 hover:text-brand-600 cursor-pointer">Our Story</a></li>
+                        <li><a href="${BASE_PATH}/blog.html" class="text-sm text-slate-500 hover:text-brand-600 cursor-pointer">Blog</a></li>
                     </ul>
                 </div>
 
                 <div>
                     <h3 class="text-sm font-semibold text-slate-900 tracking-wider uppercase mb-4">Legal</h3>
                     <ul class="space-y-3">
-                        <li><a href="#" class="text-sm text-slate-500 hover:text-brand-600">Privacy</a></li>
-                        <li><a href="#" class="text-sm text-slate-500 hover:text-brand-600">Terms</a></li>
+                        <li><a href="#" class="text-sm text-slate-500 hover:text-brand-600 cursor-pointer">Privacy</a></li>
+                        <li><a href="#" class="text-sm text-slate-500 hover:text-brand-600 cursor-pointer">Terms</a></li>
                     </ul>
                 </div>
             </div>
