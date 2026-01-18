@@ -315,7 +315,9 @@
             }
         });
 
-        document.getElementById('waitlist-back-2')?.addEventListener('click', onBackFrom2);
+        steps.querySelectorAll('.waitlist-back-2').forEach(btn => {
+            btn.addEventListener('click', onBackFrom2);
+        });
         document.getElementById('waitlist-back-3')?.addEventListener('click', function() { goToStep(2); });
         document.getElementById('waitlist-back-4')?.addEventListener('click', function() { goToStep(3); });
         document.getElementById('waitlist-next-3')?.addEventListener('click', onStep3Next);

@@ -511,6 +511,69 @@
         </div>
     </section>
 
+    <!-- Learn More Section -->
+    <section class="py-20 bg-white border-t border-slate-100 mb-20">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 mt-10">
+                <h2 class="text-2xl font-bold text-slate-900 mb-3">Keep exploring</h2>
+                <p class="text-base text-slate-600">See how Spark helps educators turn their content into courses - without the production grind.</p>
+            </div>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- Link 1: Features -->
+                <a href="product/features.html" class="group flex flex-col p-5 rounded-xl border border-slate-200 hover:border-brand-300 hover:shadow-md transition-all">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="material-symbols-rounded text-brand-600 text-2xl">auto_awesome</span>
+                        <h3 class="font-semibold text-slate-900 group-hover:text-brand-600 transition-colors">See what students get</h3>
+                    </div>
+                    <p class="text-base text-slate-600 mb-4 flex-grow">Structure, notes, quizzes, and an AI tutor - all generated from your recordings.</p>
+                    <span class="inline-flex items-center text-base font-medium text-brand-600 group-hover:text-brand-700">
+                        Explore features
+                        <span class="material-symbols-rounded text-lg ml-1 group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                    </span>
+                </a>
+
+                <!-- Link 2: Who is it for -->
+                <a href="for-teachers/who-is-it-for.html" class="group flex flex-col p-5 rounded-xl border border-slate-200 hover:border-brand-300 hover:shadow-md transition-all">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="material-symbols-rounded text-brand-600 text-2xl">videocam</span>
+                        <h3 class="font-semibold text-slate-900 group-hover:text-brand-600 transition-colors">Is this for me?</h3>
+                    </div>
+                    <p class="text-base text-slate-600 mb-4 flex-grow">See how Spark solves specific problems for teachers and coaches.</p>
+                    <span class="inline-flex items-center text-base font-medium text-brand-600 group-hover:text-brand-700">
+                        Check your fit
+                        <span class="material-symbols-rounded text-lg ml-1 group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                    </span>
+                </a>
+
+                <!-- Link 3: Monetization -->
+                <a href="product/monetization.html" class="group flex flex-col p-5 rounded-xl border border-slate-200 hover:border-brand-300 hover:shadow-md transition-all">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="material-symbols-rounded text-brand-600 text-2xl">payments</span>
+                        <h3 class="font-semibold text-slate-900 group-hover:text-brand-600 transition-colors">How you get paid</h3>
+                    </div>
+                    <p class="text-base text-slate-600 mb-4 flex-grow">Plans, subscriptions, global pricing, and a student portal - all built in.</p>
+                    <span class="inline-flex items-center text-base font-medium text-brand-600 group-hover:text-brand-700">
+                        See monetization
+                        <span class="material-symbols-rounded text-lg ml-1 group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                    </span>
+                </a>
+
+                <!-- Link 4: Our Story -->
+                <a href="about/story.html" class="group flex flex-col p-5 rounded-xl border border-slate-200 hover:border-brand-300 hover:shadow-md transition-all">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="material-symbols-rounded text-brand-600 text-2xl">history_edu</span>
+                        <h3 class="font-semibold text-slate-900 group-hover:text-brand-600 transition-colors">Our story</h3>
+                    </div>
+                    <p class="text-base text-slate-600 mb-4 flex-grow">8 years building for teachers. Multiple pivots. One mission: make serious teaching easier.</p>
+                    <span class="inline-flex items-center text-base font-medium text-brand-600 group-hover:text-brand-700">
+                        Read the story
+                        <span class="material-symbols-rounded text-lg ml-1 group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </section>
+
     <!-- Simple Waitlist Modal (Hidden by default) -->
     <div id="waitlist-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4">
         <div class="absolute inset-0 cursor-pointer bg-slate-900/50 backdrop-blur-sm" onclick="document.getElementById('waitlist-modal').classList.add('hidden')"></div>
@@ -538,8 +601,11 @@
                             <button type="button" data-waitlist-choice data-field="employee_range" data-value="prefer_not_to_say" class="waitlist-choice cursor-pointer w-full text-left px-4 py-3 rounded-xl border border-slate-200 hover:border-brand-300 hover:bg-slate-50 transition-all text-base text-slate-900">Prefer not to say</button>
                         </div>
                         <div class="flex items-center justify-between gap-4">
-                            <button type="button" class="waitlist-skip cursor-pointer text-brand-600 hover:text-brand-700 text-base">Skip</button>
-                            <button type="button" class="waitlist-step2-next cursor-pointer px-4 py-2 bg-brand-600 text-white font-semibold rounded-lg hover:bg-brand-700">Next</button>
+                            <button type="button" class="waitlist-back-2 cursor-pointer text-slate-500 hover:text-slate-700 text-base">Back</button>
+                            <div class="flex items-center gap-4">
+                                <button type="button" class="waitlist-skip cursor-pointer text-brand-600 hover:text-brand-700 text-base">Skip</button>
+                                <button type="button" class="waitlist-step2-next cursor-pointer px-4 py-2 bg-brand-600 text-white font-semibold rounded-lg hover:bg-brand-700">Next</button>
+                            </div>
                         </div>
                     </div>
                     <div data-waitlist-step2-role="independent_coach" class="waitlist-step2-panel hidden">
@@ -554,8 +620,11 @@
                         <p class="text-base text-slate-600 mb-2">Channel URL (optional)</p>
                         <input type="url" name="youtube_channel_url" placeholder="https://youtube.com/@yourchannel" class="w-full px-4 py-3 rounded-lg border border-slate-200 mb-4 focus:ring-2 focus:ring-brand-500 outline-none text-base">
                         <div class="flex items-center justify-between gap-4">
-                            <button type="button" class="waitlist-skip cursor-pointer text-brand-600 hover:text-brand-700 text-base">Skip</button>
-                            <button type="button" class="waitlist-step2-next cursor-pointer px-4 py-2 bg-brand-600 text-white font-semibold rounded-lg hover:bg-brand-700">Next</button>
+                            <button type="button" class="waitlist-back-2 cursor-pointer text-slate-500 hover:text-slate-700 text-base">Back</button>
+                            <div class="flex items-center gap-4">
+                                <button type="button" class="waitlist-skip cursor-pointer text-brand-600 hover:text-brand-700 text-base">Skip</button>
+                                <button type="button" class="waitlist-step2-next cursor-pointer px-4 py-2 bg-brand-600 text-white font-semibold rounded-lg hover:bg-brand-700">Next</button>
+                            </div>
                         </div>
                     </div>
                     <div data-waitlist-step2-role="university" class="waitlist-step2-panel hidden">
@@ -567,20 +636,23 @@
                             <button type="button" data-waitlist-choice data-field="course_type" data-value="distance" class="waitlist-choice cursor-pointer w-full text-left px-4 py-3 rounded-xl border border-slate-200 hover:border-brand-300 hover:bg-slate-50 transition-all text-base text-slate-900">Distance / fully online</button>
                         </div>
                         <div class="flex items-center justify-between gap-4">
-                            <button type="button" class="waitlist-skip cursor-pointer text-brand-600 hover:text-brand-700 text-base">Skip</button>
-                            <button type="button" class="waitlist-step2-next cursor-pointer px-4 py-2 bg-brand-600 text-white font-semibold rounded-lg hover:bg-brand-700">Next</button>
+                            <button type="button" class="waitlist-back-2 cursor-pointer text-slate-500 hover:text-slate-700 text-base">Back</button>
+                            <div class="flex items-center gap-4">
+                                <button type="button" class="waitlist-skip cursor-pointer text-brand-600 hover:text-brand-700 text-base">Skip</button>
+                                <button type="button" class="waitlist-step2-next cursor-pointer px-4 py-2 bg-brand-600 text-white font-semibold rounded-lg hover:bg-brand-700">Next</button>
+                            </div>
                         </div>
                     </div>
                     <div data-waitlist-step2-role="other" class="waitlist-step2-panel hidden">
                         <p class="text-base font-semibold text-slate-900 mb-4">What brings you to Spark? (optional)</p>
                         <input type="text" name="additional_info" placeholder="A few words is fine" class="w-full px-4 py-3 rounded-lg border border-slate-200 mb-4 focus:ring-2 focus:ring-brand-500 outline-none text-base">
                         <div class="flex items-center justify-between gap-4">
-                            <button type="button" class="waitlist-skip cursor-pointer text-brand-600 hover:text-brand-700 text-base">Skip</button>
-                            <button type="button" class="waitlist-step2-next cursor-pointer px-4 py-2 bg-brand-600 text-white font-semibold rounded-lg hover:bg-brand-700">Next</button>
+                            <button type="button" class="waitlist-back-2 cursor-pointer text-slate-500 hover:text-slate-700 text-base">Back</button>
+                            <div class="flex items-center gap-4">
+                                <button type="button" class="waitlist-skip cursor-pointer text-brand-600 hover:text-brand-700 text-base">Skip</button>
+                                <button type="button" class="waitlist-step2-next cursor-pointer px-4 py-2 bg-brand-600 text-white font-semibold rounded-lg hover:bg-brand-700">Next</button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="mt-4">
-                        <button type="button" id="waitlist-back-2" class="cursor-pointer text-slate-500 hover:text-slate-700 text-base">Back</button>
                     </div>
                 </div>
                 <div data-waitlist-step="3" class="waitlist-step hidden">
