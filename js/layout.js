@@ -94,7 +94,7 @@ const navLinks = [
         href: `${BASE_PATH}/product/`
     },
     {
-        name: 'For Teachers',
+        name: 'For Instructors',
         href: `${BASE_PATH}/for-teachers/who-is-it-for.html`,
         hasDropdown: true
     },
@@ -130,7 +130,7 @@ const aboutSubpages = [
     { name: 'Contact', href: `${BASE_PATH}/about/contact.html` },
 ];
 
-// For Teachers sub-pages for dropdown navigation
+// For Instructors sub-pages for dropdown navigation
 const forTeachersSubpages = [
     { name: 'Who is it for?', href: `${BASE_PATH}/for-teachers/who-is-it-for.html` },
     { name: 'Case Studies', href: `${BASE_PATH}/for-teachers/case-study-high-school-tutors.html` },
@@ -194,7 +194,7 @@ function createHeader() {
             `;
         }
 
-        if (link.name === 'For Teachers') {
+        if (link.name === 'For Instructors') {
             const dropdownItems = forTeachersSubpages.map(sub => {
                 const subActive = currentPath === sub.href;
                 return `
@@ -282,7 +282,7 @@ function createHeader() {
                             </div>
                         `;
                     }
-                    if (link.name === 'For Teachers') {
+                    if (link.name === 'For Instructors') {
                         const mobileSubLinks = forTeachersSubpages.map(sub => {
                             return `<a href="${sub.href}" class="block pl-6 pr-3 py-1.5 rounded-md text-sm font-medium text-slate-600 hover:text-brand-600 hover:bg-slate-50">– ${sub.name}</a>`;
                         }).join('');
@@ -343,7 +343,7 @@ function createFooter() {
                 <div>
                     <h3 class="text-sm font-semibold text-slate-900 tracking-wider uppercase mb-4">Company</h3>
                     <ul class="space-y-3">
-                        <li><a href="${BASE_PATH}/for-teachers/who-is-it-for.html" class="text-sm text-slate-500 hover:text-brand-600 cursor-pointer">For Teachers</a></li>
+                        <li><a href="${BASE_PATH}/for-teachers/who-is-it-for.html" class="text-sm text-slate-500 hover:text-brand-600 cursor-pointer">For Instructors</a></li>
                         <li><a href="${BASE_PATH}/for-teachers/case-study-high-school-tutors.html" class="text-sm text-slate-500 hover:text-brand-600 cursor-pointer">Case Study</a></li>
                         <li><a href="${BASE_PATH}/about/story.html" class="text-sm text-slate-500 hover:text-brand-600 cursor-pointer">Our Story</a></li>
                         <li><a href="${BASE_PATH}/blog.html" class="text-sm text-slate-500 hover:text-brand-600 cursor-pointer">Blog</a></li>
