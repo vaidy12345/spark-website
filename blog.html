@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/tailwind.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0,0" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.min.js"></script>
     <script src="js/layout.js"></script>
     <script src="js/blog.js"></script>
     <style>
@@ -100,6 +101,29 @@
             font-style: italic;
             color: var(--blog-slate-500);
         }
+        .blog-post-content blockquote p {
+            margin-bottom: 0.25em;
+        }
+        .blog-post-content blockquote small,
+        .blog-post-content blockquote div:last-child {
+            margin-top: 0.25em;
+            display: block;
+        }
+        .blog-post-content img {
+            margin-bottom: 0.375em;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .blog-post-content img + p,
+        .blog-post-content img + small,
+        .blog-post-content img + div {
+            margin-top: 0.375em;
+            font-size: 1.2em;
+            color: var(--blog-slate-500);
+            font-style: italic;
+            text-align: center;
+        }
         .blog-post-content code {
             background-color: var(--blog-slate-100);
             padding: 0.125em 0.375em;
@@ -161,6 +185,7 @@
 <body class="preload-hidden bg-white text-slate-900 antialiased pt-16">
 
 <main class="pt-20 pb-24">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h1 class="text-4xl font-extrabold text-slate-900 mb-6">The Spark Dispatch</h1>
                 <p class="text-xl text-slate-600">
@@ -216,6 +241,7 @@
                     </aside>
                 </div>
             </div>
+    </div>
 </main>
 
 </body>

@@ -1,11 +1,9 @@
 /**
- * Blog RSS Feed Integration
- * Fetches and displays recent posts from beehiiv RSS feed
+ * Blog Integration
+ * Fetches and displays recent posts from Beehiiv via Firebase Function
  */
 
-const RSS_FEED_URL = 'https://rss.beehiiv.com/feeds/6nIx2YZ3cs.xml';
-const CORS_PROXY = 'https://api.allorigins.win/get?url=';
-const MAX_POSTS = 20;
+const FIREBASE_FUNCTION_URL = 'https://getblogposts-eyyuwkjlza-uc.a.run.app';
 
 // Store all posts globally for navigation
 let allPosts = [];
@@ -93,22 +91,106 @@ function stripHtml(html) {
  * Clean HTML content for display (removes style/script but keeps structure)
  */
 function cleanHtmlForDisplay(html) {
-    if (!html) return '';
+    if (!html || typeof DOMPurify === 'undefined') return '';
     
-    // Remove style and script tags and their content
-    let cleaned = html.replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '');
-    cleaned = cleaned.replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '');
+    // Configure DOMPurify to allow semantic HTML but remove dangerous/unwanted elements
+    const config = {
+        ALLOWED_TAGS: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'br', 'hr', 
+                       'blockquote', 'ul', 'ol', 'li', 'a', 'em', 'strong', 'i', 'b', 
+                       'img', 'div', 'span', 'pre', 'code', 'table', 'thead', 'tbody', 
+                       'tr', 'td', 'th', 'small'],
+        ALLOWED_ATTR: ['href', 'src', 'alt', 'target', 'rel'],
+        KEEP_CONTENT: true,
+        RETURN_DOM: true
+    };
     
-    // Remove HTML comments
-    cleaned = cleaned.replace(/<!--[\s\S]*?-->/g, '');
+    // Use DOMPurify to sanitize and get clean DOM
+    const cleanDom = DOMPurify.sanitize(html, config);
     
-    // Remove inline styles
-    cleaned = cleaned.replace(/\s*style\s*=\s*["'][^"']*["']/gi, '');
+    // Extract body content if this is a full HTML document
+    let bodyContent = cleanDom.querySelector('body') || cleanDom;
     
-    // Remove class attributes that might have beehiiv-specific styling
-    cleaned = cleaned.replace(/\s*class\s*=\s*["'][^"']*bh__[^"']*["']/gi, '');
+    // Convert Beehiiv's quote divs to blockquotes AFTER sanitization
+    // Look for divs that contain quote patterns
+    const divsToConvert = [];
     
-    return cleaned;
+    bodyContent.querySelectorAll('div').forEach(div => {
+        const text = div.textContent.trim();
+        const hasQuotes = text.includes('"') || text.includes('"') || text.includes('"') || text.includes('❝');
+        const hasAttribution = text.includes('—') || text.includes('–');
+        const hasSmallTag = div.querySelector('small');
+        const hasParagraph = div.querySelector('p');
+        
+        // Pattern 1: div contains p with quotes AND small with attribution
+        const quotePara = div.querySelector('p');
+        const smallTag = div.querySelector('small');
+        const isQuotePattern1 = quotePara && smallTag && 
+                                (quotePara.textContent.includes('"') || quotePara.textContent.includes('"'));
+        
+        // Pattern 2: div contains quotes symbol (❝) and paragraph
+        const hasQuoteSymbol = text.includes('❝');
+        const isQuotePattern2 = hasQuoteSymbol && hasParagraph;
+        
+        // General pattern: has quotes, paragraph, and reasonable length
+        const isQuoteGeneral = hasQuotes && hasParagraph && text.length < 500 && text.length > 20;
+        
+        // Check if this div looks like a quote block
+        if ((isQuotePattern1 || isQuotePattern2 || isQuoteGeneral) && 
+            !div.querySelector('h1, h2, h3, h4, h5, h6, ul, ol, table')) {
+            divsToConvert.push(div);
+        }
+    });
+    
+    // Convert collected divs to blockquotes (do this after iteration to avoid DOM modification issues)
+    divsToConvert.forEach(div => {
+        const blockquote = document.createElement('blockquote');
+        blockquote.innerHTML = div.innerHTML;
+        div.replaceWith(blockquote);
+    });
+    
+    // Remove the first h1 (title - we display separately)
+    const firstH1 = bodyContent.querySelector('h1');
+    if (firstH1) firstH1.remove();
+    
+    // Remove the first h2 if it's short (likely a subtitle)
+    const firstH2 = bodyContent.querySelector('h2');
+    if (firstH2 && firstH2.textContent.trim().length < 100) {
+        firstH2.remove();
+    }
+    
+    // Remove author info, dates, and social elements
+    const unwantedSelectors = [
+        'img[src*="profile_picture"]',
+        'img[alt="Author"]',
+        'a[href*="facebook.com/sharer"]',
+        'a[href*="twitter.com/intent"]',
+        'a[href*="linkedin.com/sharing"]',
+        'a[href*="threads.net/intent"]',
+        'a[href*="mailto:?"]'
+    ];
+    
+    unwantedSelectors.forEach(selector => {
+        bodyContent.querySelectorAll(selector).forEach(el => {
+            // Try to remove parent containers if they only have this element
+            let parent = el.parentElement;
+            while (parent && parent !== bodyContent && parent.children.length === 1) {
+                const nextParent = parent.parentElement;
+                parent.remove();
+                parent = nextParent;
+            }
+            if (el.parentElement) el.remove();
+        });
+    });
+    
+    // Get the HTML content
+    let cleaned = bodyContent.innerHTML || '';
+    
+    // Final cleanup: remove empty elements
+    cleaned = cleaned.replace(/<p>\s*<\/p>/gi, '');
+    cleaned = cleaned.replace(/<div>\s*<\/div>/gi, '');
+    cleaned = cleaned.replace(/<span>\s*<\/span>/gi, '');
+    
+    return cleaned.trim();
 }
 
 /**
@@ -119,95 +201,6 @@ function truncateText(text, maxLength = 150) {
     return text.substring(0, maxLength).trim() + '...';
 }
 
-/**
- * Parse RSS XML and extract post data
- */
-function parseRSSFeed(xmlText) {
-    try {
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
-        
-        // Check for parsing errors
-        const parserError = xmlDoc.querySelector('parsererror');
-        if (parserError) {
-            console.error('[spark-marketing][blog] RSS parsing error:', parserError.textContent);
-            return null;
-        }
-
-        const items = xmlDoc.querySelectorAll('item');
-        const posts = [];
-
-        items.forEach((item, index) => {
-            if (index >= MAX_POSTS) return;
-
-            const title = item.querySelector('title')?.textContent || 'Untitled';
-            const link = item.querySelector('link')?.textContent || '';
-            const pubDate = item.querySelector('pubDate')?.textContent || '';
-            
-            // Get author - handle dc:creator namespace
-            const creatorEl = item.querySelector('dc\\:creator, creator');
-            const author = creatorEl?.textContent?.trim() || 'Spark Team';
-            console.log('[spark-marketing][blog][DEBUG] Post author extracted', {
-                postIndex: index,
-                title: title.substring(0, 50),
-                author: author,
-                hasCreatorEl: !!creatorEl
-            });
-            
-            // Get description - handle CDATA sections
-            let description = '';
-            const descEl = item.querySelector('description');
-            if (descEl) {
-                description = descEl.textContent || descEl.innerHTML || '';
-            }
-            
-            // Try to get content:encoded if available (more detailed)
-            const contentEncodedEl = item.querySelector('content\\:encoded, encoded');
-            let contentEncoded = '';
-            if (contentEncodedEl) {
-                contentEncoded = contentEncodedEl.textContent || contentEncodedEl.innerHTML || '';
-            }
-            
-            // Use content:encoded if available, otherwise fall back to description
-            const content = contentEncoded || description;
-            
-            // Store full HTML content (cleaned)
-            const fullContent = cleanHtmlForDisplay(content);
-            
-            // Extract clean text for excerpt
-            let cleanExcerpt = stripHtml(content);
-            
-            // If excerpt is still empty or too short, try to extract from first paragraph
-            if (!cleanExcerpt || cleanExcerpt.length < 20) {
-                const tmp = document.createElement('div');
-                tmp.innerHTML = content;
-                const firstP = tmp.querySelector('p');
-                if (firstP) {
-                    cleanExcerpt = stripHtml(firstP.innerHTML || firstP.textContent || '');
-                }
-            }
-            
-            // Final fallback: if still empty, use a default message
-            if (!cleanExcerpt || cleanExcerpt.length < 10) {
-                cleanExcerpt = 'Read the full article for more details.';
-            }
-            
-            posts.push({
-                title: stripHtml(title),
-                link: link.trim(),
-                date: pubDate,
-                author: stripHtml(author),
-                excerpt: truncateText(cleanExcerpt),
-                fullContent: fullContent
-            });
-        });
-
-        return posts;
-    } catch (e) {
-        console.error('[spark-marketing][blog] Error parsing RSS:', e);
-        return null;
-    }
-}
 
 /**
  * Render posts to the DOM
@@ -438,38 +431,66 @@ function renderPostLists(posts, sidebarContainer, mobilePostsContainer) {
 }
 
 /**
- * Fetch RSS feed with CORS proxy fallback
+ * Fetch blog posts from Firebase Function
  */
-async function fetchRSSFeed() {
+async function fetchBlogPosts() {
     const loadingEl = document.getElementById('blog-loading');
     const errorEl = document.getElementById('blog-error');
 
     try {
-        // Try direct fetch first
-        let response;
-        try {
-            response = await fetch(RSS_FEED_URL);
-            if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        } catch (directError) {
-            console.log('[spark-marketing][blog] Direct fetch failed, trying CORS proxy:', directError);
-            // Fallback to CORS proxy
-            const proxyUrl = `${CORS_PROXY}${encodeURIComponent(RSS_FEED_URL)}`;
-            response = await fetch(proxyUrl);
-            if (!response.ok) throw new Error(`Proxy HTTP ${response.status}`);
-            
-            const proxyData = await response.json();
-            const xmlText = proxyData.contents || proxyData;
-            const posts = parseRSSFeed(xmlText);
-            renderPosts(posts);
-            return;
+        console.log('[spark-marketing][blog] Fetching posts from Firebase Function');
+        const response = await fetch(FIREBASE_FUNCTION_URL);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
         }
 
-        const xmlText = await response.text();
-        const posts = parseRSSFeed(xmlText);
-        renderPosts(posts);
+        const data = await response.json();
+        
+        if (data.success && data.posts && data.posts.length > 0) {
+            console.log('[spark-marketing][blog] Posts fetched successfully', {
+                count: data.posts.length,
+                cached: data.cached,
+                stale: data.stale || false
+            });
+            
+            // Process posts to ensure fullContent is cleaned
+            const processedPosts = data.posts.map((post, idx) => {
+                if (idx === 0) {
+                    const original = post.fullContent || '';
+                    console.log('[spark-marketing][blog][DEBUG] Original content check:');
+                    console.log('  Has <blockquote> tags:', original.includes('<blockquote'));
+                    
+                    // Check for Steve Jobs quote structure
+                    const jobsQuoteIndex = original.indexOf('Steve Jobs');
+                    if (jobsQuoteIndex > -1) {
+                        const contextStart = Math.max(0, jobsQuoteIndex - 500);
+                        const contextEnd = Math.min(original.length, jobsQuoteIndex + 200);
+                        console.log('  Steve Jobs quote context:', original.substring(contextStart, contextEnd));
+                    }
+                }
+                
+                const cleaned = cleanHtmlForDisplay(post.fullContent || '');
+                if (idx === 0) {
+                    console.log('[spark-marketing][blog][DEBUG] Cleaned content:');
+                    console.log('  Cleaned length:', cleaned.length);
+                    console.log('  Has h2 tags:', cleaned.includes('<h2'));
+                    console.log('  Has blockquote:', cleaned.includes('<blockquote'));
+                    console.log('  Sample HTML:', cleaned.substring(0, 800));
+                }
+                return {
+                    ...post,
+                    fullContent: cleaned
+                };
+            });
+            
+            renderPosts(processedPosts);
+        } else {
+            throw new Error('No posts returned from API');
+        }
 
     } catch (error) {
-        console.error('[spark-marketing][blog] Error fetching RSS feed:', error);
+        console.error('[spark-marketing][blog] Error fetching blog posts:', error);
         console.log('[spark-marketing][blog][DEBUG] Showing error - fetch failed', {
             error: error.message,
             isMobile: window.innerWidth < 1024
@@ -564,8 +585,8 @@ function handleHashChange() {
 document.addEventListener('DOMContentLoaded', () => {
     // Only run on blog page
     if (window.location.pathname.includes('blog.html') || window.location.pathname.endsWith('/blog')) {
-        console.log('[spark-marketing][blog] Initializing blog feed');
-        fetchRSSFeed();
+        console.log('[spark-marketing][blog] Initializing blog');
+        fetchBlogPosts();
         
         // Listen for hash changes
         window.addEventListener('hashchange', handleHashChange);
