@@ -489,6 +489,59 @@ async function fetchBlogPosts() {
 }
 
 /**
+ * Show loading state for a post in the list
+ */
+function showPostLoadingInList(postIndex) {
+    const mobilePostsContainer = document.getElementById('blog-mobile-posts');
+    const sidebarContainer = document.getElementById('blog-sidebar-posts');
+    
+    const showLoading = (container) => {
+        if (!container) return;
+        const item = container.querySelector(`[data-post-index="${postIndex}"]`);
+        if (item) {
+            // Remove any existing loading indicator first
+            const existingIndicator = item.querySelector('[data-loading-indicator="true"]');
+            if (existingIndicator) {
+                existingIndicator.remove();
+            }
+            
+            item.classList.add('opacity-50', 'pointer-events-none');
+            const loadingIndicator = document.createElement('div');
+            loadingIndicator.className = 'text-xs text-slate-400 text-center py-2';
+            loadingIndicator.textContent = 'Loading...';
+            loadingIndicator.setAttribute('data-loading-indicator', 'true');
+            item.appendChild(loadingIndicator);
+        }
+    };
+    
+    showLoading(mobilePostsContainer);
+    showLoading(sidebarContainer);
+}
+
+/**
+ * Remove loading state for a post in the list
+ */
+function removePostLoadingFromList(postIndex) {
+    const mobilePostsContainer = document.getElementById('blog-mobile-posts');
+    const sidebarContainer = document.getElementById('blog-sidebar-posts');
+    
+    const removeLoading = (container) => {
+        if (!container) return;
+        const item = container.querySelector(`[data-post-index="${postIndex}"]`);
+        if (item) {
+            item.classList.remove('opacity-50', 'pointer-events-none');
+            const loadingIndicator = item.querySelector('[data-loading-indicator="true"]');
+            if (loadingIndicator) {
+                loadingIndicator.remove();
+            }
+        }
+    };
+    
+    removeLoading(mobilePostsContainer);
+    removeLoading(sidebarContainer);
+}
+
+/**
  * Highlight a post in the sidebar and mobile lists
  */
 function highlightPostInLists(postIndex) {
@@ -501,9 +554,25 @@ function highlightPostInLists(postIndex) {
         items.forEach((item) => {
             const idx = parseInt(item.getAttribute('data-post-index'), 10);
             if (idx === postIndex) {
-                item.classList.add('ring-2', 'ring-brand-500', 'border-brand-500');
+                // Check if this is a desktop sidebar item (has border-b class)
+                const isDesktopSidebar = item.classList.contains('border-b') && 
+                                        !item.classList.contains('bg-white');
+                
+                if (isDesktopSidebar) {
+                    // Desktop sidebar - only highlight bottom border
+                    item.classList.remove('border-slate-200');
+                    item.classList.add('border-b-2', 'border-brand-500');
+                } else {
+                    // Mobile - use ring for better visibility
+                    item.classList.add('ring-2', 'ring-brand-500', 'border-brand-500');
+                }
             } else {
-                item.classList.remove('ring-2', 'ring-brand-500', 'border-brand-500');
+                // Remove all highlight classes
+                item.classList.remove('ring-2', 'ring-brand-500', 'border-brand-500', 'border-b-2');
+                // Restore default border for desktop sidebar items
+                if (item.classList.contains('pb-6')) {
+                    item.classList.add('border-b', 'border-slate-200');
+                }
             }
         });
     };
@@ -550,20 +619,26 @@ async function handleHashChange() {
             let post = fullPostCache.get(postIndex);
             
             if (!post) {
-                // Show loading state
+                // Show loading state in main area and list
                 showPostLoading(latestPostContainer);
                 if (mobilePostContainer) showPostLoading(mobilePostContainer);
+                showPostLoadingInList(postIndex);
                 
                 try {
                     // Fetch the post
                     post = await fetchPostFullContent(postIndex);
                 } catch (error) {
                     console.error('[spark-marketing][blog] Error fetching post:', error);
+                    // Remove loading state from list on error
+                    removePostLoadingFromList(postIndex);
                     if (errorEl) {
                         errorEl.classList.remove('hidden');
                     }
                     return;
                 }
+                
+                // Remove loading state from list after successful fetch
+                removePostLoadingFromList(postIndex);
             }
             
             // Show on desktop
