@@ -140,14 +140,33 @@
                             <span class="flex-shrink-0 w-8 h-8 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center text-base font-bold">2</span>
                             <div>
                                 <p class="text-base font-semibold text-slate-900">First paid month</p>
-                                <p class="text-base text-slate-600 mt-0.5">Base fee only. No per-student charge yet.</p>
+                                <p class="text-base text-slate-600 mt-0.5">
+                                    Base fee of <span class="font-semibold text-slate-900">
+                                        <span id="spark-min-fee" class="line-through">$100</span>
+                                        <span id="spark-founder-min-fee" class="text-brand-700">$50</span> <sup class="text-brand-700">*</sup>
+                                    </span>
+                                    only. No per-student charge yet.
+                                </p>
+                                <p class="text-xs text-slate-500 mt-1">
+                                    <sup class="text-brand-700">*</sup> Founding customer price - lock in 50% off base fee for life.
+                                </p>
                             </div>
                         </li>
                         <li class="flex gap-3 flex-1">
                             <span class="flex-shrink-0 w-8 h-8 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center text-base font-bold">3</span>
                             <div>
                                 <p class="text-base font-semibold text-slate-900">From month 2</p>
-                                <p class="text-base text-slate-600 mt-0.5">Base fee plus a small amount per active paying student.</p>
+                                <p class="text-base text-slate-600 mt-0.5">
+                                    <span>
+                                        <span id="spark-fee-formula" class="font-semibold text-slate-900">
+                                            $100 base + $10 × (students over 10)
+                                        </span>
+                                        <span id="spark-founder-fee-formula" class="text-brand-700 block">$50 base + $5 × (students over 10)</span> <sup class="text-brand-700">*</sup>
+                                    </span>
+                                    <span class="block text-xs text-slate-500 mt-1">
+                                        <sup class="text-brand-700">*</sup> Founding customer price - lock in 50% off base fee and per-student rate for life.
+                                    </span>
+                                </p>
                             </div>
                         </li>
                     </ul>

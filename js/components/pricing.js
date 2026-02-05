@@ -60,6 +60,24 @@
     const MIN_STUDENTS = 0;
     const MAX_STUDENTS = 200;
 
+    const SPARK_MODEL = { baseFee: 100, includedStudents: 10, perExtraStudent: 10 };
+    const SPARK_FOUNDER_MODEL = { baseFee: 50, includedStudents: 10, perExtraStudent: 5 };
+
+    function formatFormulaLine(model) {
+        return `$${model.baseFee} base + $${model.perExtraStudent} × (students over ${model.includedStudents})`;
+    }
+
+    function fillHowYouAreCharged(model, founderModel) {
+        const minFeeEl = document.getElementById('spark-min-fee');
+        const founderMinFeeEl = document.getElementById('spark-founder-min-fee');
+        const feeFormulaEl = document.getElementById('spark-fee-formula');
+        const founderFeeFormulaEl = document.getElementById('spark-founder-fee-formula');
+        if (minFeeEl) minFeeEl.textContent = formatUsd(model.baseFee);
+        if (founderMinFeeEl) founderMinFeeEl.textContent = formatUsd(founderModel.baseFee);
+        if (feeFormulaEl) feeFormulaEl.textContent = formatFormulaLine(model);
+        if (founderFeeFormulaEl) founderFeeFormulaEl.textContent = formatFormulaLine(founderModel);
+    }
+
     function initSparkCalculator(cfg) {
         const inputEl = document.getElementById(cfg.inputId);
         const priceEl = document.getElementById(cfg.priceId);
@@ -404,9 +422,10 @@
             inputId: 'spark-students-input',
             priceId: 'spark-price',
             regularPriceId: 'spark-regular-price',
-            model: { baseFee: 100, includedStudents: 10, perExtraStudent: 10 },
-            founderModel: { baseFee: 50, includedStudents: 10, perExtraStudent: 5 }
+            model: SPARK_MODEL,
+            founderModel: SPARK_FOUNDER_MODEL
         });
+        fillHowYouAreCharged(SPARK_MODEL, SPARK_FOUNDER_MODEL);
 
         initCalculator({
             key: 'live',
