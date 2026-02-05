@@ -38,7 +38,7 @@
         </div>
 
         <div class="flex justify-center mb-10">
-            <div class="inline-flex items-center gap-2 bg-white border border-slate-200 rounded-full p-1 shadow-sm" role="tablist" aria-label="Pricing options">
+            <div id="pricing-tabs" class="inline-flex items-center gap-2 bg-white border border-slate-200 rounded-full p-1 shadow-sm" role="tablist" aria-label="Pricing options">
                 <button id="pricing-tab-spark" type="button" role="tab" aria-selected="true" aria-controls="pricing-panel-spark" class="px-5 py-2 rounded-full bg-brand-600 text-white font-semibold cursor-pointer transition-colors">
                     Everything
                 </button>
@@ -157,12 +157,16 @@
                             <div>
                                 <p class="text-base font-semibold text-slate-900">From month 2</p>
                                 <p class="text-base text-slate-600 mt-0.5">
-                                    <span>
-                                        <span id="spark-fee-formula" class="font-semibold text-slate-900">
-                                            $100 base + $10 × (students over 10)
+                                    <span id="spark-month2-normal">
+                                        <span class="font-semibold text-slate-900">
+                                            <span id="spark-month2-regular-wrap"><span id="spark-month2-regular-total" class="line-through text-slate-400">$250</span> </span><span id="spark-month2-price" class="text-brand-700">$125</span> <sup class="text-brand-700">*</sup>
                                         </span>
-                                        <span id="spark-founder-fee-formula" class="text-brand-700 block">$50 base + $5 × (students over 10)</span> <sup class="text-brand-700">*</sup>
+                                        <span id="spark-month2-breakdown" class="block">
+                                            <span id="spark-month2-breakdown-only" class="hidden">Base fee ($50) only.</span>
+                                            <span id="spark-month2-breakdown-extra">Base fee (<span id="spark-month2-base-amount">$50</span>) + additional fee for <span id="spark-month2-extra-count">15</span> <a href="#pricing-tabs" id="spark-month2-change-link" class="pricing-month2-change-link text-brand-600 hover:text-brand-700 underline cursor-pointer focus:outline-none focus:ring-2 focus:ring-brand-500 rounded">change</a> students (<span id="spark-month2-extra-fee">$75</span>).</span>
+                                        </span>
                                     </span>
+                                    <span id="spark-month2-over-max" class="hidden">Example at 200 students: Base fee ($50) + additional fee for 190 students ($950). Contact us for 200+.</span>
                                     <span class="block text-xs text-slate-500 mt-1">
                                         <sup class="text-brand-700">*</sup> Founding customer price - lock in 50% off base fee and per-student rate for life.
                                     </span>

@@ -63,19 +63,73 @@
     const SPARK_MODEL = { baseFee: 100, includedStudents: 10, perExtraStudent: 10 };
     const SPARK_FOUNDER_MODEL = { baseFee: 50, includedStudents: 10, perExtraStudent: 5 };
 
-    function formatFormulaLine(model) {
-        return `$${model.baseFee} base + $${model.perExtraStudent} × (students over ${model.includedStudents})`;
+    function getMonth2BreakdownLine(model, students) {
+        const { baseFee, includedStudents, perExtraStudent } = model;
+        const extra = Math.max(0, students - includedStudents);
+        if (extra === 0) return `Base fee (${formatUsd(baseFee)}) only.`;
+        const additionalFee = extra * perExtraStudent;
+        return `Base fee (${formatUsd(baseFee)}) + additional fee for ${extra} students (${formatUsd(additionalFee)}).`;
+    }
+
+    function updateMonth2Section(isOverMax, students, model, founderModel) {
+        const normalEl = document.getElementById('spark-month2-normal');
+        const overMaxEl = document.getElementById('spark-month2-over-max');
+        const regularWrapEl = document.getElementById('spark-month2-regular-wrap');
+        const regularTotalEl = document.getElementById('spark-month2-regular-total');
+        const priceEl = document.getElementById('spark-month2-price');
+        if (!normalEl || !overMaxEl) return;
+
+        if (isOverMax) {
+            normalEl.classList.add('hidden');
+            overMaxEl.classList.remove('hidden');
+            const exampleModel = founderModel || model;
+            const exampleLine = getMonth2BreakdownLine(exampleModel, MAX_STUDENTS);
+            overMaxEl.textContent = `Example at ${MAX_STUDENTS} students: ${exampleLine} Contact us for 200+.`;
+            return;
+        }
+
+        normalEl.classList.remove('hidden');
+        overMaxEl.classList.add('hidden');
+        const reg = computeElasticPrice(model, students);
+        const displayModel = founderModel || model;
+        const founder = founderModel ? computeElasticPrice(founderModel, students) : null;
+
+        if (founderModel && regularWrapEl && regularTotalEl) {
+            regularWrapEl.classList.remove('hidden');
+            regularTotalEl.textContent = formatUsd(reg.price);
+            if (priceEl) priceEl.textContent = formatUsd(founder.price);
+        } else {
+            if (regularWrapEl) regularWrapEl.classList.add('hidden');
+            if (priceEl) priceEl.textContent = formatUsd(reg.price);
+        }
+
+        const breakdownOnlyEl = document.getElementById('spark-month2-breakdown-only');
+        const breakdownExtraEl = document.getElementById('spark-month2-breakdown-extra');
+        const baseAmountEl = document.getElementById('spark-month2-base-amount');
+        const extraCountEl = document.getElementById('spark-month2-extra-count');
+        const extraFeeEl = document.getElementById('spark-month2-extra-fee');
+        const extra = Math.max(0, students - displayModel.includedStudents);
+
+        if (extra === 0) {
+            if (breakdownOnlyEl) {
+                breakdownOnlyEl.textContent = getMonth2BreakdownLine(displayModel, students);
+                breakdownOnlyEl.classList.remove('hidden');
+            }
+            if (breakdownExtraEl) breakdownExtraEl.classList.add('hidden');
+        } else {
+            if (breakdownOnlyEl) breakdownOnlyEl.classList.add('hidden');
+            if (breakdownExtraEl) breakdownExtraEl.classList.remove('hidden');
+            if (baseAmountEl) baseAmountEl.textContent = formatUsd(displayModel.baseFee);
+            if (extraCountEl) extraCountEl.textContent = String(extra);
+            if (extraFeeEl) extraFeeEl.textContent = formatUsd(extra * displayModel.perExtraStudent);
+        }
     }
 
     function fillHowYouAreCharged(model, founderModel) {
         const minFeeEl = document.getElementById('spark-min-fee');
         const founderMinFeeEl = document.getElementById('spark-founder-min-fee');
-        const feeFormulaEl = document.getElementById('spark-fee-formula');
-        const founderFeeFormulaEl = document.getElementById('spark-founder-fee-formula');
         if (minFeeEl) minFeeEl.textContent = formatUsd(model.baseFee);
         if (founderMinFeeEl) founderMinFeeEl.textContent = formatUsd(founderModel.baseFee);
-        if (feeFormulaEl) feeFormulaEl.textContent = formatFormulaLine(model);
-        if (founderFeeFormulaEl) founderFeeFormulaEl.textContent = formatFormulaLine(founderModel);
     }
 
     function initSparkCalculator(cfg) {
@@ -122,6 +176,7 @@
             if (isOverMax) {
                 if (normalCopyEl) normalCopyEl.classList.add('hidden');
                 if (overMaxCopyEl) overMaxCopyEl.classList.remove('hidden');
+                updateMonth2Section(true, 0, cfg.model, founderModel);
                 return;
             }
 
@@ -140,6 +195,7 @@
                 regularPriceEl.textContent = '';
                 priceEl.textContent = formatUsd(computed);
             }
+            updateMonth2Section(false, students, cfg.model, founderModel);
         }
 
         inputEl.addEventListener('input', () => {
@@ -180,7 +236,7 @@
             });
 
             document.addEventListener('click', (e) => {
-                if (!comboEl.contains(e.target)) close();
+                if (!comboEl.contains(e.target) && !listboxEl.contains(e.target)) close();
             });
 
             const options = listboxEl.querySelectorAll('[data-student-value]');
@@ -201,6 +257,24 @@
                 if (e.key === 'Enter') close();
             });
         })();
+
+        const changeLinkEl = document.getElementById('spark-month2-change-link');
+        const tabSparkEl = document.getElementById('pricing-tab-spark');
+        if (changeLinkEl && tabSparkEl && comboEl) {
+            changeLinkEl.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo(0, 0);
+                tabSparkEl.focus();
+                comboEl.classList.remove('pricing-student-combo--highlight');
+                void comboEl.offsetWidth;
+                comboEl.classList.add('pricing-student-combo--highlight');
+                const onEnd = () => {
+                    comboEl.removeEventListener('animationend', onEnd);
+                    comboEl.classList.remove('pricing-student-combo--highlight');
+                };
+                comboEl.addEventListener('animationend', onEnd);
+            });
+        }
 
         applyValue();
     }
