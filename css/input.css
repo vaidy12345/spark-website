@@ -14,6 +14,27 @@
 
 
 @layer components {
+  /* Preline ComboBox: use CSS for show/hide (avoid inline style). */
+  [data-hs-combo-box] [data-hs-combo-box-output] {
+    display: none;
+  }
+  [data-hs-combo-box].active [data-hs-combo-box-output] {
+    display: block;
+  }
+
+  /* Pricing combobox: suppress tap/click focus highlight completely. */
+  .pricing-student-input:focus,
+  .pricing-student-input:focus-visible,
+  .pricing-student-combo-arrow:focus,
+  .pricing-student-combo-arrow:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+  .pricing-student-input,
+  .pricing-student-combo-arrow {
+    -webkit-tap-highlight-color: transparent;
+  }
+
   @media (min-width: 768px) {
     /* Image on the right: text, metrics, links in left column; image in right column */
     .product-section--image-right .product-section__intro {

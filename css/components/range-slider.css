@@ -1,0 +1,59 @@
+/* Range slider styling for marketing pages (no JS inline styles). */
+.range-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 6px;
+    border-radius: 9999px;
+    background: #e2e8f0; /* slate-200 */
+    outline: none;
+}
+
+.range-slider:focus {
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.35);
+}
+
+/* WebKit */
+.range-slider::-webkit-slider-runnable-track {
+    height: 6px;
+    border-radius: 9999px;
+    background: #e2e8f0;
+}
+
+.range-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 9999px;
+    background: #4f46e5; /* brand-600 */
+    border: 2px solid #ffffff;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.15);
+    margin-top: -6px; /* center thumb on 6px track */
+    cursor: pointer;
+}
+
+.range-slider::-webkit-slider-thumb:hover {
+    background: #4338ca; /* brand-700 */
+}
+
+/* Firefox */
+.range-slider::-moz-range-track {
+    height: 6px;
+    border-radius: 9999px;
+    background: #e2e8f0;
+}
+
+.range-slider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 9999px;
+    background: #4f46e5;
+    border: 2px solid #ffffff;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.15);
+    cursor: pointer;
+}
+
+.range-slider::-moz-range-thumb:hover {
+    background: #4338ca;
+}
+

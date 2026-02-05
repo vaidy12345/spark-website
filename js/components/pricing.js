@@ -1,0 +1,428 @@
+/**
+ * Pricing page behavior (marketing):
+ * - Spark / Spark Live tabs
+ * - Elastic pricing sliders
+ * - FAQ snippet injection + accordion init
+ *
+ * No inline styles in JS (only text + class toggles).
+ */
+
+(function () {
+    'use strict';
+
+    const LOG_PREFIX = '[spark-marketing][pricing]';
+
+    function resolveBasePath() {
+        // Prefer the shared helper if present (defined in layout.js)
+        try {
+            if (typeof getBasePath === 'function') {
+                return getBasePath();
+            }
+        } catch (_) {}
+
+        const path = window.location.pathname || '/';
+        const segments = path.split('/').filter(Boolean);
+        if (segments.length === 0) return '';
+
+        const first = segments[0];
+        if (first === 'product' || first === 'about' || first === 'for-teachers' || first.endsWith('.html')) {
+            return '';
+        }
+        return `/${first}`;
+    }
+
+    function formatUsd(amount) {
+        const n = Math.round(Number(amount) || 0);
+        return `$${n}`;
+    }
+
+    function computeElasticPrice({ baseFee, includedStudents, perExtraStudent }, studentsRaw) {
+        const students = Math.max(0, Math.round(Number(studentsRaw) || 0));
+        const extra = Math.max(0, students - includedStudents);
+        return {
+            students,
+            extra,
+            price: baseFee + extra * perExtraStudent
+        };
+    }
+
+    function setChipSelected(chipEl, selected) {
+        if (!chipEl) return;
+        chipEl.classList.toggle('ring-2', selected);
+        chipEl.classList.toggle('ring-brand-500', selected);
+        chipEl.classList.toggle('bg-brand-100', selected);
+        chipEl.classList.toggle('border-brand-200', selected);
+        chipEl.classList.toggle('border-slate-200', !selected);
+        chipEl.classList.toggle('text-brand-700', selected);
+    }
+
+    const ESTIMATE_NOTE_STATIC = 'Estimate only. Your projected bill is in your dashboard.';
+    const MIN_STUDENTS = 0;
+    const MAX_STUDENTS = 200;
+
+    function initSparkCalculator(cfg) {
+        const inputEl = document.getElementById(cfg.inputId);
+        const priceEl = document.getElementById(cfg.priceId);
+        const regularPriceEl = document.getElementById(cfg.regularPriceId);
+        const founderModel = cfg.founderModel || null;
+        const comboEl = document.getElementById('spark-students-combo');
+        const triggerEl = document.getElementById('spark-students-trigger');
+        const listboxEl = document.getElementById('spark-students-listbox');
+        const normalCopyEl = document.getElementById('spark-price-copy-normal');
+        const overMaxCopyEl = document.getElementById('spark-price-copy-over-max');
+
+        if (!inputEl || !priceEl || !regularPriceEl) return;
+
+        console.log(LOG_PREFIX, 'initSparkCalculator', {
+            found: {
+                comboEl: !!comboEl,
+                inputEl: !!inputEl,
+                triggerEl: !!triggerEl,
+                listboxEl: !!listboxEl,
+                priceEl: !!priceEl,
+                regularPriceEl: !!regularPriceEl
+            }
+        });
+
+        function getValue() {
+            const v = parseInt(inputEl.value, 10);
+            const n = Number.isFinite(v) ? v : 0;
+            return Math.min(MAX_STUDENTS, Math.max(MIN_STUDENTS, Math.round(n)));
+        }
+
+        function getRawValue() {
+            const raw = inputEl.value.trim();
+            if (raw === '200+') return MAX_STUDENTS + 1;
+            const v = parseInt(inputEl.value, 10);
+            return Number.isFinite(v) ? Math.round(v) : null;
+        }
+
+        function applyValue() {
+            const raw = getRawValue();
+            const isOverMax = raw !== null && raw > MAX_STUDENTS;
+
+            if (isOverMax) {
+                if (normalCopyEl) normalCopyEl.classList.add('hidden');
+                if (overMaxCopyEl) overMaxCopyEl.classList.remove('hidden');
+                return;
+            }
+
+            const students = getValue();
+            inputEl.value = String(students);
+
+            if (normalCopyEl) normalCopyEl.classList.remove('hidden');
+            if (overMaxCopyEl) overMaxCopyEl.classList.add('hidden');
+
+            const { price: computed } = computeElasticPrice(cfg.model, students);
+            if (founderModel) {
+                const founder = computeElasticPrice(founderModel, students);
+                regularPriceEl.textContent = formatUsd(computed);
+                priceEl.textContent = formatUsd(founder.price);
+            } else {
+                regularPriceEl.textContent = '';
+                priceEl.textContent = formatUsd(computed);
+            }
+        }
+
+        inputEl.addEventListener('input', () => {
+            const raw = getRawValue();
+            console.log(LOG_PREFIX, 'spark students input event', { value: inputEl.value, raw });
+            applyValue();
+        });
+        inputEl.addEventListener('change', () => {
+            const raw = getRawValue();
+            console.log(LOG_PREFIX, 'spark students change event', { value: inputEl.value, raw });
+            applyValue();
+        });
+
+        // Vanilla combo: open/close dropdown; never overwrite input on close.
+        (function initStudentComboBox() {
+            if (!comboEl || !listboxEl) return;
+
+            function isOpen() {
+                return !listboxEl.classList.contains('hidden');
+            }
+            function open() {
+                listboxEl.classList.remove('hidden');
+                if (inputEl) inputEl.setAttribute('aria-expanded', 'true');
+            }
+            function close() {
+                listboxEl.classList.add('hidden');
+                if (inputEl) inputEl.setAttribute('aria-expanded', 'false');
+            }
+
+            triggerEl.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (isOpen()) close();
+                else open();
+            });
+            inputEl.addEventListener('focus', () => open());
+            inputEl.addEventListener('blur', () => {
+                setTimeout(() => close(), 0);
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!comboEl.contains(e.target)) close();
+            });
+
+            const options = listboxEl.querySelectorAll('[data-student-value]');
+            options.forEach((opt) => {
+                opt.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const val = opt.getAttribute('data-student-value');
+                    if (val != null) {
+                        inputEl.value = val;
+                        applyValue();
+                    }
+                    close();
+                });
+            });
+
+            inputEl.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') close();
+                if (e.key === 'Enter') close();
+            });
+        })();
+
+        applyValue();
+    }
+
+    function initCalculator(cfg) {
+        const slider = document.getElementById(cfg.sliderId);
+        const count = document.getElementById(cfg.countId);
+        const price = document.getElementById(cfg.priceId);
+        const note = document.getElementById(cfg.noteId);
+        const regularPriceEl = cfg.regularPriceId ? document.getElementById(cfg.regularPriceId) : null;
+        const presetButtons = Array.from(document.querySelectorAll(cfg.presetSelector));
+        const founderModel = cfg.founderModel || null;
+
+        console.log(LOG_PREFIX, 'initCalculator', {
+            key: cfg.key,
+            found: {
+                slider: !!slider,
+                count: !!count,
+                price: !!price,
+                note: !!note,
+                regularPriceEl: !!regularPriceEl,
+                presetButtons: presetButtons.length
+            },
+            model: cfg.model
+        });
+
+        if (!slider || !count || !price) return;
+
+        function applyValue(nextValue, source) {
+            const { students, price: computed } = computeElasticPrice(cfg.model, nextValue);
+
+            slider.value = String(students);
+            count.textContent = String(students);
+
+            if (founderModel && regularPriceEl) {
+                const founder = computeElasticPrice(founderModel, nextValue);
+                regularPriceEl.textContent = formatUsd(computed);
+                price.textContent = formatUsd(founder.price);
+            } else {
+                price.textContent = formatUsd(computed);
+            }
+
+            if (note) {
+                note.textContent = ESTIMATE_NOTE_STATIC;
+            }
+
+            presetButtons.forEach(btn => {
+                const raw = btn.getAttribute(cfg.presetAttr) || '';
+                const v = Number(raw);
+                setChipSelected(btn, Number.isFinite(v) && Math.round(v) === students);
+            });
+
+            console.log(LOG_PREFIX, 'calculator updated', {
+                key: cfg.key,
+                source,
+                students,
+                computed
+            });
+        }
+
+        slider.addEventListener('input', (e) => {
+            applyValue(e.target.value, 'slider');
+        });
+
+        presetButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const raw = btn.getAttribute(cfg.presetAttr) || '';
+                const v = Number(raw);
+                if (!Number.isFinite(v)) return;
+                applyValue(v, 'preset');
+            });
+        });
+
+        applyValue(slider.value, 'init');
+    }
+
+    function initTabs() {
+        const tabSpark = document.getElementById('pricing-tab-spark');
+        const tabLive = document.getElementById('pricing-tab-live');
+        const panelSpark = document.getElementById('pricing-panel-spark');
+        const panelLive = document.getElementById('pricing-panel-live');
+        const seeSparkBtn = document.getElementById('see-spark-plan');
+
+        console.log(LOG_PREFIX, 'initTabs', {
+            found: {
+                tabSpark: !!tabSpark,
+                tabLive: !!tabLive,
+                panelSpark: !!panelSpark,
+                panelLive: !!panelLive,
+                seeSparkBtn: !!seeSparkBtn
+            }
+        });
+
+        if (!tabSpark || !tabLive || !panelSpark || !panelLive) return;
+
+        function setActive(activeKey, source) {
+            const isSpark = activeKey === 'spark';
+
+            tabSpark.setAttribute('aria-selected', String(isSpark));
+            tabLive.setAttribute('aria-selected', String(!isSpark));
+
+            tabSpark.classList.toggle('bg-brand-600', isSpark);
+            tabSpark.classList.toggle('text-white', isSpark);
+            tabSpark.classList.toggle('bg-white', !isSpark);
+            tabSpark.classList.toggle('text-slate-700', !isSpark);
+            tabSpark.classList.toggle('border', !isSpark);
+            tabSpark.classList.toggle('border-slate-200', !isSpark);
+            tabSpark.classList.toggle('hover:bg-slate-50', !isSpark);
+
+            tabLive.classList.toggle('bg-brand-600', !isSpark);
+            tabLive.classList.toggle('text-white', !isSpark);
+            tabLive.classList.toggle('bg-white', isSpark);
+            tabLive.classList.toggle('text-slate-700', isSpark);
+            tabLive.classList.toggle('border', isSpark);
+            tabLive.classList.toggle('border-slate-200', isSpark);
+            tabLive.classList.toggle('hover:bg-slate-50', isSpark);
+
+            const showPanel = isSpark ? panelSpark : panelLive;
+            const hidePanel = isSpark ? panelLive : panelSpark;
+
+            // Fade out the currently visible panel
+            hidePanel.classList.add('opacity-0');
+            setTimeout(() => {
+                hidePanel.classList.add('hidden');
+                showPanel.classList.remove('hidden');
+
+                // Fade in next
+                showPanel.classList.add('opacity-0');
+                requestAnimationFrame(() => {
+                    showPanel.classList.remove('opacity-0');
+                });
+            }, 120);
+
+            console.log(LOG_PREFIX, 'tab changed', { activeKey, source });
+        }
+
+        tabSpark.addEventListener('click', () => setActive('spark', 'click'));
+        tabLive.addEventListener('click', () => setActive('live', 'click'));
+
+        if (seeSparkBtn) {
+            seeSparkBtn.addEventListener('click', () => setActive('spark', 'cta'));
+        }
+    }
+
+    const FAQ_SNIPPETS = ['pricing-faq-sections-1.html', 'pricing-faq-sections-2.html', 'pricing-faq-sections-3.html'];
+    const FEATURES_SNIPPET = 'pricing-features-list.html';
+
+    async function loadFeaturesSnippet() {
+        const root = document.getElementById('pricing-features-root');
+        if (!root) return;
+
+        const basePath = resolveBasePath();
+        const snippetPath = `${basePath}/snippets/${FEATURES_SNIPPET}`;
+
+        console.log(LOG_PREFIX, 'loading features snippet', { basePath, snippet: FEATURES_SNIPPET });
+
+        try {
+            const res = await fetch(snippetPath);
+            if (!res.ok) throw new Error(`Features snippet fetch failed: ${res.status} ${snippetPath}`);
+            const html = await res.text();
+            root.innerHTML = html;
+            console.log(LOG_PREFIX, 'features snippet injected');
+        } catch (e) {
+            console.error(LOG_PREFIX, 'features snippet load failed', { error: String(e) });
+            root.innerHTML = '';
+        }
+    }
+
+    async function loadFaqSnippet() {
+        const root = document.getElementById('pricing-faq-root');
+        if (!root) return;
+
+        const basePath = resolveBasePath();
+
+        console.log(LOG_PREFIX, 'loading FAQ snippets', { basePath, snippets: FAQ_SNIPPETS });
+
+        try {
+            root.innerHTML = '';
+            for (const name of FAQ_SNIPPETS) {
+                const snippetPath = `${basePath}/snippets/${name}`;
+                const res = await fetch(snippetPath);
+                if (!res.ok) throw new Error(`FAQ snippet fetch failed: ${res.status} ${snippetPath}`);
+                const html = await res.text();
+                root.insertAdjacentHTML('beforeend', html);
+            }
+
+            const accordions = Array.from(root.querySelectorAll('[data-accordion]'));
+            console.log(LOG_PREFIX, 'FAQ snippets injected', { accordionCount: accordions.length });
+
+            if (typeof initAccordion === 'function') {
+                accordions.forEach(initAccordion);
+            } else {
+                console.warn(LOG_PREFIX, 'initAccordion not found - FAQ accordions may not work');
+            }
+
+            if (typeof initTooltips === 'function') {
+                initTooltips();
+            }
+        } catch (e) {
+            console.error(LOG_PREFIX, 'FAQ snippet load failed', { error: String(e) });
+            root.innerHTML = `
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6">
+                    <p class="text-base text-slate-700 font-semibold">Frequently Asked Questions</p>
+                    <p class="mt-2 text-base text-slate-600">We could not load the FAQ right now. Please try again.</p>
+                </div>
+            `;
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log(LOG_PREFIX, 'DOMContentLoaded', {
+            timeMs: Math.round(performance.now()),
+            path: window.location.pathname
+        });
+
+        initTabs();
+
+        initSparkCalculator({
+            inputId: 'spark-students-input',
+            priceId: 'spark-price',
+            regularPriceId: 'spark-regular-price',
+            model: { baseFee: 100, includedStudents: 10, perExtraStudent: 10 },
+            founderModel: { baseFee: 50, includedStudents: 10, perExtraStudent: 5 }
+        });
+
+        initCalculator({
+            key: 'live',
+            sliderId: 'live-students-slider',
+            countId: 'live-students-count',
+            priceId: 'live-price',
+            noteId: 'live-estimate-note',
+            presetSelector: '[data-live-preset]',
+            presetAttr: 'data-live-preset',
+            model: { baseFee: 29, includedStudents: 10, perExtraStudent: 2 }
+        });
+
+        (async function loadSnippets() {
+            await loadFeaturesSnippet();
+            await loadFaqSnippet();
+        })();
+    });
+})();
+
