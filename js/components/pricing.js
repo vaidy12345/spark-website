@@ -371,7 +371,9 @@
         const tabLive = document.getElementById('pricing-tab-live');
         const panelSpark = document.getElementById('pricing-panel-spark');
         const panelLive = document.getElementById('pricing-panel-live');
-        const seeSparkBtn = document.getElementById('see-spark-plan');
+        const faqWrapper = document.getElementById('pricing-faq-wrapper');
+        const ctaSpark = document.getElementById('pricing-cta-spark');
+        const ctaLive = document.getElementById('pricing-cta-live');
 
         console.log(LOG_PREFIX, 'initTabs', {
             found: {
@@ -379,7 +381,9 @@
                 tabLive: !!tabLive,
                 panelSpark: !!panelSpark,
                 panelLive: !!panelLive,
-                seeSparkBtn: !!seeSparkBtn
+                faqWrapper: !!faqWrapper,
+                ctaSpark: !!ctaSpark,
+                ctaLive: !!ctaLive
             }
         });
 
@@ -407,16 +411,18 @@
             tabLive.classList.toggle('border-slate-200', isSpark);
             tabLive.classList.toggle('hover:bg-slate-50', isSpark);
 
+            if (faqWrapper) faqWrapper.classList.toggle('hidden', !isSpark);
+            if (ctaSpark) ctaSpark.classList.toggle('hidden', !isSpark);
+            if (ctaLive) ctaLive.classList.toggle('hidden', isSpark);
+
             const showPanel = isSpark ? panelSpark : panelLive;
             const hidePanel = isSpark ? panelLive : panelSpark;
 
-            // Fade out the currently visible panel
             hidePanel.classList.add('opacity-0');
             setTimeout(() => {
                 hidePanel.classList.add('hidden');
                 showPanel.classList.remove('hidden');
 
-                // Fade in next
                 showPanel.classList.add('opacity-0');
                 requestAnimationFrame(() => {
                     showPanel.classList.remove('opacity-0');
@@ -428,10 +434,6 @@
 
         tabSpark.addEventListener('click', () => setActive('spark', 'click'));
         tabLive.addEventListener('click', () => setActive('live', 'click'));
-
-        if (seeSparkBtn) {
-            seeSparkBtn.addEventListener('click', () => setActive('spark', 'cta'));
-        }
     }
 
     const FAQ_SNIPPETS = ['pricing-faq-sections-1.html', 'pricing-faq-sections-2.html', 'pricing-faq-sections-3.html'];
@@ -515,17 +517,6 @@
             founderModel: SPARK_FOUNDER_MODEL
         });
         fillHowYouAreCharged(SPARK_MODEL, SPARK_FOUNDER_MODEL);
-
-        initCalculator({
-            key: 'live',
-            sliderId: 'live-students-slider',
-            countId: 'live-students-count',
-            priceId: 'live-price',
-            noteId: 'live-estimate-note',
-            presetSelector: '[data-live-preset]',
-            presetAttr: 'data-live-preset',
-            model: { baseFee: 29, includedStudents: 10, perExtraStudent: 2 }
-        });
 
         (async function loadSnippets() {
             await loadFeaturesSnippet();
