@@ -30,6 +30,9 @@
     outline: none !important;
     box-shadow: none !important;
   }
+  .pricing-student-input {
+    width: 4.2rem; /* ~30% narrower than w-24 (6rem) */
+  }
   .pricing-student-input,
   .pricing-student-combo-arrow {
     -webkit-tap-highlight-color: transparent;
