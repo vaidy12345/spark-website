@@ -61,6 +61,15 @@
     min-width: 0;
   }
 
+  /* Mobile: calculator price on its own line for easier scanning and wrap. */
+  @media (max-width: 640px) {
+    .pricing-calculator-price {
+      display: block;
+      margin-top: 0.25rem;
+    }
+  }
+
+
   @media (min-width: 768px) {
     /* Image on the right: text, metrics, links in left column; image in right column */
     .product-section--image-right .product-section__intro {

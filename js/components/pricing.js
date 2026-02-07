@@ -439,7 +439,7 @@
         tabLive.addEventListener('click', () => setActive('live', 'click'));
     }
 
-    const FAQ_SNIPPETS = ['pricing-faq-sections-1.html', 'pricing-faq-sections-2.html', 'pricing-faq-sections-3.html'];
+    const FAQ_SNIPPETS = ['pricing-faq-sections-0.html', 'pricing-faq-sections-1.html', 'pricing-faq-sections-2.html', 'pricing-faq-sections-3.html'];
     const FEATURES_SNIPPET = 'pricing-features-list.html';
 
     async function loadFeaturesSnippet() {
